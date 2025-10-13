@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "id-style": "kebab",
+    "class-style": "kebab"
+  }
+}
