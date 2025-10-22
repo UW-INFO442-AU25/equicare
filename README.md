@@ -27,19 +27,15 @@ Additionally, a key reason for strain is the lack of structured opportunities fo
 TODO: Include feature justification here
 
 ## Tech Stack
-- Figma for design
-- HTML/CSS for static pages
-- Bootstrap app
-- Explore fullcalendar.io for linked accounts?
-- React for front end reactivity
-- Javascript, Firebase for backend reactivity
-- Node.js + Express for events/users?
-- SQL of some kind for database (storing events)
-- GitHub pages to publish
+Figma for design
+HTML/CSS for static pages
+Bootstrap app
+React for front-end reactivity
+JavaScript, Firebase, Firestore for backend reactivity
+GitHub pages to publish
 
 ### GenAI Use
-TODO: include any genai usage here
-
+We used Google Gemini to generate our logo.
 
 Currently, two official plugins are available:
 
