@@ -1,42 +1,104 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* shared */
+body {
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+    min-width: 100%;
+    min-height: 100%;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+main {
+    flex: 1;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+    margin: 0;
+    min-height: 100%;
+    padding: 0;
+    width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+nav {
+    align-items: center;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: right;
+    margin-right: 1rem;
+    margin-top: 0;
+    position: sticky;
+    width: 100%;
+    z-index: 10;
 }
 
-.card {
-  padding: 2em;
+nav a:hover,
+a:hover {
+    color: #161819;
+    text-decoration: underline;
 }
 
-.read-the-docs {
-  color: #888;
+nav a {
+    background-image: linear-gradient(to right,
+            #404f55,
+            #93afc9 50%,
+            #161819 50%);
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    padding: 5px 0;
+    position: relative;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
 }
+
+nav a:before {
+    background: #93afc9;
+    bottom: -3px;
+    content: '';
+    display: block;
+    height: 3px;
+    left: 0;
+    position: absolute;
+    transition: all 0.3s ease-in-out;
+    width: 0;
+}
+
+nav a:hover {
+    background-position: 0;
+}
+
+nav a:hover::before {
+    width: 100%;
+}
+
+nav h3 {
+    color: #161819;
+    font-size: 1.5rem;
+    margin: 1rem 1.5rem;
+}
+
+footer {
+    align-items: center;
+    background-color: #161819;
+    box-sizing: border-box;
+    color: #f3f4f6;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: 'Montserrat', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0.25rem 1rem;
+    position: sticky;
+    text-align: center;
+    width: 100%;
+}
+
+footer a {
+    color: #f3f4f6;
+    text-decoration: none;
+}
+

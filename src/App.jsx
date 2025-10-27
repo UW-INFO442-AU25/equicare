@@ -1,35 +1,42 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <body>
+      <nav>
+        <div class="active"><a href="./App.jsx">
+          <h1>Equicare</h1>
+        </a></div>
+        <div><a href="./public/profile.jsx">
+          <h3>Connect</h3>
+        </a></div>
+        <div><a href="./public/profile.jsx" target="_blank" rel="noopener">
+          <h3>Calendar</h3>
+        </a></div>
+        <div><a href="./public/profile.jsx" target="_blank" rel="noopener">
+          <h3>Journal</h3>
+        </a></div>
+        <div><a href="./public/profile.jsx" target="_blank" rel="noopener">
+          <h3>Profile</h3>
+        </a></div>
+      </nav>
+      <main>
+        <button type="button" className="quiz-button">
+          <span>Take the Quiz</span>
         </button>
+
+      </main>
+      <footer>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          <em>&copy;
+            <script type="text/javascript">document.write(new Date().getFullYear());</script> Equicare
+          </em>
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </footer>
+    </body>
+  );
 }
 
-export default App
+export default App;
