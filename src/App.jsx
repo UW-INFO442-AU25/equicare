@@ -1,27 +1,31 @@
-import { useState } from 'react'
+// import { useState } from 'react'
+import { Link } from "react-router-dom";
 import "./App.css";
 
 function App() {
   return (
     <body>
       <nav>
-        <div class="brand active"><a href="./App.jsx">
+        <div class="brand active">
           <img src="../public/logo.svg" alt="baby in heart with hands"></img>
-          <h1>Equicare</h1>
-        </a></div>
+          <Link to="/">
+            <h1>EquiCare</h1>
+          </Link>
+        </div>
+
         <div class="right-nav">
-          <div class="orange-button"><a href="./components/DateQuiz/date-quiz.jsx">
-            <h3>Connect</h3>
-          </a></div>
-          <div class="orange-button"><a href="./components/Calendar/calendar.jsx" target="_blank" rel="noopener">
-            <h3>Calendar</h3>
-          </a></div>
-          <div class="orange-button"><a href="./components/Journal/journal.jsx" target="_blank" rel="noopener">
-            <h3>Journal</h3>
-          </a></div>
-          <div><a href="./components/Profile/profile.jsx" target="_blank" rel="noopener">
+          <Link to="/DateQuiz">
+            <button class="orange-button"><h3>Connect</h3></button>
+          </Link>
+          <Link to="/Calendar">
+            <button class="orange-button"><h3>Calendar</h3></button>
+          </Link>
+          <Link to="/Journal">
+            <button class="orange-button"><h3>Journal</h3></button>
+          </Link>
+          <Link to="/Profile">
             <h3>Profile</h3>
-          </a></div>
+          </Link>
         </div>
       </nav>
 
@@ -35,9 +39,9 @@ function App() {
             and care for each other through every stage of pregnancy and beyond.
           </p>
         </div>
-        <button type="button" className="quiz-button">
-          <span>Take the Quiz</span>
-        </button>
+        <Link class="quiz-button-div" to="/DateQuiz">
+          <button class="quiz-button"><h3>Take the Quiz</h3></button>
+        </Link>
       </main>
 
       <footer>
