@@ -7,7 +7,7 @@ function App() {
     <body>
       <nav>
         <div class="brand active">
-          <img src="../public/logo.svg" alt="baby in heart with hands"></img>
+          <img src="../logo.svg" alt="baby in heart with hands"></img>
           <Link to="/">
             <h1>EquiCare</h1>
           </Link>
@@ -30,7 +30,7 @@ function App() {
       </nav>
 
       <main>
-        <div class="home-text">
+        <div id="home-text">
           <h1>Navigating pregnancy and partnership, made simple.</h1>
           <p>
             Parenthood is a journey meant to be shared.

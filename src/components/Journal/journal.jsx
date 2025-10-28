@@ -7,7 +7,7 @@ function Journal() {
     <body>
       <nav>
         <div class="brand active">
-          <img src="../public/logo.svg" alt="baby in heart with hands"></img>
+          <img src="../logo.svg" alt="baby in heart with hands"></img>
           <Link to="/">
             <h1>EquiCare</h1>
           </Link>

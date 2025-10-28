@@ -49,7 +49,7 @@ nav img {
 
 nav a {
     display: inline-block;
-    font-family: 'Roboto';
+    font-family: 'Roboto', sans-serif;
     justify-content: right;
     padding: 0;
     position: relative;
@@ -58,7 +58,7 @@ nav a {
 
 nav a h1 {
     color: #5B7558;
-    font-family: 'Arimo';
+    font-family: 'Arimo', serif;
     font-size: 24px;
     justify-content: left;
 }
@@ -70,31 +70,37 @@ nav h3 {
 }
 
 .right-nav {
-    display: flex;
     align-items: center;
+    display: flex;
     margin-right: 1rem;
 }
 
 h1 {
-    font-family: 'Arimo';
-    font-size: 45px;
     color: #111734;
+    font-family: 'Arimo', serif;
+    font-size: 45px;
+}
+
+h2 {
+    color: #111734;
+    font-family: 'Arimo', serif;
+    font-size: 30px;
 }
 
 p {
-    font-family: 'Roboto';
-    font-size: 20px;
     color: #111734;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 8rem;
     background-color: #111734;
+    bottom: 0;
     color: #FFFAF2;
+    height: 8rem;
+    left: 0;
+    position: fixed;
+    width: 100%;
     z-index: 0;
 }
 
@@ -105,23 +111,66 @@ footer {
     border: 0;
     color: #FFFAF2;
     display: flex;
-    font-family: 'Roboto';
+    font-family: 'Roboto', sans-serif;
     font-size: 50px;
     font-weight: 600;
     padding: 0 10rem;
 }
 
 .quiz-button-div {
+    margin: 1rem auto;
     text-decoration: none;
     width: auto;
-    margin: 1rem auto;
 }
 
-.home-text {
+#home-text {
     display: flex;
     flex-direction: column;
-    width: 50%;
     margin-left: 5rem;
+    width: 50%;
 }
 
+
+/* about-quiz.jsx */
+
+/* calendar.jsx */
+
+/* date-quiz.jsx */
+
+/* journal.jsx */
+
 /* login.jsx */
+
+/* profile.jsx */
+.small-long-button {
+    background-color: #373B76;
+    border-radius: 5px;
+    border: 0;
+    color: #FFFAF2;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    text-decoration: none;
+    width: 55%;
+}
+
+.small-long-button-div {
+    display: flex;
+    justify-content: center;
+}
+
+#profile-content {
+    /* TODO */
+    align-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 50%;
+}
+
+.progress-content {
+    /* TODO */
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

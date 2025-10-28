@@ -1,13 +1,20 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { useRef } from "react";
 import "../../App.css";
 
 function Profile() {
+  const sectionRef = useRef(null);
+
+  function scrollToSection() {
+    sectionRef.current.scrollIntoView({ behavior: "smooth" });
+  }
+
   return (
     <body>
       <nav>
         <div class="brand active">
-          <img src="../public/logo.svg" alt="baby in heart with hands"></img>
+          <img src="../logo.svg" alt="baby in heart with hands"></img>
           <Link to="/">
             <h1>EquiCare</h1>
           </Link>
@@ -30,7 +37,26 @@ function Profile() {
       </nav>
 
       <main>
-        <h1>Profile page is under construction!</h1>
+        <div id="profile-content">
+          <img src="../female-profile.png" alt="profile avatar"></img>
+          <div class="progress-content">
+            {/* TODO: trimester progress */}
+            {/* TODO: next calendar event */}
+          </div>
+        </div>
+        <Link class="quiz-button-div" to="/DateQuiz">
+          <button class="quiz-button"><h3>Take the Quiz</h3></button>
+        </Link>
+
+        {/* scroll down to resources on button click*/}
+        <div class="small-long-button-div">
+          <button class="small-long-button" onClick={scrollToSection}><h3>Resources</h3></button>
+        </div>
+
+      <section ref={sectionRef}>
+        <h2>Resources</h2>
+      </section>
+
       </main>
 
       <footer>
