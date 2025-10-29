@@ -73,7 +73,7 @@ function Journal() {
               placeholder="Write your thoughts here..."
               rows={5}
             />
-            <button type="submit" class="orange-button"><h3>Save Entry</h3></button>
+            <button type="submit" class="blue-button"><h3>Save Entry</h3></button>
           </form>
 
           <div class="entry-list">
