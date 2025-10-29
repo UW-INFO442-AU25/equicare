@@ -35,8 +35,8 @@ function AboutQuiz() {
 
       <footer>
         <p>
-          <em>&copy;
-            <script type="text/javascript">document.write(new Date().getFullYear());</script> Equicare
+          <em>
+            &copy; {new Date().getFullYear()} EquiCare
           </em>
         </p>
       </footer>

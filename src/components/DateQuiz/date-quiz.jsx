@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import "../../App.css";
+import QuestionBank from "./question-bank.js";
 
 function DateQuiz() {
   return (
@@ -30,13 +31,13 @@ function DateQuiz() {
       </nav>
 
       <main>
-        <h1>Date quiz page is under construction!</h1>
+        {/* TODO: insert questions from question-bank.js*/}
       </main>
 
       <footer>
         <p>
-          <em>&copy;
-            <script type="text/javascript">document.write(new Date().getFullYear());</script> Equicare
+          <em>
+            &copy; {new Date().getFullYear()} EquiCare
           </em>
         </p>
       </footer>

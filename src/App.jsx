@@ -1,5 +1,6 @@
 // import { useState } from 'react'
 import { Link } from "react-router-dom";
+import React, { Component } from "react";
 import "./App.css";
 
 function App() {
@@ -46,8 +47,8 @@ function App() {
 
       <footer>
         <p>
-          <em>&copy;
-            <script type="text/javascript">document.write(new Date().getFullYear());</script> Equicare
+          <em>
+            &copy; {new Date().getFullYear()} EquiCare
           </em>
         </p>
       </footer>
