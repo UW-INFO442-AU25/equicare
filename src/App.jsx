@@ -45,7 +45,7 @@ function App() {
         </Link>
       </main>
 
-      <footer>
+      <footer id="home-footer">
         <p>
           <em>
             &copy; {new Date().getFullYear()} EquiCare

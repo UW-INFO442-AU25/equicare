@@ -35,9 +35,9 @@ function EventCalendar() {
 
       <main>
         {/* TODO: add functionality, styling */}
-        <div className="calendar-container">
+        <div class="calendar-container">
           <Calendar onChange={setDate} value={date} />
-          <p className="text-center">
+          <p class="text-center">
             <strong>Selected Date:</strong> {date.toDateString()}
           </p>
         </div>

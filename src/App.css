@@ -98,11 +98,17 @@ footer {
     background-color: #111734;
     bottom: 0;
     color: #FFFAF2;
-    height: 8rem;
+    height: 3rem;
     left: 0;
     position: fixed;
     width: 100%;
-    z-index: 0;
+}
+
+footer p {
+    color: #FFFAF2;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    margin-left: 1rem;
 }
 
 /* App.jsx */
@@ -131,6 +137,16 @@ footer {
     width: 50%;
 }
 
+#home-footer {
+    background-color: #111734;
+    bottom: 0;
+    color: #FFFAF2;
+    height: 8rem;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 0;
+}
 
 /* about-quiz.jsx */
 
@@ -147,6 +163,23 @@ footer {
 }
 
 /* journal.jsx */
+.journal-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.journal-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.journal-box {
+    margin: 1rem;
+    width: 70vw;
+    background-color: #FFFAF2;
+    border-radius: 5px;
+}
 
 /* login.jsx */
 

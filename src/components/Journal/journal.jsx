@@ -1,8 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../App.css";
 
 function Journal() {
+  const [entries, setEntries] = useState([]);
+  const [newEntry, setNewEntry] = useState("");
+
+  // Load entries on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("journalEntries");
+    if (saved) setEntries(JSON.parse(saved));
+  }, []);
+
+  // Save entries to localStorage when change
+  useEffect(() => {
+    localStorage.setItem("journalEntries", JSON.stringify(entries));
+  }, [entries]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!newEntry.trim()) return;
+    const entry = {
+      id: Date.now(),
+      text: newEntry,
+      date: new Date().toLocaleString()
+    };
+    setEntries([entry, ...entries]);
+    setNewEntry("");
+  };
+
   return (
     <body>
       <nav>
@@ -30,7 +56,36 @@ function Journal() {
       </nav>
 
       <main>
-        <h1>Journal page is under construction!</h1>
+        <div class="journal-page">
+          <div class="journal-text">
+            <h1>My Journal</h1>
+            <p>
+              This is a space to write your personal thoughts and feelings!
+              Your journal will not be shared with your partner.
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit}>
+            <textarea
+              class="journal-box"
+              value={newEntry}
+              onChange={(e) => setNewEntry(e.target.value)}
+              placeholder="Write your thoughts here..."
+              rows={5}
+            />
+            <button type="submit" class="orange-button"><h3>Save Entry</h3></button>
+          </form>
+
+          <div class="entry-list">
+            {entries.map((entry) => (
+              <div key={entry.id} className="journal-entry">
+                <p><em>{entry.date}</em></p>
+                <p>{entry.text}</p>
+                <hr />
+              </div>
+            ))}
+          </div>
+        </div>
       </main>
 
       <footer>
