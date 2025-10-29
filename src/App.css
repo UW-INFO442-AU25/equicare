@@ -134,10 +134,17 @@ footer {
 
 /* about-quiz.jsx */
 
-/* calendar.jsx */
-
 /* date-quiz.jsx */
 
+/* event-calendar.jsx */
+/* uses react-calendar template */
+/* TODO: add functionality, styling */
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
 
 /* journal.jsx */
 

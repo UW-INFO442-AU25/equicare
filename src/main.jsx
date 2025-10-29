@@ -5,7 +5,7 @@ import './App.css'
 import App from './App.jsx'
 import Login from './components/Login/login.jsx'
 import DateQuiz from './components/DateQuiz/date-quiz.jsx'
-import Calendar from './components/Calendar/calendar.jsx'
+import EventCalendar from './components/EventCalendar/event-calendar.jsx'
 import Journal from './components/Journal/journal.jsx'
 import Profile from './components/Profile/profile.jsx'
 
@@ -16,7 +16,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
         <Route path="/datequiz" element={<DateQuiz />} />
-        <Route path="/calendar" element={<Calendar />} />
+        {/* uses react-calendar template */}
+        <Route path="/eventcalendar" element={<EventCalendar />} />
         <Route path="/journal" element={<Journal />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>

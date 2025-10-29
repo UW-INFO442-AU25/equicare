@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+/* uses react-calendar template */
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import "../../App.css";
 
-function Calendar() {
+function EventCalendar() {
+  const [date, setDate] = useState(new Date());
   return (
     <body>
       <nav>
@@ -17,7 +21,7 @@ function Calendar() {
           <Link to="/DateQuiz">
             <button class="orange-button"><h3>Connect</h3></button>
           </Link>
-          <Link to="/Calendar">
+          <Link to="/EventCalendar">
             <button class="orange-button"><h3>Calendar</h3></button>
           </Link>
           <Link to="/Journal">
@@ -30,7 +34,13 @@ function Calendar() {
       </nav>
 
       <main>
-        <h1>Calendar page is under construction!</h1>
+        {/* TODO: add functionality, styling */}
+        <div className="calendar-container">
+          <Calendar onChange={setDate} value={date} />
+          <p className="text-center">
+            <strong>Selected Date:</strong> {date.toDateString()}
+          </p>
+        </div>
       </main>
 
       <footer>
@@ -44,4 +54,4 @@ function Calendar() {
   );
 };
 
-export default Calendar;
+export default EventCalendar;

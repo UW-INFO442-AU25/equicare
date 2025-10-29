@@ -18,7 +18,7 @@ function App() {
           <Link to="/DateQuiz">
             <button class="orange-button"><h3>Connect</h3></button>
           </Link>
-          <Link to="/Calendar">
+          <Link to="/EventCalendar">
             <button class="orange-button"><h3>Calendar</h3></button>
           </Link>
           <Link to="/Journal">
