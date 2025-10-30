@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 /* uses react-calendar template */
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { addCalendarEvent } from "../../db.js";
 import "../../App.css";
 
 function EventCalendar() {

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import "../../App.css";
+/* js functionality */
+import { createQuiz, updateUserQuizResponse, updateCommonAnswers } from "../../db.js";
 import QuestionBank from "./question-bank.js";
+import "../../App.css";
 
 function DateQuiz() {
   return (
