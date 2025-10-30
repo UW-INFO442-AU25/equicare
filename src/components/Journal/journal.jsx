@@ -33,7 +33,7 @@ function Journal() {
     <body>
       <nav>
         <div class="brand active">
-          <img src="../logo.svg" alt="baby in heart with hands"></img>
+          <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="baby in heart with hands" />
           <Link to="/">
             <h1>EquiCare</h1>
           </Link>

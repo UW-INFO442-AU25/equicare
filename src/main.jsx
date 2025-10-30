@@ -11,7 +11,7 @@ import Profile from './components/Profile/profile.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Router>
+    <Router basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
