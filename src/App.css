@@ -155,6 +155,9 @@ footer p {
 
 /* event-calendar.jsx */
 /* uses react-calendar template */
+
+/* resources.jsx */
+
 /* TODO: add functionality, styling */
 .calendar-container {
   display: flex;

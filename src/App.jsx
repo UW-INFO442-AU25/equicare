@@ -2,6 +2,8 @@
 import { Link } from "react-router-dom";
 import React, { Component } from "react";
 import "./App.css";
+import { Routes, Route } from "react-router-dom";
+
 
 function App() {
   return (
@@ -43,6 +45,7 @@ function App() {
         <Link class="quiz-button-div" to="/DateQuiz">
           <button class="quiz-button"><h3>Take the Quiz</h3></button>
         </Link>
+        
       </main>
 
       <footer id="home-footer">

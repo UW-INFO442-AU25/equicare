@@ -9,6 +9,7 @@ import EventCalendar from './components/EventCalendar/event-calendar.jsx'
 import Journal from './components/Journal/journal.jsx'
 import Profile from './components/Profile/profile.jsx'
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router basename={import.meta.env.BASE_URL}>
@@ -24,3 +25,4 @@ createRoot(document.getElementById('root')).render(
     </Router>
   </StrictMode>,
 )
+
