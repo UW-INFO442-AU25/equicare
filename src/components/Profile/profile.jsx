@@ -14,7 +14,7 @@ function Profile() {
     <body>
       <nav>
         <div class="brand active">
-          <img src="../logo.svg" alt="baby in heart with hands"></img>
+          <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="baby in heart with hands" />
           <Link to="/">
             <h1>EquiCare</h1>
           </Link>
@@ -38,7 +38,7 @@ function Profile() {
 
       <main>
         <div id="profile-content">
-          <img src="../female-profile.png" alt="profile avatar"></img>
+          <img src={`${import.meta.env.BASE_URL}female-profile.png`} alt="female profile avatar" />
           <div class="progress-content">
             {/* TODO: trimester progress */}
             {/* TODO: next calendar event */}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 /* uses react-calendar template */
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { addCalendarEvent } from "../../db.js";
 import "../../App.css";
 
 function EventCalendar() {
@@ -11,7 +12,7 @@ function EventCalendar() {
     <body>
       <nav>
         <div class="brand active">
-          <img src="../logo.svg" alt="baby in heart with hands"></img>
+          <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="baby in heart with hands" />
           <Link to="/">
             <h1>EquiCare</h1>
           </Link>
