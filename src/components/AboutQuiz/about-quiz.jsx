@@ -26,6 +26,9 @@ function AboutQuiz() {
           <Link to="/Profile">
             <h3>Profile</h3>
           </Link>
+          <Link to="/resources">
+            <button class="orange-button"><h3>Resources</h3></button>
+          </Link>
         </div>
       </nav>
 
