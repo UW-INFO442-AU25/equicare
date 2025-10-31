@@ -8,6 +8,7 @@ import DateQuiz from './components/DateQuiz/date-quiz.jsx'
 import EventCalendar from './components/EventCalendar/event-calendar.jsx'
 import Journal from './components/Journal/journal.jsx'
 import Profile from './components/Profile/profile.jsx'
+import Resources from './components/Resources/Resources.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/eventcalendar" element={<EventCalendar />} />
         <Route path="/journal" element={<Journal />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/resources" element={<Resources />} />
       </Routes>
     </Router>
   </StrictMode>,
