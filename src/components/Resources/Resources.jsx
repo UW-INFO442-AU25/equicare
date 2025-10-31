@@ -1,4 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+/* Resource links were obtained from perplexity AI*/
 
 const resources = [
   {
@@ -35,37 +38,73 @@ const resources = [
 
 export default function Resources() {
   return (
-    <div className="resources-background">
-      <div className="resources-wrapper">
-        <div className="resources-content">
-          <h1 className="resources-title">
-            Navigating pregnancy and <br />
-            partnership, made simple.
-          </h1>
-          <p className="resources-subtitle">
-            Explore trusted websites designed to support you and your partner throughout the journey
-          </p>
-          <div className="resources-grid">
-            {resources.map(({ name, url, description }) => (
-              <div key={name} className="resource-card">
-                <h2 className="resource-card-title">{name}</h2>
-                <p className="resource-card-desc">{description}</p>
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="resource-card-btn"
-                >
-                  Visit Site
-                </a>
+    <body>
+      <nav>
+        <div className="brand active">
+          <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="baby in heart with hands" />
+          <Link to="/">
+            <h1>EquiCare</h1>
+          </Link>
+        </div>
+        <div className="right-nav">
+          <Link to="/DateQuiz">
+            <button className="orange-button"><h3>Connect</h3></button>
+          </Link>
+          <Link to="/EventCalendar">
+            <button className="orange-button"><h3>Calendar</h3></button>
+          </Link>
+          <Link to="/Journal">
+            <button className="orange-button"><h3>Journal</h3></button>
+          </Link>
+          <Link to="/Profile">
+            <h3>Profile</h3>
+          </Link>
+          <Link to="/resources">
+            <button className="orange-button"><h3>Resources</h3></button>
+          </Link>
+        </div>
+      </nav>
+      <main>
+        <div className="resources-background">
+          <div className="resources-wrapper">
+            <div className="resources-content">
+              <h1 className="resources-title">
+                Navigating pregnancy and <br />
+                partnership, made simple.
+              </h1>
+              <p className="resources-subtitle">
+                Explore trusted websites designed to support you and your partner throughout the journey
+              </p>
+              <div className="resources-grid">
+                {resources.map(({ name, url, description }) => (
+                  <div key={name} className="resource-card">
+                    <h2 className="resource-card-title">{name}</h2>
+                    <p className="resource-card-desc">{description}</p>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="resource-card-btn"
+                    >
+                      Visit Site
+                    </a>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+            <div className="resources-image-section">
+              <img src="/equicare/public/holding-hands.jpg" alt="Couple holding baby shoes" className="resources-image" />
+            </div>
           </div>
         </div>
-        <div className="resources-image-section">
-          <img src = "/equicare/public/holding-hands.jpg" alt="Couple holding baby shoes" className="resources-image" />
-        </div>
-      </div>
-    </div>
+      </main>
+      <footer>
+        <p>
+          <em>
+            &copy; {new Date().getFullYear()} EquiCare
+          </em>
+        </p>
+      </footer>
+    </body>
   );
 }
