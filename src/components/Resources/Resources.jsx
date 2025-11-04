@@ -94,6 +94,18 @@ export default function Resources() {
             </div>
             <div className="resources-image-section">
               <img src="/equicare/public/holding-hands.jpg" alt="Couple holding baby shoes" className="resources-image" />
+              <div style={{marginTop: "20px", textAlign: "center"}}>
+                <h2> Relationship Advice for Expecting Parents </h2>
+                <iframe 
+                  width = "360"
+                  height = "220"
+                  src = "https://www.youtube.com/embed/14S4zBmsM0w"
+                  title = "Youtube Video Player"
+                  frameBorder = "0"
+                  allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen>
+                </iframe>
+              </div>
             </div>
           </div>
         </div>
