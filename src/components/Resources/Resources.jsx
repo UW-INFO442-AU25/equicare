@@ -36,6 +36,9 @@ const resources = [
   }
 ];
 
+//https://www.geeksforgeeks.org/html/how-to-insert-video-in-web-page-and-play-it-using-html/ 
+// Link above used to insert multimedia component
+
 export default function Resources() {
   return (
     <body>
@@ -100,9 +103,7 @@ export default function Resources() {
                   width = "360"
                   height = "220"
                   src = "https://www.youtube.com/embed/14S4zBmsM0w"
-                  title = "Youtube Video Player"
-                  frameBorder = "0"
-                  allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  title = "Youtube Video"
                   allowFullScreen>
                 </iframe>
               </div>
