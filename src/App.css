@@ -442,3 +442,93 @@ input {
     flex-direction: column;
     justify-content: center;
 }
+
+#profile-layout {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4rem;
+  margin: 3rem 8vw;
+  flex-wrap: wrap;
+}
+
+/* Left column */
+.profile-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-avatar {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Personal info text (no card) */
+.personal-info-text {
+  text-align: center;
+}
+
+.personal-info-text h2 {
+  margin: 0.5rem 0 0.3rem;
+  font-size: 1.6rem;
+  color: #333;
+}
+
+.personal-info-text p {
+  color: #666;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Right column */
+.profile-right {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 600px;
+}
+
+/* Info sections (still card-like) */
+.profile-section {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.profile-section h2 {
+  color: #373B76;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.info-item {
+  margin-bottom: 0.8rem;
+}
+
+.connect-button {
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #profile-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-right {
+    align-items: center;
+  }
+
+  .profile-section {
+    width: 90%;
+  }
+}
