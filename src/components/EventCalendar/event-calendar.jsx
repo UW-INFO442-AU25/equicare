@@ -38,12 +38,32 @@ function EventCalendar() {
       </nav>
 
       <main>
-        {/* TODO: add functionality, styling */}
-        <div class="calendar-container">
-          <Calendar onChange={setDate} value={date} />
-          <p class="text-center">
-            <strong>Selected Date:</strong> {date.toDateString()}
-          </p>
+        <div class="calendar">
+          {/* TODO: add functionality, styling */}
+          <div class="calendar-container">
+            <Calendar onChange={setDate} value={date} />
+            <p class="text-center">
+              <strong>Selected Date:</strong> {date.toDateString()}
+            </p>
+          </div>
+          <div class="event-container">
+            <form class="event-form">
+              <h1>Add Event</h1>
+
+              <label for="title">Event Name</label>
+              <input type="text" name="title" placeholder="e.g. Doctor's appointment" required />
+
+              <label for="event-date">Event Date</label>
+              <input type="date" name="event-date" placeholder='Select event date' required />
+
+              <label for="image-upload">Add Image</label>
+              <input type="file" name="image-upload" accept="image/*"/>
+
+              <button type="submit">
+                Add Event to Calendar
+              </button>
+            </form>
+          </div>
         </div>
       </main>
 
