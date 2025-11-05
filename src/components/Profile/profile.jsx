@@ -31,7 +31,7 @@ function Profile() {
             <button class="orange-button"><h3>Journal</h3></button>
           </Link>
           <Link to="/Profile">
-            <h3>Profile</h3>
+            <button class="orange-button"><h3>Profile</h3></button>
           </Link>
           <Link to="/resources">
             <button class="orange-button"><h3>Resources</h3></button>
