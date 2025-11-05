@@ -112,30 +112,31 @@ function Journal() {
 
           {/* main editor section */}
           <section className="journal-main">
-            <div className="journal-top-row">
-              <input
-                className="entry-title-input"
-                placeholder="[ Entry title ]"
-              />
-              {/* displays date to user */}
-              <p className="journal-date-display">
-                {new Date().toLocaleDateString(undefined, {
-                  weekday: "long",
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </p>
-            </div>
+            <div className="journal-center-card">
+              <div className="journal-top-row">
+                <input
+                  className="entry-title-input"
+                  placeholder="[ Entry title ]"
+                />
+                {/* displays date to user */}
+                <p className="journal-date-display">
+                  {new Date().toLocaleDateString(undefined, {
+                    weekday: "long",
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </p>
+              </div>
               
-            {/* area for user to type in */}
-            <textarea
-              className="entry-editor"
-              value={newEntry}
-              onChange={(e) => setNewEntry(e.target.value)}
-              placeholder="Start writing your thoughts ...">
-            </textarea>
-
+              {/* area for user to type in */}
+              <textarea
+                className="entry-editor"
+                value={newEntry}
+                onChange={(e) => setNewEntry(e.target.value)}
+                placeholder="Start writing your thoughts ...">
+              </textarea>
+            </div>
           </section>
 
         </div>
