@@ -548,6 +548,124 @@ video/multimedia source in order for it to be under the image)*/
   border-radius: 5px;
 }
 
+.journal-page-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  border-top: 1px solid #ccc;
+  height: calc(100vh - 150px);
+}
+
+/* left side of journal */
+.journal-left {
+  padding: 1rem;
+  border-right: 1px solid #ccc;
+}
+
+.calendar-placeholder {
+  width: 100%;
+  height: 200px;
+  background-color: #eee;
+  border-radius: 8px;
+}
+
+.recent-title {
+  margin-top: 1rem;
+}
+
+.recent-entries {
+  margin-top: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.recent-entry-card {
+  background: #f7f3ea;
+  border-radius: 8px;
+  padding: 0.7rem;
+  margin-bottom: 0.8rem;
+}
+
+.recent-date {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.recent-preview {
+  margin-top: 0.3rem;
+}
+
+/* main editor */
+.journal-main {
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.journal-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.entry-title-input {
+  width: 60%;
+  padding: 0.5rem;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 6px;
+}
+
+.journal-date-display {
+  opacity: 0.7;
+}
+
+.entry-editor {
+  flex: 1;
+  margin-top: 1rem;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 1rem;
+}
+
+/* footer for journal */
+.journal-bottom-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1px solid #ccc;
+  padding: 1rem;
+}
+
+.journal-bottom-bar p {
+  margin: 0;
+}
+
+.share-calendar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: black;
+}
+
+.cancel-button {
+  background: white;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+}
+
+.save-entry-button {
+  background: #818e7d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.3rem;
+}
+
+
+
+
 /* login.jsx */
 #signup-login {
   display: flex;
@@ -843,3 +961,5 @@ input {
     width: 90%;
   }
 }
+
+
