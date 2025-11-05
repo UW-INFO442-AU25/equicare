@@ -48,7 +48,7 @@ function Journal() {
         <div className="right-nav">
           <Link to="/DateQuiz">
             <button className="orange-button">
-              <h3>Connect</h3>
+              <h3>Date Idea Generator</h3>
             </button>
           </Link>
 

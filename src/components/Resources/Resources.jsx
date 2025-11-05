@@ -51,7 +51,7 @@ export default function Resources() {
         </div>
         <div className="right-nav">
           <Link to="/DateQuiz">
-            <button className="orange-button"><h3>Connect</h3></button>
+            <button className="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
           <Link to="/EventCalendar">
             <button className="orange-button"><h3>Calendar</h3></button>

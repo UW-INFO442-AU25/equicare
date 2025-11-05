@@ -20,7 +20,7 @@ function EventCalendar() {
 
         <div class="right-nav">
           <Link to="/DateQuiz">
-            <button class="orange-button"><h3>Connect</h3></button>
+            <button class="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
           <Link to="/EventCalendar">
             <button class="orange-button"><h3>Calendar</h3></button>
