@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-/* Resource links were obtained from perplexity AI*/
+/* All the Resource links were obtained from perplexity AI - with the prompt: Give me 5-8 links that are useful for 
+expecting parents to prepare and strengthen their relationship*/
 
 const resources = [
   {

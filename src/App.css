@@ -229,7 +229,7 @@ input[type="file"]::before {
 /* resources.jsx */
 /* CSS styling for the resources page was obtained from the figma developer code feature and a mix of AI from chatpgt/perplexity in 
 order to get the accruate visual from the figma specifically the positing of everything (AI genereated css styling for the position of the 
-video/multimedia source in order for it to be under the image)*/
+video/multimedia source in order for it to be under the image since inital placement was off and easy fix with AI specially chat gpt)*/
 
 .resources-background {
   background: #FFFAF2;
