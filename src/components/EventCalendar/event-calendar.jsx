@@ -6,6 +6,7 @@ import 'react-calendar/dist/Calendar.css';
 import { addCalendarEvent } from "../../db.js";
 import "../../App.css";
 
+
 function EventCalendar() {
   const [date, setDate] = useState(new Date());
   return (
@@ -17,6 +18,7 @@ function EventCalendar() {
             <h1>EquiCare</h1>
           </Link>
         </div>
+
 
         <div class="right-nav">
           <Link to="/DateQuiz">
@@ -37,6 +39,7 @@ function EventCalendar() {
         </div>
       </nav>
 
+
       <main>
         <div class="calendar">
           {/* TODO: add functionality, styling */}
@@ -50,14 +53,18 @@ function EventCalendar() {
             <form class="event-form">
               <h1>Add Event</h1>
 
+
               <label for="title">Event Name</label>
               <input type="text" name="title" placeholder="e.g. Doctor's appointment" required />
+
 
               <label for="event-date">Event Date</label>
               <input type="date" name="event-date" placeholder='Select event date' required />
 
+
               <label for="image-upload">Add Image</label>
               <input type="file" name="image-upload" accept="image/*"/>
+
 
               <button type="submit">
                 Add Event to Calendar
@@ -66,6 +73,7 @@ function EventCalendar() {
           </div>
         </div>
       </main>
+
 
       <footer>
         <p>
@@ -77,5 +85,6 @@ function EventCalendar() {
     </body>
   );
 };
+
 
 export default EventCalendar;
