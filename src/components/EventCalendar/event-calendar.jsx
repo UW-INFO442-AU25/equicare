@@ -5,17 +5,13 @@ import "react-calendar/dist/Calendar.css";
 import "../../App.css";
 
 function EventCalendar() {
-  // Selected date (from calendar)
   const [selectedDate, setSelectedDate] = useState(new Date());
-  // Events list
   const [events, setEvents] = useState([]);
-  // Form fields
   const [eventTitle, setEventTitle] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventImage, setEventImage] = useState(null);
   const [eventImageURL, setEventImageURL] = useState("");
 
-  // Handle image preview
   function handleImageChange(e) {
     const file = e.target.files[0];
     if (file) {
@@ -29,7 +25,6 @@ function EventCalendar() {
 
   function handleAddEvent(e) {
     e.preventDefault();
-    // Event date comes from input, not calendar (for flexibility)
     if (!eventTitle || !eventDate) return;
     setEvents([
       ...events,
@@ -39,14 +34,12 @@ function EventCalendar() {
         imageURL: eventImageURL,
       }
     ]);
-    // Reset form
     setEventTitle("");
     setEventDate("");
     setEventImage(null);
     setEventImageURL("");
   }
 
-  // Show events for current calendar selection
   const selectedDateString = selectedDate.toISOString().split("T")[0];
   const todaysEvents = events.filter(ev => ev.date === selectedDateString);
 
@@ -66,26 +59,23 @@ function EventCalendar() {
         </div>
       </nav>
       <main>
-        <div className="calendar" style={{ display: "flex", justifyContent: "center", gap: "3rem" }}>
-          {/* Calendar left side */}
+        <div className="calendar">
           <div className="calendar-container">
             <Calendar onChange={setSelectedDate} value={selectedDate} />
             <p className="text-center">
               <strong>Selected Date:</strong> {selectedDate.toDateString()}
             </p>
-            {/* Events for selected date */}
             <div className="event-list">
               <h3>Events For This Date:</h3>
               {todaysEvents.length === 0 && <p>No events yet for this date.</p>}
               {todaysEvents.map((ev, idx) => (
-                <div key={idx} className="event-list-item" style={{ marginBottom: "12px" }}>
-                  {ev.imageURL && <img src={ev.imageURL} alt={ev.title} style={{ width: "50px", borderRadius: "6px", marginBottom: "6px" }} />}
+                <div key={idx} className="event-list-item">
+                  {ev.imageURL && <img src={ev.imageURL} alt={ev.title} />}
                   <div><strong>{ev.title}</strong></div>
                 </div>
               ))}
             </div>
           </div>
-          {/* Event Form right side */}
           <div className="event-container">
             <form className="event-form" onSubmit={handleAddEvent}>
               <h1>Add Event</h1>
@@ -110,7 +100,7 @@ function EventCalendar() {
                 accept="image/*"
                 onChange={handleImageChange}
               />
-              {eventImageURL && <img src={eventImageURL} alt="Preview" style={{ width: "60px", marginTop: "6px", borderRadius: "6px" }} />}
+              {eventImageURL && <img src={eventImageURL} alt="Preview"/>}
               <button type="submit">
                 Add Event to Calendar
               </button>

@@ -155,56 +155,134 @@ footer p {
 
 /* event-calendar.jsx */
 /* uses react-calendar template */
+/* CSS stling for add event box guided by AI generated code from perplexity with the prompt "can you 
+fix my laoyout for this box so it has a clean look" */
 
 .calendar {
   display: flex;
-  flex-direction: row;
-  gap: 0 3rem;
+  gap: 3rem;
   justify-content: center;
-  height: 200%;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto 2rem auto;
+  padding-bottom: 2rem;
 }
 
 .calendar-container {
-  border-radius: 5px;
+  flex: 1;
+  min-width: 320px;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  padding: 2rem 2rem 1.5rem 2rem;
+}
+
+.event-list {
+  margin-top: 2rem;
+}
+
+.event-list h3 {
+  font-size: 1.25rem;
+  color: #111734;
+  margin-bottom: 0.7rem;
+}
+
+.event-list-item {
+  background: #f7f3ea;
+  border-radius: 8px;
+  padding: 0.8rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.event-list-item img {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .event-container {
-  align-items: left;
-  border-radius: 10px;
-  border: solid 1px #111734;
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  padding: 2rem 2rem 1.5rem 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 0 3rem 1rem;
+  justify-content: flex-start;
+}
+
+.event-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-form h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
 .event-form label {
+  margin-top: 1rem;
+  margin-bottom: 0.6rem;
   color: #111734;
+  font-weight: 500;
+  font-size: 1.08rem;
+}
+
+.event-form input[type="text"],
+.event-form input[type="date"] {
+  margin-bottom: 0.6rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid #111734;
+  color: #111734;
+  background: #f9f7f3;
+  font-family: 'Roboto', sans-serif;
+  max-width: 370px; 
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.event-form input[type="file"] {
+  background: #fff;
+  border: none;
+  height: auto;
+  margin-bottom: 0.8rem;
+  font-family: 'Roboto', sans-serif;
 }
 
 .event-form input {
   background-color: #FFF;
   border: solid 1px #111734;
-  /* display: flex; */
-  /* flex-direction: column; */
   font-family: 'Roboto', sans-serif;
   width: 100%;
+  color: #111734; 
 }
 
-.event-form input[type="date"]::-webkit-datetime-edit,
+/* .event-form input[type="date"]::-webkit-datetime-edit,
 .event-form input[type="date"]::-webkit-datetime-edit-text,
 .event-form input[type="date"]::-webkit-datetime-edit-month-field,
 .event-form input[type="date"]::-webkit-datetime-edit-day-field,
 .event-form input[type="date"]::-webkit-datetime-edit-year-field {
   color: #555;
-}
+} */
 
-.event-form input[type="file"] {
+/* .event-form input[type="file"] {
   background-color: #FFF;
   height: 5rem;
-}
+} */
 
-input[type="file"]::-webkit-file-upload-button {
+/* input[type="file"]::-webkit-file-upload-button {
   visibility: hidden;
 }
 
@@ -215,15 +293,41 @@ input[type="file"]::before {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .event-form button {
   background-color: #111734;
-  border-radius: 5px;
+  border-radius: 6px;
   border: none;
   color: #FFFAF2;
   font-family: 'Roboto', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
+  margin-top: 1.3rem;
+  padding: 0.72rem 0;
+}
+
+.event-form img {
+  width: 70px;
+  height: 70px;
+  margin-top: 12px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .calendar {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    max-width: none;
+    min-width: 0;
+  }
+  .calendar-container,
+  .event-container {
+    max-width: 96vw;
+    min-width: 0;
+    padding: 1.4rem 1rem 1rem 1rem;
+  }
 }
 
 /* resources.jsx */
