@@ -1,71 +1,116 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-/* uses react-calendar template */
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import { addCalendarEvent } from "../../db.js";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 import "../../App.css";
 
-
 function EventCalendar() {
-  const [date, setDate] = useState(new Date());
+  // Selected date (from calendar)
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  // Events list
+  const [events, setEvents] = useState([]);
+  // Form fields
+  const [eventTitle, setEventTitle] = useState("");
+  const [eventDate, setEventDate] = useState("");
+  const [eventImage, setEventImage] = useState(null);
+  const [eventImageURL, setEventImageURL] = useState("");
+
+  // Handle image preview
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+    if (file) {
+      setEventImage(file);
+      setEventImageURL(URL.createObjectURL(file));
+    } else {
+      setEventImage(null);
+      setEventImageURL("");
+    }
+  }
+
+  function handleAddEvent(e) {
+    e.preventDefault();
+    // Event date comes from input, not calendar (for flexibility)
+    if (!eventTitle || !eventDate) return;
+    setEvents([
+      ...events,
+      {
+        title: eventTitle,
+        date: eventDate,
+        imageURL: eventImageURL,
+      }
+    ]);
+    // Reset form
+    setEventTitle("");
+    setEventDate("");
+    setEventImage(null);
+    setEventImageURL("");
+  }
+
+  // Show events for current calendar selection
+  const selectedDateString = selectedDate.toISOString().split("T")[0];
+  const todaysEvents = events.filter(ev => ev.date === selectedDateString);
+
   return (
-    <body>
+    <div>
       <nav>
-        <div class="brand active">
+        <div className="brand active">
           <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="baby in heart with hands" />
-          <Link to="/">
-            <h1>EquiCare</h1>
-          </Link>
+          <Link to="/"><h1>EquiCare</h1></Link>
         </div>
-
-
-        <div class="right-nav">
-          <Link to="/DateQuiz">
-            <button class="orange-button"><h3>Date Idea Generator</h3></button>
-          </Link>
-          <Link to="/EventCalendar">
-            <button class="orange-button"><h3>Calendar</h3></button>
-          </Link>
-          <Link to="/Journal">
-            <button class="orange-button"><h3>Journal</h3></button>
-          </Link>
-          <Link to="/Profile">
-            <button class="orange-button"><h3>Profile</h3></button>
-          </Link>
-          <Link to="/resources">
-            <button class="orange-button"><h3>Resources</h3></button>
-          </Link>
+        <div className="right-nav">
+          <Link to="/DateQuiz"><button className="orange-button"><h3>Date Idea Generator</h3></button></Link>
+          <Link to="/EventCalendar"><button className="orange-button"><h3>Calendar</h3></button></Link>
+          <Link to="/Journal"><button className="orange-button"><h3>Journal</h3></button></Link>
+          <Link to="/Profile"><button className="orange-button"><h3>Profile</h3></button></Link>
+          <Link to="/resources"><button className="orange-button"><h3>Resources</h3></button></Link>
         </div>
       </nav>
-
-
       <main>
-        <div class="calendar">
-          {/* TODO: add functionality, styling */}
-          <div class="calendar-container">
-            <Calendar onChange={setDate} value={date} />
-            <p class="text-center">
-              <strong>Selected Date:</strong> {date.toDateString()}
+        <div className="calendar" style={{ display: "flex", justifyContent: "center", gap: "3rem" }}>
+          {/* Calendar left side */}
+          <div className="calendar-container">
+            <Calendar onChange={setSelectedDate} value={selectedDate} />
+            <p className="text-center">
+              <strong>Selected Date:</strong> {selectedDate.toDateString()}
             </p>
+            {/* Events for selected date */}
+            <div className="event-list">
+              <h3>Events For This Date:</h3>
+              {todaysEvents.length === 0 && <p>No events yet for this date.</p>}
+              {todaysEvents.map((ev, idx) => (
+                <div key={idx} className="event-list-item" style={{ marginBottom: "12px" }}>
+                  {ev.imageURL && <img src={ev.imageURL} alt={ev.title} style={{ width: "50px", borderRadius: "6px", marginBottom: "6px" }} />}
+                  <div><strong>{ev.title}</strong></div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div class="event-container">
-            <form class="event-form">
+          {/* Event Form right side */}
+          <div className="event-container">
+            <form className="event-form" onSubmit={handleAddEvent}>
               <h1>Add Event</h1>
-
-
-              <label for="title">Event Name</label>
-              <input type="text" name="title" placeholder="e.g. Doctor's appointment" required />
-
-
-              <label for="event-date">Event Date</label>
-              <input type="date" name="event-date" placeholder='Select event date' required />
-
-
-              <label for="image-upload">Add Image</label>
-              <input type="file" name="image-upload" accept="image/*"/>
-
-
+              <label>Event Name</label>
+              <input
+                type="text"
+                value={eventTitle}
+                onChange={e => setEventTitle(e.target.value)}
+                placeholder="e.g. Doctor's appointment"
+                required
+              />
+              <label>Event Date</label>
+              <input
+                type="date"
+                value={eventDate}
+                onChange={e => setEventDate(e.target.value)}
+                required
+              />
+              <label>Add Image</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+              {eventImageURL && <img src={eventImageURL} alt="Preview" style={{ width: "60px", marginTop: "6px", borderRadius: "6px" }} />}
               <button type="submit">
                 Add Event to Calendar
               </button>
@@ -73,18 +118,13 @@ function EventCalendar() {
           </div>
         </div>
       </main>
-
-
       <footer>
         <p>
-          <em>
-            &copy; {new Date().getFullYear()} EquiCare
-          </em>
+          <em>&copy; {new Date().getFullYear()} EquiCare</em>
         </p>
       </footer>
-    </body>
+    </div>
   );
-};
-
+}
 
 export default EventCalendar;
