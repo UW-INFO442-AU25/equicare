@@ -1,26 +1,29 @@
-import React, { useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../../App.css";
 
 function Profile() {
   const sectionRef = useRef(null);
 
-  function scrollToSection() {
-    sectionRef.current.scrollIntoView({ behavior: "smooth" });
-  }
-
-  // Load profile data from localStorage (fallbacks to defaults)
-  const profileData = JSON.parse(localStorage.getItem("profileData")) || {
+  const [profileData, setProfileData] = useState({
     name: "Jane Doe",
     location: "Seattle, WA",
     term: "Second Trimester (Week 18)",
     nextEvent: "Doctor's Appointment - Nov 8, 10:30 AM",
     partner: "Not connected",
-  };
+  });
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("profileData");
+    if (savedData) setProfileData(JSON.parse(savedData));
+  }, []);
+
+  function scrollToSection() {
+    sectionRef.current.scrollIntoView({ behavior: "smooth" });
+  }
 
   return (
     <div className="profile-page">
-      {/* --- NAVBAR --- */}
       <nav>
         <div className="brand active">
           <img
@@ -34,50 +37,39 @@ function Profile() {
 
         <div className="right-nav">
           <Link to="/DateQuiz">
-            <button className="orange-button">
-              <h3>Date Idea Generator</h3>
-            </button>
+            <button className="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
           <Link to="/EventCalendar">
-            <button className="orange-button">
-              <h3>Calendar</h3>
-            </button>
+            <button className="orange-button"><h3>Calendar</h3></button>
           </Link>
           <Link to="/Journal">
-            <button className="orange-button">
-              <h3>Journal</h3>
-            </button>
+            <button className="orange-button"><h3>Journal</h3></button>
           </Link>
           <Link to="/Profile">
-            <button className="orange-button">
-              <h3>Profile</h3>
-            </button>
+            <button className="orange-button"><h3>Profile</h3></button>
           </Link>
           <Link to="/resources">
-            <button className="orange-button">
-              <h3>Resources</h3>
-            </button>
+            <button className="orange-button"><h3>Resources</h3></button>
           </Link>
         </div>
       </nav>
 
       <main>
         <div id="profile-layout">
-          {/* Left: Avatar + Personal Info */}
+          {/* Left: avatar + personal info */}
           <div className="profile-left">
             <img
               className="profile-avatar"
               src={`${import.meta.env.BASE_URL}female-profile.png`}
               alt="female profile avatar"
             />
-
             <div className="personal-info-text">
               <h1>{profileData.name}</h1>
               <h2>{profileData.location}</h2>
             </div>
 
             <div className="edit-profile-under-info">
-              <Link to="/EditProfile">
+              <Link to="/EditProfileForm">
                 <button className="orange-button connect-button">
                   <h3>Edit Profile</h3>
                 </button>
@@ -85,7 +77,7 @@ function Profile() {
             </div>
           </div>
 
-          {/* Right: Pregnancy + Partner Info */}
+          {/* Right: pregnancy + partner info */}
           <div className="profile-right">
             <section className="profile-section">
               <h2>Pregnancy Info</h2>
@@ -103,7 +95,7 @@ function Profile() {
               <h2>Partner Info</h2>
               <div className="info-item">
                 <h3>Partner</h3>
-                <p>{profileData.partner}</p>
+                <p>{profileData.partner || "Not connected"}</p>
                 <button className="orange-button connect-button">
                   <h4>Connect Partner's Account</h4>
                 </button>
@@ -112,19 +104,15 @@ function Profile() {
           </div>
         </div>
 
-        {/* Bottom Buttons */}
+        {/* Bottom buttons */}
         <div className="quiz-button-div">
           <Link to="/DateQuiz">
-            <button className="quiz-button">
-              <h3>Take the Quiz</h3>
-            </button>
+            <button className="quiz-button"><h3>Take the Quiz</h3></button>
           </Link>
         </div>
 
         <div className="small-long-button-div">
-          <button className="small-long-button" onClick={scrollToSection}>
-            <h3>Resources</h3>
-          </button>
+          <button className="small-long-button" onClick={scrollToSection}><h3>Resources</h3></button>
         </div>
 
         <section ref={sectionRef}>
@@ -133,9 +121,7 @@ function Profile() {
       </main>
 
       <footer>
-        <p>
-          <em>&copy; {new Date().getFullYear()} EquiCare</em>
-        </p>
+        <p><em>&copy; {new Date().getFullYear()} EquiCare</em></p>
       </footer>
     </div>
   );
