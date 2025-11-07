@@ -152,6 +152,137 @@ footer p {
 /* about-quiz.jsx */
 
 /* date-quiz.jsx */
+.date-quiz-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #fffaf5;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.quiz-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+}
+
+.quiz-container {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+  padding: 2.5rem;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.progress-bar {
+  height: 10px;
+  background-color: #ffe8d6;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.progress {
+  height: 100%;
+  background-color: #ff8c42;
+  transition: width 0.3s ease;
+}
+
+.quiz-container h2 {
+  margin-bottom: 2rem;
+  color: #2c1e00;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.quiz-option {
+  background-color: #fff3e0;
+  border: 2px solid #ff8c42;
+  color: #2c2c2c;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.quiz-option:hover {
+  background-color: #ffdbb5;
+}
+
+.quiz-option.selected {
+  background-color: #ff8c42;
+  color: #ffffff;
+  border-color: #ff8c42;
+}
+
+.arrow-container {
+  margin-top: 2rem;
+}
+
+.next-arrow {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #ff8c42;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.next-arrow:hover {
+  transform: translateX(5px);
+}
+
+.next-arrow:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.question-count {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.quiz-result {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+  padding: 2.5rem;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.quiz-result .orange-button {
+  display: inline-block;
+  margin: 2rem auto 0 auto;
+}
+
+.quiz-result h2 {
+  color: #ff8c42;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.quiz-result p {
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
 
 /* event-calendar.jsx */
 /* uses react-calendar template */
