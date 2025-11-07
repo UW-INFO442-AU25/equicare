@@ -15,6 +15,9 @@ function DateQuiz() {
     newAnswers[currentQuestion] = answer;
     setAnswers(newAnswers);
 
+  };
+
+  const handleNext = () => {
     if(currentQuestion < QuestionBank.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     }else {
@@ -116,6 +119,7 @@ function DateQuiz() {
     "It’s time to celebrate! Treat yourselves to a fancy dinner, staycation, or special night to honor your journey together.",
   };
 
+  const progress = ((currentQuestion + (showResult ? 1 : 0)) / QuestionBank.length) * 100;
   return (
     <div className="date-quiz-page">
       <nav>
@@ -145,22 +149,38 @@ function DateQuiz() {
         </div>
       </nav>
 
-      <main>
+      <main className="quiz-main">
         {!showResult ? (
           <div className="quiz-container">
+            <div className="progress-bar">
+              <div className="progress" style={{ width: `${progress}%` }}></div>
+            </div>
+
             <h2>{QuestionBank[currentQuestion].question}</h2>
+
             <div className="options">
               {QuestionBank[currentQuestion].options.map((option, index) => (
                 <button
-                key={index}
-                className="quiz-option"
-                onClick={() => handleAnswer(option)}
+                  key={index}
+                  className={`quiz-option ${answers[currentQuestion] === option ? "selected" : ""}`}
+                  onClick={() => handleAnswer(option)}
                 >
                   {option}
                 </button>
               ))}
             </div>
-            <p>
+
+            <div className="arrow-container">
+              <button
+                className="next-arrow"
+                onClick={handleNext}
+                disabled={!answers[currentQuestion]}
+              >
+                →
+              </button>
+            </div>
+
+            <p className="question-count">
               Question {currentQuestion + 1} of {QuestionBank.length}
             </p>
           </div>
@@ -177,7 +197,7 @@ function DateQuiz() {
                 setShowResult(false);
               }}
             >
-              Restart Quiz 
+              Restart Quiz
             </button>
           </div>
         )}
