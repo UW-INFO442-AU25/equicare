@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-/* All the Resource links were obtained from perplexity AI - with the prompt: Give me 5-8 links that are useful for 
+/* All the Resource links were obtained from perplexity AI - with the prompt: Give me 5-8 links that are useful for
 expecting parents to prepare and strengthen their relationship*/
 
 const resources = [
@@ -37,7 +37,7 @@ const resources = [
   }
 ];
 
-//https://www.geeksforgeeks.org/html/how-to-insert-video-in-web-page-and-play-it-using-html/ 
+//https://www.geeksforgeeks.org/html/how-to-insert-video-in-web-page-and-play-it-using-html/
 // Link above used to insert multimedia component
 
 export default function Resources() {
@@ -97,10 +97,10 @@ export default function Resources() {
               </div>
             </div>
             <div className="resources-image-section">
-              <img src="/equicare/public/holding-hands.jpg" alt="Couple holding baby shoes" className="resources-image" />
+              <img src="/equicare/holding-hands.jpg" alt="Couple holding baby shoes" className="resources-image" />
               <div style={{marginTop: "20px", textAlign: "center"}}>
                 <h2> Relationship Advice for Expecting Parents </h2>
-                <iframe 
+                <iframe
                   width = "360"
                   height = "220"
                   src = "https://www.youtube.com/embed/14S4zBmsM0w"
