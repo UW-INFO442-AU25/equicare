@@ -1,3 +1,9 @@
+/* Resources:
+how to upload and image (perplexity search) - https://www.geeksforgeeks.org/reactjs/how-to-upload-image-and-preview-it-using-reactjs/
+how to preview files in react (perplexity search) - https://blog.logrocket.com/using-filereader-api-preview-images-react/
+*/
+
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Calendar from "react-calendar";
