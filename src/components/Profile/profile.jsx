@@ -40,6 +40,39 @@ function Profile() {
     setIsEditing(false);
   };
 
+  const [partnerData, setPartnerData] = useState({
+    partnerName: "", // later this will come from the connected partner’s account
+  });
+
+    const [isEditingPartner, setIsEditingPartner] = useState(false);
+    const [relationshipData, setRelationshipData] = useState({
+    relationshipStatus: "",
+    anniversaryDate: "",
+    notes: "",
+  });
+
+  // Load from localStorage (temporary for static setup)
+  useEffect(() => {
+    const savedRelationship = localStorage.getItem("relationshipData");
+    if (savedRelationship) setRelationshipData(JSON.parse(savedRelationship));
+  }, []);
+
+  const handleRelationshipChange = (e) => {
+    const { name, value } = e.target;
+    setRelationshipData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const saveRelationship = () => {
+    localStorage.setItem("relationshipData", JSON.stringify(relationshipData));
+    setIsEditingPartner(false);
+  };
+
+  const cancelRelationshipEdit = () => {
+    const saved = localStorage.getItem("relationshipData");
+    if (saved) setRelationshipData(JSON.parse(saved));
+    setIsEditingPartner(false);
+  };
+
   return (
     <div className="profile-page">
       {/* NAVBAR */}
@@ -165,23 +198,74 @@ function Profile() {
 
             <section className="profile-section">
               <h2>Partner Info</h2>
-              {isEditing ? (
                 <div className="info-item">
                   <h3>Partner</h3>
-                  <input
-                    type="text"
-                    name="partner"
-                    value={profileData.partner}
-                    onChange={handleChange}
-                    className="edit-input"
-                  />
+                  <p>{partnerData.partnerName || "Not connected"}</p>
+                  <button className="orange-button connect-button">
+                    <h4>Connect Partner's Account</h4>
+                  </button>
+                </div>
+
+              {isEditingPartner ? (
+                <div className="info-item">
+                  <label>
+                    Relationship Status:
+                    <select
+                      name="relationshipStatus"
+                      value={relationshipData.relationshipStatus}
+                      onChange={handleRelationshipChange}
+                      className="edit-input"
+                    >
+                      <option value="">Select...</option>
+                      <option value="Dating">Dating</option>
+                      <option value="Engaged">Engaged</option>
+                      <option value="Married">Married</option>
+                      <option value="It's complicated">It's complicated</option>
+                    </select>
+                  </label>
+
+                  <label>
+                    Anniversary Date:
+                    <input
+                      type="date"
+                      name="anniversaryDate"
+                      value={relationshipData.anniversaryDate}
+                      onChange={handleRelationshipChange}
+                      className="edit-input"
+                    />
+                  </label>
+
+                  <label>
+                    Shared Notes:
+                    <textarea
+                      name="notes"
+                      value={relationshipData.notes}
+                      onChange={handleRelationshipChange}
+                      className="edit-input"
+                      placeholder="Add a message, memory, or shared goal..."
+                    />
+                  </label>
+
+                  <div className="edit-buttons">
+                    <button className="orange-button" onClick={saveRelationship}>
+                      Save
+                    </button>
+                    <button className="orange-button" onClick={cancelRelationshipEdit}>
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <div className="info-item">
-                  <h3>Partner</h3>
-                  <p>{profileData.partner || "Not connected"}</p>
-                  <button className="orange-button connect-button">
-                    Connect Partner's Account
+                  <p><strong>Relationship:</strong> {relationshipData.relationshipStatus || "Not set"}</p>
+                  <p><strong>Anniversary:</strong> {relationshipData.anniversaryDate || "Not added"}</p>
+                  <p><strong>Notes:</strong> {relationshipData.notes || "No notes yet"}</p>
+
+                  <button
+                    className="orange-button connect-button"
+                    onClick={() => setIsEditingPartner(true)}
+                  >
+                    Edit Relationship Info
                   </button>
                 </div>
               )}
