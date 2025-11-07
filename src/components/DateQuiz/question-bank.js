@@ -77,7 +77,7 @@ const QuestionBank = [
       "Food-related (cooking, picnic, trying a new restaurant)",
       "Arts & Entertainment (movie, painting, concert)",
       "Movement (walk, yoga, dance night, workout classes)",
-      "Learning something new (class, DIY, skill development",
+      "Learning something new (class, DIY, skill development)",
       "Something else"
     ]
   },
