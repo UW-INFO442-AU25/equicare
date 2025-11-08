@@ -38,19 +38,22 @@ function App() {
       </nav>
 
       <main>
-        <div id="home-text">
-          <h1>Navigating pregnancy and partnership, made simple.</h1>
-          <p>
-            Parenthood is a journey meant to be shared.
-            From personalized date nights, shared calendars, to journal check-ins,
-            EquiCare is here to help you and your partner communicate, grow,
-            and care for each other through every stage of pregnancy and beyond.
-          </p>
+        <div id="home-details">
+          <div id="home-text">
+            <h1>Navigating pregnancy and partnership, made simple.</h1>
+            <p>
+              Parenthood is a journey meant to be shared.
+              From personalized date nights, shared calendars, to journal check-ins,
+              EquiCare is here to help you and your partner communicate, grow,
+              and care for each other through every stage of pregnancy and beyond.
+            </p>
+          </div>
+          <img src="./bubbles.png" alt="bubbles" />
         </div>
         <Link class="quiz-button-div" to="/DateQuiz">
           <button class="quiz-button"><h3>Take the Quiz</h3></button>
         </Link>
-        
+
       </main>
 
       <footer id="home-footer">
