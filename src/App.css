@@ -777,6 +777,7 @@ video/multimedia source in order for it to be under the image)*/
 }
 
 /* journal.jsx */
+/* Got some assistance from ChatGPT to fix the footer to make sure it doesn't expand as a user adds multiple entries for the same day.*/
 .journal-page {
   display: flex;
   flex-direction: column;
