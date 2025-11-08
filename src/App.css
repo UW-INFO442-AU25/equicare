@@ -934,6 +934,37 @@ video/multimedia source in order for it to be under the image)*/
   color: #000;  
 }
 
+/* journal entry pop ups */
+
+.journal-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.journal-modal {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  width: 500px;
+  max-width: 90%;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+.journal-modal-controls {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
 
 
 

@@ -7,6 +7,11 @@ function Journal() {
   const [entries, setEntries] = useState([]);
   const [newEntry, setNewEntry] = useState("");
 
+  // view opened entry
+  const [activeIndex, setActiveIndex] = useState(null);
+
+
+
   // Load existing entries
   useEffect(() => {
     const saved = localStorage.getItem("journalEntries");
@@ -29,6 +34,26 @@ function Journal() {
     setEntries([entry, ...entries]);
     setNewEntry("");
   };
+
+
+  const openEntry = (index) => {
+    setActiveIndex(index);
+  };
+
+  const closeEntry = () => {
+    setActiveIndex(null);
+  };
+
+  const showNext = () => {
+    if (activeIndex === null) return;
+    setActiveIndex((prev) => (prev + 1) % entries.length);
+  };
+
+  const showPrev = () => {
+    if (activeIndex === null) return;
+    setActiveIndex((prev) => (prev - 1 + entries.length) % entries.length);
+  };
+
 
   return (
     <div className="journal-container">
@@ -94,8 +119,13 @@ function Journal() {
 
             <div className="recent-entries">
               {entries.length > 0 ? (
-                entries.map((entry) => (
-                  <div key={entry.id} className="recent-entry-card">
+                entries.map((entry, i) => (
+                  <div
+                    key={entry.id}
+                    className="recent-entry-card"
+                    onClick={() => openEntry(i)}
+                    style={{ cursor: "pointer" }}
+                  >
                     <p className="recent-date">{entry.date}</p>
                     <p className="recent-preview">
                       {entry.text.length > 30
@@ -166,6 +196,23 @@ function Journal() {
             Save Entry
           </button>
         </div>
+
+        {activeIndex !== null && (
+          <div className="journal-modal-overlay">
+            <div className="journal-modal">
+              <h2>Journal Entry</h2>
+
+              <p><em>{entries[activeIndex].date}</em></p>
+              <p>{entries[activeIndex].text}</p>
+
+              <div className="journal-modal-controls">
+                <button onClick={showPrev}>Previous</button>
+                <button onClick={showNext}>Next</button>
+                <button onClick={closeEntry}>Close</button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/*  footer */}
