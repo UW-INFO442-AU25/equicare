@@ -887,7 +887,7 @@ video/multimedia source in order for it to be under the image)*/
   gap: 1rem;
   border-top: 1px solid #ccc;
   padding: 1rem;
-  background: #fff; /* prevent transparency issue */
+  background: #fff; 
   position: sticky;
   bottom: 0;
   z-index: 10; 
@@ -930,7 +930,7 @@ video/multimedia source in order for it to be under the image)*/
 }
 
 .entry-title-input {
-  color: #000;   /* ✅ make title text black */
+  color: #000;  
 }
 
 
