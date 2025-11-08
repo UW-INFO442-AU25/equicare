@@ -799,7 +799,8 @@ video/multimedia source in order for it to be under the image)*/
   display: grid;
   grid-template-columns: 280px 1fr;
   border-top: 1px solid #ccc;
-  height: calc(100vh - 150px);
+  flex: 1;
+  overflow-y: auto;
 }
 
 /* left side of journal */
@@ -846,6 +847,8 @@ video/multimedia source in order for it to be under the image)*/
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 }
 
 .journal-top-row {
@@ -873,15 +876,21 @@ video/multimedia source in order for it to be under the image)*/
   outline: none;
   resize: none;
   font-size: 1rem;
+  overflow-y: auto;
 }
 
 /* footer for journal */
 .journal-bottom-bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
   border-top: 1px solid #ccc;
   padding: 1rem;
+  background: #fff; /* prevent transparency issue */
+  position: sticky;
+  bottom: 0;
+  z-index: 10; 
 }
 
 .journal-bottom-bar p {
