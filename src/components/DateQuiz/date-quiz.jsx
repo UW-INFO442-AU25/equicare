@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-/* js functionality */
-import { createQuiz, updateUserQuizResponse, updateCommonAnswers } from "../../db.js";
 import QuestionBank from "./question-bank.js";
 import "../../App.css";
 
@@ -51,7 +49,7 @@ function DateQuiz() {
       joined.includes("fun") ||
       joined.includes("playful") ||
       joined.includes("laughter") ||
-      joined.includes("touch") 
+      joined.includes("touch")
     ) {
       return "The Playful Partners";
     }

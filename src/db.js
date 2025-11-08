@@ -20,18 +20,3 @@ export async function addCalendarEvent(calendarId, event) {
   const calendarRef = doc(db, "calendars", calendarId);
   await updateDoc(calendarRef, { events: arrayUnion(event) });
 }
-
-// -------- Quizzes --------
-export async function createQuiz(calendarId, userResponses = {}, commonAnswers = {}) {
-  await setDoc(doc(db, "quizzes", calendarId), { userResponses, commonAnswers });
-}
-
-export async function updateUserQuizResponse(calendarId, userId, responses) {
-  const quizRef = doc(db, "quizzes", calendarId);
-  await updateDoc(quizRef, { [`userResponses.${userId}`]: responses });
-}
-
-export async function updateCommonAnswers(calendarId, commonAnswers) {
-  const quizRef = doc(db, "quizzes", calendarId);
-  await updateDoc(quizRef, { commonAnswers });
-}

@@ -115,20 +115,29 @@ footer p {
 /* App.jsx */
 .quiz-button {
   background-color: #5B7558;
-  border-radius: 5px;
-  border: 0;
+  border-radius: 8px;
+  border: none;
   color: #FFFAF2;
   display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: 'Roboto', sans-serif;
-  font-size: 50px;
+  font-size: 36px;
   font-weight: 600;
-  padding: 0 10rem;
+  padding: 1 6rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.quiz-button:hover {
+  background-color: #6b866a;
+  transform: scale(1.03);
 }
 
 .quiz-button-div {
-  margin: 1rem auto;
+  margin: 2rem auto;
   text-decoration: none;
-  width: auto;
+  text-align: center;
+  width: fit-content;
 }
 
 #home-text {
