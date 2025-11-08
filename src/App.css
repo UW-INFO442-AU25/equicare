@@ -124,7 +124,7 @@ footer p {
   font-family: 'Roboto', sans-serif;
   font-size: 36px;
   font-weight: 600;
-  padding: 1 6rem;
+  padding: 1rem 4rem;
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
