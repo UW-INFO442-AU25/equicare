@@ -820,12 +820,6 @@ video/multimedia source in order for it to be under the image)*/
   border-right: 1px solid #ccc;
 }
 
-.calendar-placeholder {
-  width: 100%;
-  height: 200px;
-  background-color: #eee;
-  border-radius: 8px;
-}
 
 .recent-title {
   margin-top: 1rem;
@@ -906,13 +900,6 @@ video/multimedia source in order for it to be under the image)*/
 
 .journal-bottom-bar p {
   margin: 0;
-}
-
-.share-calendar {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: black;
 }
 
 .cancel-button {

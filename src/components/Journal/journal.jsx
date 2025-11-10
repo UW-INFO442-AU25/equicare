@@ -162,10 +162,7 @@ function Journal() {
           <aside className="journal-left">
             <h2>Daily Journal</h2>
 
-            <h3>Calendar</h3>
-            <div className="calendar-placeholder"> 
-              {/* placeholder for calendar -— replace later w functionality */}
-            </div>
+
 
             <h3 className="recent-title">Recent Entries</h3>
 
@@ -241,11 +238,6 @@ function Journal() {
               ? "Unsaved changes..." 
               : `Last saved: ${lastSaved ? timeAgo(lastSaved) : "Never"}`}
           </p>
-
-          <label className="share-calendar">
-            <input type="checkbox"/>
-            Share in calendar!
-          </label>
 
           <button className="cancel-button" onClick={handleCancel}>
             Cancel
