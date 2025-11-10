@@ -6,6 +6,7 @@ import "../../App.css";
 function Journal() {
   const [entries, setEntries] = useState([]);
   const [newEntry, setNewEntry] = useState("");
+  const [newTitle, setNewTitle] = useState("");
 
   // view opened entry
   const [activeIndex, setActiveIndex] = useState(null);
@@ -25,14 +26,18 @@ function Journal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!newEntry.trim()) return;
+    if (!newEntry.trim() && !newTitle.trim()) return;
+
     const entry = {
+
       id: Date.now(),
+      title: newTitle || "[ Untitled ]",
       text: newEntry,
       date: new Date().toLocaleString(),
     };
     setEntries([entry, ...entries]);
     setNewEntry("");
+    setNewTitle("");
   };
 
 
@@ -127,6 +132,9 @@ function Journal() {
                     style={{ cursor: "pointer" }}
                   >
                     <p className="recent-date">{entry.date}</p>
+                    <p className="recent-title-text">
+                      <strong>{entry.title}</strong>
+                    </p>
                     <p className="recent-preview">
                       {entry.text.length > 30
                         ? entry.text.slice(0, 30) + "..."
@@ -147,6 +155,8 @@ function Journal() {
                 <input
                   className="entry-title-input"
                   placeholder="[ Entry title ]"
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
                 />
                 {/* displays date to user */}
                 <p className="journal-date-display">
@@ -195,12 +205,17 @@ function Journal() {
           >
             Save Entry
           </button>
+
         </div>
 
         {activeIndex !== null && (
           <div className="journal-modal-overlay">
             <div className="journal-modal">
               <h2>Journal Entry</h2>
+
+              <p className="journal-modal-title">
+                <strong>{entries[activeIndex].title}</strong>
+              </p>
 
               <p><em>{entries[activeIndex].date}</em></p>
               <p>{entries[activeIndex].text}</p>
