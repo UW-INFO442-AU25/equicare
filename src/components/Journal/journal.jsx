@@ -8,6 +8,13 @@ function Journal() {
   const [newEntry, setNewEntry] = useState("");
   const [newTitle, setNewTitle] = useState("");
 
+  const [lastSaved, setLastSaved] = useState(null);
+
+  const handleCancel = () => {
+    setNewEntry("");
+    setNewTitle("");
+  };
+
   // view opened entry
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -16,28 +23,68 @@ function Journal() {
   // Load existing entries
   useEffect(() => {
     const saved = localStorage.getItem("journalEntries");
+    const savedTime = localStorage.getItem("journalLastSaved");
     if (saved) setEntries(JSON.parse(saved));
+    if (savedTime) setLastSaved(new Date(savedTime));
+  }, []);
+  
+
+
+  // Save entries and timestamp to localStorage when entries change BUT NOT AFTER REFRESH
+  // comment this useEffect out if want to restart recent entries
+
+  // useEffect(() => {
+  //   localStorage.setItem("journalEntries", JSON.stringify(entries));
+  //   if (lastSaved) {
+  //     localStorage.setItem("journalLastSaved", lastSaved.toISOString());
+  //   }
+  // }, [entries, lastSaved]);
+
+
+
+  useEffect(() => {
+    const interval = setInterval(() => setLastSaved((prev) => prev), 60000);
+    return () => clearInterval(interval);
   }, []);
 
-  // Save entries to localStorage when change
-  useEffect(() => {
-    localStorage.setItem("journalEntries", JSON.stringify(entries));
-  }, [entries]);
 
+  // handlesubmit version #2 that saves after refreshes
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!newEntry.trim() && !newTitle.trim()) return;
-
+  
     const entry = {
-
       id: Date.now(),
       title: newTitle || "[ Untitled ]",
       text: newEntry,
       date: new Date().toLocaleString(),
     };
-    setEntries([entry, ...entries]);
+  
+    const updatedEntries = [entry, ...entries];
+  
+    setEntries(updatedEntries);
     setNewEntry("");
     setNewTitle("");
+  
+    // Save to localStorage here
+    localStorage.setItem("journalEntries", JSON.stringify(updatedEntries));
+    const now = new Date();
+    setLastSaved(now);
+    localStorage.setItem("journalLastSaved", now.toISOString());
+  };
+  
+
+  // different scenarios for updating save status through minutes
+  const timeAgo = (date) => {
+    if (!date) return "Never";
+    const diffMs = new Date() - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    if (diffMins < 1) return "just now";
+    if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? "s" : ""} ago`;
+    const diffHours = Math.floor(diffMins / 60);
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
+    const diffDays = Math.floor(diffHours / 24);
+    return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
   };
 
 
@@ -188,15 +235,21 @@ function Journal() {
             {newEntry.trim().split(/\s+/).filter(Boolean).length} words
           </p>
           
-          {/* text placeholder -- later add functionality */}
-          <p>Last saved: 2 hours ago</p> 
+          {/* shows status of last changes */}
+          <p>
+            {newEntry.trim() || newTitle.trim() 
+              ? "Unsaved changes..." 
+              : `Last saved: ${lastSaved ? timeAgo(lastSaved) : "Never"}`}
+          </p>
 
           <label className="share-calendar">
             <input type="checkbox"/>
             Share in calendar!
           </label>
 
-          <button className="cancel-button">Cancel</button>
+          <button className="cancel-button" onClick={handleCancel}>
+            Cancel
+          </button>
 
           <button
             type="button"
