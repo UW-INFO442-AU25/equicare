@@ -1,10 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../../App.css";
+import ConnectPartnerModal from "./ConnectPartnerModal";
+ 
+
 
 function Profile() {
   const sectionRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+
 
   const [profileData, setProfileData] = useState({
     name: "Jane Doe",
@@ -201,9 +207,13 @@ function Profile() {
                 <div className="info-item">
                   <h3>Partner</h3>
                   <p>{partnerData.partnerName || "Not connected"}</p>
-                  <button className="orange-button connect-button">
+                  <button
+                    className="orange-button connect-button"
+                    onClick={() => setIsModalOpen(true)}
+                  >
                     <h4>Connect Partner's Account</h4>
                   </button>
+
                 </div>
 
               {isEditingPartner ? (
@@ -272,6 +282,9 @@ function Profile() {
             </section>
           </div>
         </div>
+          {isModalOpen && (
+              <ConnectPartnerModal onClose={() => setIsModalOpen(false)} />
+            )}
       </main>
 
       <footer>
