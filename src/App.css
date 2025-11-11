@@ -15,6 +15,8 @@ main {
   height: 100%;
   position: relative;
   z-index: 1;
+  flex: 1; /* pushes the footer down (esp for journal's page) */
+  
 }
 
 nav {
@@ -414,6 +416,7 @@ fix my layout for this box so it has a clean look" */
   font-family: 'Roboto', sans-serif;
   height: auto;
   margin-bottom: 0.8rem;
+  border-radius: 0;
 }
 
 .event-form input {
@@ -803,7 +806,7 @@ video/multimedia source in order for it to be under the image)*/
   background-color: #FFFAF2;
   border-radius: 5px;
   margin: 1rem;
-  width: 70vw;
+  width: 200vw;
 }
 
 .journal-page-grid {
@@ -822,12 +825,12 @@ video/multimedia source in order for it to be under the image)*/
 
 
 .recent-title {
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .recent-entries {
   margin-top: 0.5rem;
-  max-height: 300px;
+  max-height: 435px; /* affects margin height of footer */
   overflow-y: auto;
 }
 
@@ -839,7 +842,7 @@ video/multimedia source in order for it to be under the image)*/
 }
 
 .recent-date {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   opacity: 0.7;
 }
 
@@ -931,7 +934,16 @@ video/multimedia source in order for it to be under the image)*/
   color: #000;
 }
 
+.journal-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+}
+
+
 /* journal entry pop ups */
+/* Received some assistance from ChatGPT with layout formatting */
 
 .journal-modal-overlay {
   position: fixed;

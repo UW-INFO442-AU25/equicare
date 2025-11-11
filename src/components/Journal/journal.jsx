@@ -17,6 +17,7 @@ function Journal() {
 
   // view opened entry
   const [activeIndex, setActiveIndex] = useState(null);
+  
 
 
 
@@ -27,11 +28,11 @@ function Journal() {
     if (saved) setEntries(JSON.parse(saved));
     if (savedTime) setLastSaved(new Date(savedTime));
   }, []);
-  
+
 
 
   // Save entries and timestamp to localStorage when entries change BUT NOT AFTER REFRESH
-  // comment this useEffect out if want to restart recent entries
+  // uncomment this useEffect out if want to restart recent entries, and comment again to save existing entries
 
   // useEffect(() => {
   //   localStorage.setItem("journalEntries", JSON.stringify(entries));
@@ -142,7 +143,7 @@ function Journal() {
           </Link>
 
           <Link to="/Profile">
-            <button class="orange-button"><h3>Profile</h3></button>
+            <button className="orange-button"><h3>Profile</h3></button>
           </Link>
 
           <Link to="/resources">
@@ -160,7 +161,7 @@ function Journal() {
 
           {/* left side bar */}
           <aside className="journal-left">
-            <h2>Daily Journal</h2>
+            <h2> Personal Journal</h2>
 
 
 
@@ -180,8 +181,8 @@ function Journal() {
                       <strong>{entry.title}</strong>
                     </p>
                     <p className="recent-preview">
-                      {entry.text.length > 30
-                        ? entry.text.slice(0, 30) + "..."
+                      {entry.text.length > 50
+                        ? entry.text.slice(0, 50) + "..."
                         : entry.text}
                     </p>
                   </div>
@@ -252,11 +253,12 @@ function Journal() {
           </button>
 
         </div>
+        
 
         {activeIndex !== null && (
           <div className="journal-modal-overlay">
-            <div className="journal-modal">
-              <h2>Journal Entry</h2>
+            <div className="journal-modal" role="dialog" aria-modal="true" aria-labelledby="journalModalTitle">
+              <h2 id="journalModalTitle">Journal Entry</h2>
 
               <p className="journal-modal-title">
                 <strong>{entries[activeIndex].title}</strong>
