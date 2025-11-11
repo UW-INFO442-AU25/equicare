@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import "../../App.css";
 
-function ConnectPartnerModal({ onClose }) {
+function ConnectPartnerModal({ onClose, onPartnerConnect }) {
   const [partnerEmail, setPartnerEmail] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Partner invite sent to ${partnerEmail}`);
+    if (!partnerEmail) return;
+
+    // Add partner email
+    onPartnerConnect(partnerEmail);
+
+    // Clear input for next invite
+    setPartnerEmail("");
+
+    // Close modal
     onClose();
   };
 
@@ -31,14 +39,8 @@ function ConnectPartnerModal({ onClose }) {
           </div>
 
           <div className="edit-buttons">
-            <button type="submit" className="orange-button">
-              Send Invite
-            </button>
-            <button
-              type="button"
-              className="orange-button"
-              onClick={onClose}
-            >
+            <button type="submit" className="orange-button">Send Invite</button>
+            <button type="button" className="orange-button" onClick={onClose}>
               Cancel
             </button>
           </div>
