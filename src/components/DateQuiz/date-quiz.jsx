@@ -129,20 +129,20 @@ function DateQuiz() {
         </div>
 
         <div class="right-nav">
-          <Link to="/DateQuiz">
+          <Link to="/datequiz">
             <button class="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
-          <Link to="/EventCalendar">
+          <Link to="/eventcalendar">
             <button class="orange-button"><h3>Calendar</h3></button>
           </Link>
-          <Link to="/Journal">
+          <Link to="/journal">
             <button class="orange-button"><h3>Journal</h3></button>
-          </Link>
-          <Link to="/Profile">
-            <button class="orange-button"><h3>Profile</h3></button>
           </Link>
           <Link to="/resources">
             <button class="orange-button"><h3>Resources</h3></button>
+          </Link>
+          <Link to="/profile">
+            <button class="orange-button"><h3>Profile</h3></button>
           </Link>
         </div>
       </nav>

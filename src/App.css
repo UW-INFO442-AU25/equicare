@@ -15,8 +15,7 @@ main {
   height: 100%;
   position: relative;
   z-index: 1;
-  flex: 1; /* pushes the footer down (esp for journal's page) */
-  
+  flex: 1;
 }
 
 nav {
@@ -980,14 +979,14 @@ video/multimedia source in order for it to be under the image)*/
 .journal-modal-controls {
   margin-top: 2rem;
   display: flex;
-  justify-content: space-between;  
+  justify-content: space-between;
 }
 
 
 /* title formating of pop up */
 .journal-modal h2 {
   font-size: 1.8rem;
-  text-align: center; 
+  text-align: center;
   margin-bottom: 0.7rem;
 }
 

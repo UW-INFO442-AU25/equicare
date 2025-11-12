@@ -99,21 +99,21 @@ function Profile() {
           <Link to="/"><h1>EquiCare</h1></Link>
         </div>
 
-        <div className="right-nav">
-          <Link to="/DateQuiz">
-            <button className="orange-button"><h3>Date Idea Generator</h3></button>
+        <div class="right-nav">
+          <Link to="/datequiz">
+            <button class="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
-          <Link to="/EventCalendar">
-            <button className="orange-button"><h3>Calendar</h3></button>
+          <Link to="/eventcalendar">
+            <button class="orange-button"><h3>Calendar</h3></button>
           </Link>
-          <Link to="/Journal">
-            <button className="orange-button"><h3>Journal</h3></button>
-          </Link>
-          <Link to="/Profile">
-            <button className="orange-button"><h3>Profile</h3></button>
+          <Link to="/journal">
+            <button class="orange-button"><h3>Journal</h3></button>
           </Link>
           <Link to="/resources">
-            <button className="orange-button"><h3>Resources</h3></button>
+            <button class="orange-button"><h3>Resources</h3></button>
+          </Link>
+          <Link to="/profile">
+            <button class="orange-button"><h3>Profile</h3></button>
           </Link>
         </div>
       </nav>

@@ -17,7 +17,7 @@ function Journal() {
 
   // view opened entry
   const [activeIndex, setActiveIndex] = useState(null);
-  
+
 
 
 
@@ -53,27 +53,27 @@ function Journal() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!newEntry.trim() && !newTitle.trim()) return;
-  
+
     const entry = {
       id: Date.now(),
       title: newTitle || "[ Untitled ]",
       text: newEntry,
       date: new Date().toLocaleString(),
     };
-  
+
     const updatedEntries = [entry, ...entries];
-  
+
     setEntries(updatedEntries);
     setNewEntry("");
     setNewTitle("");
-  
+
     // Save to localStorage here
     localStorage.setItem("journalEntries", JSON.stringify(updatedEntries));
     const now = new Date();
     setLastSaved(now);
     localStorage.setItem("journalLastSaved", now.toISOString());
   };
-  
+
 
   // different scenarios for updating save status through minutes
   const timeAgo = (date) => {
@@ -123,39 +123,27 @@ function Journal() {
           </Link>
         </div>
 
-        <div className="right-nav">
-          <Link to="/DateQuiz">
-            <button className="orange-button">
-              <h3>Date Idea Generator</h3>
-            </button>
+        <div class="right-nav">
+          <Link to="/datequiz">
+            <button class="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
-
-          <Link to="/EventCalendar">
-            <button className="orange-button">
-              <h3>Calendar</h3>
-            </button>
+          <Link to="/eventcalendar">
+            <button class="orange-button"><h3>Calendar</h3></button>
           </Link>
-
-          <Link to="/Journal">
-            <button className="orange-button">
-              <h3>Journal</h3>
-            </button>
+          <Link to="/journal">
+            <button class="orange-button"><h3>Journal</h3></button>
           </Link>
-
-          <Link to="/Profile">
-            <button className="orange-button"><h3>Profile</h3></button>
-          </Link>
-
           <Link to="/resources">
-            <button className="orange-button">
-              <h3>Resources</h3>
-            </button>
+            <button class="orange-button"><h3>Resources</h3></button>
+          </Link>
+          <Link to="/profile">
+            <button class="orange-button"><h3>Profile</h3></button>
           </Link>
         </div>
       </nav>
 
       {/* main journal content */}
-   
+
       <main>
         <div className="journal-page-grid">
 
@@ -184,7 +172,7 @@ function Journal() {
                           ? entry.title.slice(0, entry.title.slice(0, 50).lastIndexOf(" ")) + " ..."
                           : entry.title}
                       </strong>
-                      
+
                     </p>
                     <p className="recent-preview">
                       {/* takes first 70 characters in textbox, finds the last space within that part and cleanly cuts with "..." */}
@@ -220,7 +208,7 @@ function Journal() {
                   })}
                 </p>
               </div>
-              
+
               {/* area for user to type in */}
               <textarea
                 className="entry-editor"
@@ -239,11 +227,11 @@ function Journal() {
             {/* words count */}
             {newEntry.trim().split(/\s+/).filter(Boolean).length} words
           </p>
-          
+
           {/* shows status of last changes */}
           <p>
-            {newEntry.trim() || newTitle.trim() 
-              ? "Unsaved changes..." 
+            {newEntry.trim() || newTitle.trim()
+              ? "Unsaved changes..."
               : `Last saved: ${lastSaved ? timeAgo(lastSaved) : "Never"}`}
           </p>
 
@@ -260,7 +248,7 @@ function Journal() {
           </button>
 
         </div>
-        
+
 
         {activeIndex !== null && (
           <div className="journal-modal-overlay">
