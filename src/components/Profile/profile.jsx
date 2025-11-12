@@ -1,9 +1,21 @@
 import React, { useEffect, useState, useRef } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase.js";
 import { Link } from "react-router-dom";
 import "../../App.css";
 import ConnectPartnerModal from "./ConnectPartnerModal"; // modal under profile folder
 
 function Profile() {
+  const [user, setUser] = useState(null);
+
+  // Listen for login/logout changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   const sectionRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -89,32 +101,41 @@ function Profile() {
 
   return (
     <div className="profile-page">
-      {/* NAVBAR */}
       <nav>
         <div className="brand active">
           <img
             src={`${import.meta.env.BASE_URL}logo.svg`}
             alt="baby in heart with hands"
           />
-          <Link to="/"><h1>EquiCare</h1></Link>
+          <Link to="/">
+            <h1>EquiCare</h1>
+          </Link>
         </div>
 
-        <div class="right-nav">
+        <div className="right-nav">
           <Link to="/datequiz">
-            <button class="orange-button"><h3>Date Idea Generator</h3></button>
+            <button className="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
           <Link to="/eventcalendar">
-            <button class="orange-button"><h3>Calendar</h3></button>
+            <button className="orange-button"><h3>Calendar</h3></button>
           </Link>
           <Link to="/journal">
-            <button class="orange-button"><h3>Journal</h3></button>
+            <button className="orange-button"><h3>Journal</h3></button>
           </Link>
           <Link to="/resources">
-            <button class="orange-button"><h3>Resources</h3></button>
+            <button className="orange-button"><h3>Resources</h3></button>
           </Link>
-          <Link to="/profile">
-            <button class="orange-button"><h3>Profile</h3></button>
-          </Link>
+
+          {/* Conditionally render Profile or Log In */}
+          {user ? (
+            <Link to="/profile">
+              <button className="orange-button"><h3>Profile</h3></button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button className="orange-button"><h3>Log In</h3></button>
+            </Link>
+          )}
         </div>
       </nav>
 
@@ -167,22 +188,22 @@ function Profile() {
             )}
 
             {/* Notifications Section */}
-            <section className="profile-section" 
-              style={{ 
-              marginTop: "1.5rem", 
-              minHeight: "120px",   
-              padding: "2rem",      
-              width: "100%",         
-              boxSizing: "border-box" 
-            }}
-          >
+            <section className="profile-section"
+              style={{
+                marginTop: "1.5rem",
+                minHeight: "120px",
+                padding: "2rem",
+                width: "100%",
+                boxSizing: "border-box"
+              }}
+            >
               <h2>Notifications</h2>
               <div className="info-item">
                 <p>No notifications yet.</p>
               </div>
             </section>
           </div>
-          
+
 
           {/* RIGHT */}
           <div className="profile-right">
@@ -242,26 +263,26 @@ function Profile() {
                 </button>
               </div>
 
-                {/* Pending Invites */}
-                {partnerInvites.length > 0 && (
-                  <div className="info-item">
-                    <h3>Pending Invites</h3>
-                    <ul style={{ paddingLeft: "1rem" }}>
-                      {partnerInvites.map((email, index) => (
-                        <li key={index} style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem", gap: "0.5rem" }}>
-                          <span>{email}</span>
-                          <button
-                            className="orange-button"
-                            style={{ padding: "0.25rem 0.5rem", fontSize: "0.8rem" }}
-                            onClick={() => handleCancelInvite(index)}
-                          >
-                            Cancel
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+              {/* Pending Invites */}
+              {partnerInvites.length > 0 && (
+                <div className="info-item">
+                  <h3>Pending Invites</h3>
+                  <ul style={{ paddingLeft: "1rem" }}>
+                    {partnerInvites.map((email, index) => (
+                      <li key={index} style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem", gap: "0.5rem" }}>
+                        <span>{email}</span>
+                        <button
+                          className="orange-button"
+                          style={{ padding: "0.25rem 0.5rem", fontSize: "0.8rem" }}
+                          onClick={() => handleCancelInvite(index)}
+                        >
+                          Cancel
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* Relationship Info */}
               {isEditingPartner ? (

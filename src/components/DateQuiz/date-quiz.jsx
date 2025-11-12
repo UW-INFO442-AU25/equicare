@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase.js";
 import { Link } from "react-router-dom";
 import QuestionBank from "./question-bank.js";
 import "../../App.css";
 
 function DateQuiz() {
+  const [user, setUser] = useState(null);
+
+  // Listen for login/logout changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showResult, setShowResult] = useState(false);
@@ -16,9 +28,9 @@ function DateQuiz() {
   };
 
   const handleNext = () => {
-    if(currentQuestion < QuestionBank.length - 1) {
+    if (currentQuestion < QuestionBank.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
-    }else {
+    } else {
       setShowResult(true);
     }
   };
@@ -29,8 +41,8 @@ function DateQuiz() {
     if (
       joined.includes("tired") ||
       joined.includes("no/low energy") ||
-      joined.includes ("stay in") ||
-      joined.includes ("deep conversation")
+      joined.includes("stay in") ||
+      joined.includes("deep conversation")
     ) {
       return "The Cozy Companions";
     }
@@ -100,50 +112,61 @@ function DateQuiz() {
 
   const resultDescriptions = {
     "The Cozy Companions":
-    "You’re both craving warmth, comfort, and closeness. Tonight’s about slowing down, feeling safe, and reconnecting.",
+      "You’re both craving warmth, comfort, and closeness. Tonight’s about slowing down, feeling safe, and reconnecting.",
     "The Dreamy Romantics":
-    "You’re in the mood for quiet connection and affection. Try a candlelight dinner or a cozy evening sharing dreams.",
+      "You’re in the mood for quiet connection and affection. Try a candlelight dinner or a cozy evening sharing dreams.",
     "The Playful Partners":
-    "You’re ready for fun and laughter! Think games, mocktails, or anything that makes you both smile.",
+      "You’re ready for fun and laughter! Think games, mocktails, or anything that makes you both smile.",
     "The Creative Duo":
-    "You thrive on imagination and shared projects — try painting, cooking, or creating something meaningful together.",
+      "You thrive on imagination and shared projects — try painting, cooking, or creating something meaningful together.",
     "The Gentle Explorers":
-    "You’re feeling refreshed and want to explore gently. Try a park picnic, sunset stroll, or farmers market trip.",
+      "You’re feeling refreshed and want to explore gently. Try a park picnic, sunset stroll, or farmers market trip.",
     "The Balanced Blenders":
-    "You enjoy both cozy and outgoing moments. Mix it up with dinner in followed by a sweet treat out.",
+      "You enjoy both cozy and outgoing moments. Mix it up with dinner in followed by a sweet treat out.",
     "The Comfort Seekers":
-    "You’re both in need of comfort and care. Keep it simple: a movie night, hand massages, or a calm tea ritual.",
+      "You’re both in need of comfort and care. Keep it simple: a movie night, hand massages, or a calm tea ritual.",
     "The Celebration Mood":
-    "It’s time to celebrate! Treat yourselves to a fancy dinner, staycation, or special night to honor your journey together.",
+      "It’s time to celebrate! Treat yourselves to a fancy dinner, staycation, or special night to honor your journey together.",
   };
 
   const progress = ((currentQuestion + (showResult ? 1 : 0)) / QuestionBank.length) * 100;
   return (
     <div className="date-quiz-page">
       <nav>
-        <div class="brand active">
-          <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="baby in heart with hands" />
+        <div className="brand active">
+          <img
+            src={`${import.meta.env.BASE_URL}logo.svg`}
+            alt="baby in heart with hands"
+          />
           <Link to="/">
             <h1>EquiCare</h1>
           </Link>
         </div>
 
-        <div class="right-nav">
+        <div className="right-nav">
           <Link to="/datequiz">
-            <button class="orange-button"><h3>Date Idea Generator</h3></button>
+            <button className="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
           <Link to="/eventcalendar">
-            <button class="orange-button"><h3>Calendar</h3></button>
+            <button className="orange-button"><h3>Calendar</h3></button>
           </Link>
           <Link to="/journal">
-            <button class="orange-button"><h3>Journal</h3></button>
+            <button className="orange-button"><h3>Journal</h3></button>
           </Link>
           <Link to="/resources">
-            <button class="orange-button"><h3>Resources</h3></button>
+            <button className="orange-button"><h3>Resources</h3></button>
           </Link>
-          <Link to="/profile">
-            <button class="orange-button"><h3>Profile</h3></button>
-          </Link>
+
+          {/* Conditionally render Profile or Log In */}
+          {user ? (
+            <Link to="/profile">
+              <button className="orange-button"><h3>Profile</h3></button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button className="orange-button"><h3>Log In</h3></button>
+            </Link>
+          )}
         </div>
       </nav>
 

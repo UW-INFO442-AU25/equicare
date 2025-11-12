@@ -3,13 +3,25 @@ how to upload and image (perplexity search) - https://www.geeksforgeeks.org/reac
 how to preview files in react (perplexity search) - https://blog.logrocket.com/using-filereader-api-preview-images-react/
 */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase.js";
 import { Link } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../App.css";
 
 function EventCalendar() {
+  const [user, setUser] = useState(null);
+
+  // Listen for login/logout changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [events, setEvents] = useState([]);
   const [eventTitle, setEventTitle] = useState("");
@@ -52,26 +64,39 @@ function EventCalendar() {
     <div>
       <nav>
         <div className="brand active">
-          <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="baby in heart with hands" />
-          <Link to="/"><h1>EquiCare</h1></Link>
+          <img
+            src={`${import.meta.env.BASE_URL}logo.svg`}
+            alt="baby in heart with hands"
+          />
+          <Link to="/">
+            <h1>EquiCare</h1>
+          </Link>
         </div>
 
-        <div class="right-nav">
+        <div className="right-nav">
           <Link to="/datequiz">
-            <button class="orange-button"><h3>Date Idea Generator</h3></button>
+            <button className="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
           <Link to="/eventcalendar">
-            <button class="orange-button"><h3>Calendar</h3></button>
+            <button className="orange-button"><h3>Calendar</h3></button>
           </Link>
           <Link to="/journal">
-            <button class="orange-button"><h3>Journal</h3></button>
+            <button className="orange-button"><h3>Journal</h3></button>
           </Link>
           <Link to="/resources">
-            <button class="orange-button"><h3>Resources</h3></button>
+            <button className="orange-button"><h3>Resources</h3></button>
           </Link>
-          <Link to="/profile">
-            <button class="orange-button"><h3>Profile</h3></button>
-          </Link>
+
+          {/* Conditionally render Profile or Log In */}
+          {user ? (
+            <Link to="/profile">
+              <button className="orange-button"><h3>Profile</h3></button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button className="orange-button"><h3>Log In</h3></button>
+            </Link>
+          )}
         </div>
       </nav>
       <main>
