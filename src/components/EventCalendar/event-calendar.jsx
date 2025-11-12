@@ -55,12 +55,23 @@ function EventCalendar() {
           <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="baby in heart with hands" />
           <Link to="/"><h1>EquiCare</h1></Link>
         </div>
-        <div className="right-nav">
-          <Link to="/DateQuiz"><button className="orange-button"><h3>Date Idea Generator</h3></button></Link>
-          <Link to="/EventCalendar"><button className="orange-button"><h3>Calendar</h3></button></Link>
-          <Link to="/Journal"><button className="orange-button"><h3>Journal</h3></button></Link>
-          <Link to="/Profile"><button className="orange-button"><h3>Profile</h3></button></Link>
-          <Link to="/resources"><button className="orange-button"><h3>Resources</h3></button></Link>
+
+        <div class="right-nav">
+          <Link to="/datequiz">
+            <button class="orange-button"><h3>Date Idea Generator</h3></button>
+          </Link>
+          <Link to="/eventcalendar">
+            <button class="orange-button"><h3>Calendar</h3></button>
+          </Link>
+          <Link to="/journal">
+            <button class="orange-button"><h3>Journal</h3></button>
+          </Link>
+          <Link to="/resources">
+            <button class="orange-button"><h3>Resources</h3></button>
+          </Link>
+          <Link to="/profile">
+            <button class="orange-button"><h3>Profile</h3></button>
+          </Link>
         </div>
       </nav>
       <main>
@@ -105,7 +116,7 @@ function EventCalendar() {
                 accept="image/*"
                 onChange={handleImageChange}
               />
-              {eventImageURL && <img src={eventImageURL} alt="Preview"/>}
+              {eventImageURL && <img src={eventImageURL} alt="Preview" />}
               <button type="submit">
                 Add Event to Calendar
               </button>

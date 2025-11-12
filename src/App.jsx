@@ -1,14 +1,11 @@
 // import { useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link, Routes, Route } from "react-router-dom";
 import React, { Component } from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
-
-
 
 function App() {
   return (
-    <body>
+    <div>
       <nav>
         <div class="brand active">
           <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="baby in heart with hands" />
@@ -18,22 +15,21 @@ function App() {
         </div>
 
         <div class="right-nav">
-          <Link to="/DateQuiz">
+          <Link to="/datequiz">
             <button class="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
-          <Link to="/EventCalendar">
+          <Link to="/eventcalendar">
             <button class="orange-button"><h3>Calendar</h3></button>
           </Link>
-          <Link to="/Journal">
+          <Link to="/journal">
             <button class="orange-button"><h3>Journal</h3></button>
-          </Link>
-          <Link to="/Profile">
-            <button class="orange-button"><h3>Profile</h3></button>
           </Link>
           <Link to="/resources">
             <button class="orange-button"><h3>Resources</h3></button>
           </Link>
-
+          <Link to="/profile">
+            <button class="orange-button"><h3>Profile</h3></button>
+          </Link>
         </div>
       </nav>
 
@@ -63,7 +59,7 @@ function App() {
           </em>
         </p>
       </footer>
-    </body>
+    </div>
   );
 }
 
