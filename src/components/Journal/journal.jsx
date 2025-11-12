@@ -178,11 +178,18 @@ function Journal() {
                   >
                     <p className="recent-date">{entry.date}</p>
                     <p className="recent-title-text">
-                      <strong>{entry.title}</strong>
+                      <strong>
+                      {/* takes first 50 characters in title, finds the last space within that part and cleanly cuts with "..." */}
+                        {entry.title.length > 50
+                          ? entry.title.slice(0, entry.title.slice(0, 50).lastIndexOf(" ")) + " ..."
+                          : entry.title}
+                      </strong>
+                      
                     </p>
                     <p className="recent-preview">
-                      {entry.text.length > 50
-                        ? entry.text.slice(0, 50) + "..."
+                      {/* takes first 70 characters in textbox, finds the last space within that part and cleanly cuts with "..." */}
+                      {entry.text.length > 70
+                        ? entry.text.slice(0, entry.text.slice(0, 70).lastIndexOf(" ") + 1 || 70) + "..."
                         : entry.text}
                     </p>
                   </div>
