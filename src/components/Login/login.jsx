@@ -1,10 +1,21 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase.js";
 import "../../App.css";
 
 function Login() {
+  const [user, setUser] = useState(null);
+
+  // Listen for login/logout changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -50,12 +61,20 @@ function Login() {
           <Link to="/journal">
             <button className="orange-button"><h3>Journal</h3></button>
           </Link>
-          <Link to="/profile">
-            <button className="orange-button"><h3>Profile</h3></button>
-          </Link>
           <Link to="/resources">
             <button className="orange-button"><h3>Resources</h3></button>
           </Link>
+
+          {/* Conditionally render Profile or Log In */}
+          {user ? (
+            <Link to="/profile">
+              <button className="orange-button"><h3>Profile</h3></button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button className="orange-button"><h3>Log In</h3></button>
+            </Link>
+          )}
         </div>
       </nav>
 

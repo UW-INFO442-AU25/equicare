@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase.js";
 import { Link } from "react-router-dom";
 import { addJournalEntry } from "../../db.js";
 import "../../App.css";
 
 function Journal() {
+  const [user, setUser] = useState(null);
+
+  // Listen for login/logout changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   const [entries, setEntries] = useState([]);
   const [newEntry, setNewEntry] = useState("");
   const [newTitle, setNewTitle] = useState("");
@@ -123,22 +135,30 @@ function Journal() {
           </Link>
         </div>
 
-        <div class="right-nav">
+        <div className="right-nav">
           <Link to="/datequiz">
-            <button class="orange-button"><h3>Date Idea Generator</h3></button>
+            <button className="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
           <Link to="/eventcalendar">
-            <button class="orange-button"><h3>Calendar</h3></button>
+            <button className="orange-button"><h3>Calendar</h3></button>
           </Link>
           <Link to="/journal">
-            <button class="orange-button"><h3>Journal</h3></button>
+            <button className="orange-button"><h3>Journal</h3></button>
           </Link>
           <Link to="/resources">
-            <button class="orange-button"><h3>Resources</h3></button>
+            <button className="orange-button"><h3>Resources</h3></button>
           </Link>
-          <Link to="/profile">
-            <button class="orange-button"><h3>Profile</h3></button>
-          </Link>
+
+          {/* Conditionally render Profile or Log In */}
+          {user ? (
+            <Link to="/profile">
+              <button className="orange-button"><h3>Profile</h3></button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button className="orange-button"><h3>Log In</h3></button>
+            </Link>
+          )}
         </div>
       </nav>
 
@@ -167,7 +187,7 @@ function Journal() {
                     <p className="recent-date">{entry.date}</p>
                     <p className="recent-title-text">
                       <strong>
-                      {/* takes first 50 characters in title, finds the last space within that part and cleanly cuts with "..." */}
+                        {/* takes first 50 characters in title, finds the last space within that part and cleanly cuts with "..." */}
                         {entry.title.length > 50
                           ? entry.title.slice(0, entry.title.slice(0, 50).lastIndexOf(" ")) + " ..."
                           : entry.title}

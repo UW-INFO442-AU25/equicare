@@ -1,35 +1,57 @@
-// import { useState } from 'react'
+import React, { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase.js";
 import { Link, Routes, Route } from "react-router-dom";
-import React, { Component } from "react";
 import "./App.css";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  // Listen for login/logout changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div>
       <nav>
-        <div class="brand active">
-          <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="baby in heart with hands" />
+        <div className="brand active">
+          <img
+            src={`${import.meta.env.BASE_URL}logo.svg`}
+            alt="baby in heart with hands"
+          />
           <Link to="/">
             <h1>EquiCare</h1>
           </Link>
         </div>
 
-        <div class="right-nav">
+        <div className="right-nav">
           <Link to="/datequiz">
-            <button class="orange-button"><h3>Date Idea Generator</h3></button>
+            <button className="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
           <Link to="/eventcalendar">
-            <button class="orange-button"><h3>Calendar</h3></button>
+            <button className="orange-button"><h3>Calendar</h3></button>
           </Link>
           <Link to="/journal">
-            <button class="orange-button"><h3>Journal</h3></button>
+            <button className="orange-button"><h3>Journal</h3></button>
           </Link>
           <Link to="/resources">
-            <button class="orange-button"><h3>Resources</h3></button>
+            <button className="orange-button"><h3>Resources</h3></button>
           </Link>
-          <Link to="/profile">
-            <button class="orange-button"><h3>Profile</h3></button>
-          </Link>
+
+          {/* Conditionally render Profile or Log In */}
+          {user ? (
+            <Link to="/profile">
+              <button className="orange-button"><h3>Profile</h3></button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button className="orange-button"><h3>Log In</h3></button>
+            </Link>
+          )}
         </div>
       </nav>
 

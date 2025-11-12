@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase.js";
 import { Link } from "react-router-dom";
 
 /* All the Resource links were obtained from perplexity AI - with the prompt: Give me 5-8 links that are useful for
@@ -41,34 +43,56 @@ const resources = [
 // Link above used to insert multimedia component
 
 export default function Resources() {
+  const [user, setUser] = useState(null);
+
+  // Listen for login/logout changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
     <body>
       <nav>
         <div className="brand active">
-          <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="baby in heart with hands" />
+          <img
+            src={`${import.meta.env.BASE_URL}logo.svg`}
+            alt="baby in heart with hands"
+          />
           <Link to="/">
             <h1>EquiCare</h1>
           </Link>
         </div>
 
-        <div class="right-nav">
+        <div className="right-nav">
           <Link to="/datequiz">
-            <button class="orange-button"><h3>Date Idea Generator</h3></button>
+            <button className="orange-button"><h3>Date Idea Generator</h3></button>
           </Link>
           <Link to="/eventcalendar">
-            <button class="orange-button"><h3>Calendar</h3></button>
+            <button className="orange-button"><h3>Calendar</h3></button>
           </Link>
           <Link to="/journal">
-            <button class="orange-button"><h3>Journal</h3></button>
+            <button className="orange-button"><h3>Journal</h3></button>
           </Link>
           <Link to="/resources">
-            <button class="orange-button"><h3>Resources</h3></button>
+            <button className="orange-button"><h3>Resources</h3></button>
           </Link>
-          <Link to="/profile">
-            <button class="orange-button"><h3>Profile</h3></button>
-          </Link>
+
+          {/* Conditionally render Profile or Log In */}
+          {user ? (
+            <Link to="/profile">
+              <button className="orange-button"><h3>Profile</h3></button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button className="orange-button"><h3>Log In</h3></button>
+            </Link>
+          )}
         </div>
       </nav>
+
       <main>
         <div className="resources-background">
           <div className="resources-wrapper">
@@ -99,13 +123,13 @@ export default function Resources() {
             </div>
             <div className="resources-image-section">
               <img src="/equicare/holding-hands.jpg" alt="Couple holding baby shoes" className="resources-image" />
-              <div style={{marginTop: "20px", textAlign: "center"}}>
+              <div style={{ marginTop: "20px", textAlign: "center" }}>
                 <h2> Relationship Advice for Expecting Parents </h2>
                 <iframe
-                  width = "360"
-                  height = "220"
-                  src = "https://www.youtube.com/embed/14S4zBmsM0w"
-                  title = "Youtube Video"
+                  width="360"
+                  height="220"
+                  src="https://www.youtube.com/embed/14S4zBmsM0w"
+                  title="Youtube Video"
                   allowFullScreen>
                 </iframe>
               </div>
