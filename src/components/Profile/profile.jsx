@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../../App.css";
+import ConnectPartnerModal from "./ConnectPartnerModal"; // modal under profile folder
 
 function Profile() {
   const sectionRef = useRef(null);
@@ -14,15 +15,31 @@ function Profile() {
     partner: "Not connected",
   });
 
+  const [partnerData, setPartnerData] = useState({ partnerName: "" });
+
+  const [isEditingPartner, setIsEditingPartner] = useState(false);
+  const [relationshipData, setRelationshipData] = useState({
+    relationshipStatus: "",
+    anniversaryDate: "",
+    notes: "",
+  });
+
+  const [partnerInvites, setPartnerInvites] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  // Load saved data
   useEffect(() => {
-    const savedData = localStorage.getItem("profileData");
-    if (savedData) setProfileData(JSON.parse(savedData));
+    const savedProfile = localStorage.getItem("profileData");
+    if (savedProfile) setProfileData(JSON.parse(savedProfile));
+
+    const savedRelationship = localStorage.getItem("relationshipData");
+    if (savedRelationship) setRelationshipData(JSON.parse(savedRelationship));
+
+    const savedInvites = localStorage.getItem("partnerInvites");
+    if (savedInvites) setPartnerInvites(JSON.parse(savedInvites));
   }, []);
 
-  const scrollToSection = () => {
-    sectionRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-
+  // Profile input handlers
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProfileData((prev) => ({ ...prev, [name]: value }));
@@ -40,23 +57,7 @@ function Profile() {
     setIsEditing(false);
   };
 
-  const [partnerData, setPartnerData] = useState({
-    partnerName: "", // later this will come from the connected partner’s account
-  });
-
-    const [isEditingPartner, setIsEditingPartner] = useState(false);
-    const [relationshipData, setRelationshipData] = useState({
-    relationshipStatus: "",
-    anniversaryDate: "",
-    notes: "",
-  });
-
-  // Load from localStorage (temporary for static setup)
-  useEffect(() => {
-    const savedRelationship = localStorage.getItem("relationshipData");
-    if (savedRelationship) setRelationshipData(JSON.parse(savedRelationship));
-  }, []);
-
+  // Relationship handlers
   const handleRelationshipChange = (e) => {
     const { name, value } = e.target;
     setRelationshipData((prev) => ({ ...prev, [name]: value }));
@@ -73,6 +74,19 @@ function Profile() {
     setIsEditingPartner(false);
   };
 
+  // Partner invite handlers
+  const handlePartnerConnect = (email) => {
+    const updatedInvites = [...partnerInvites, email];
+    setPartnerInvites(updatedInvites);
+    localStorage.setItem("partnerInvites", JSON.stringify(updatedInvites));
+  };
+
+  const handleCancelInvite = (index) => {
+    const updated = partnerInvites.filter((_, i) => i !== index);
+    setPartnerInvites(updated);
+    localStorage.setItem("partnerInvites", JSON.stringify(updated));
+  };
+
   return (
     <div className="profile-page">
       {/* NAVBAR */}
@@ -82,9 +96,7 @@ function Profile() {
             src={`${import.meta.env.BASE_URL}logo.svg`}
             alt="baby in heart with hands"
           />
-          <Link to="/">
-            <h1>EquiCare</h1>
-          </Link>
+          <Link to="/"><h1>EquiCare</h1></Link>
         </div>
 
         <div className="right-nav">
@@ -153,10 +165,28 @@ function Profile() {
                 </button>
               </div>
             )}
+
+            {/* Notifications Section */}
+            <section className="profile-section" 
+              style={{ 
+              marginTop: "1.5rem", 
+              minHeight: "120px",   
+              padding: "2rem",      
+              width: "100%",         
+              boxSizing: "border-box" 
+            }}
+          >
+              <h2>Notifications</h2>
+              <div className="info-item">
+                <p>No notifications yet.</p>
+              </div>
+            </section>
           </div>
+          
 
           {/* RIGHT */}
           <div className="profile-right">
+            {/* Pregnancy Info */}
             <section className="profile-section">
               <h2>Pregnancy Info</h2>
               {isEditing ? (
@@ -196,16 +226,44 @@ function Profile() {
               )}
             </section>
 
+            {/* Partner Info */}
             <section className="profile-section">
               <h2>Partner Info</h2>
-                <div className="info-item">
-                  <h3>Partner</h3>
-                  <p>{partnerData.partnerName || "Not connected"}</p>
-                  <button className="orange-button connect-button">
-                    <h4>Connect Partner's Account</h4>
-                  </button>
-                </div>
 
+              {/* Partner connection */}
+              <div className="info-item">
+                <h3>Partner</h3>
+                <p>{partnerData.partnerName || "Not connected"}</p>
+                <button
+                  className="orange-button connect-button"
+                  onClick={() => setShowModal(true)}
+                >
+                  Connect Partner’s Account
+                </button>
+              </div>
+
+                {/* Pending Invites */}
+                {partnerInvites.length > 0 && (
+                  <div className="info-item">
+                    <h3>Pending Invites</h3>
+                    <ul style={{ paddingLeft: "1rem" }}>
+                      {partnerInvites.map((email, index) => (
+                        <li key={index} style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem", gap: "0.5rem" }}>
+                          <span>{email}</span>
+                          <button
+                            className="orange-button"
+                            style={{ padding: "0.25rem 0.5rem", fontSize: "0.8rem" }}
+                            onClick={() => handleCancelInvite(index)}
+                          >
+                            Cancel
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+              {/* Relationship Info */}
               {isEditingPartner ? (
                 <div className="info-item">
                   <label>
@@ -260,7 +318,6 @@ function Profile() {
                   <p><strong>Relationship:</strong> {relationshipData.relationshipStatus || "Not set"}</p>
                   <p><strong>Anniversary:</strong> {relationshipData.anniversaryDate || "Not added"}</p>
                   <p><strong>Notes:</strong> {relationshipData.notes || "No notes yet"}</p>
-
                   <button
                     className="orange-button connect-button"
                     onClick={() => setIsEditingPartner(true)}
@@ -273,6 +330,14 @@ function Profile() {
           </div>
         </div>
       </main>
+
+      {/* Connect Partner Modal */}
+      {showModal && (
+        <ConnectPartnerModal
+          onClose={() => setShowModal(false)}
+          onPartnerConnect={handlePartnerConnect}
+        />
+      )}
 
       <footer>
         <p><em>&copy; {new Date().getFullYear()} EquiCare</em></p>
