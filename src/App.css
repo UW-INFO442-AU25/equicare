@@ -866,11 +866,13 @@ video/multimedia source in order for it to be under the image)*/
 }
 
 .entry-title-input {
-  width: 60%;
-  padding: 0.5rem;
+  width: 70%;
+  padding: 0.75rem;
   background: #f2f2f2;
   border: none;
   border-radius: 6px;
+  font-size: 19px;
+  font-weight: 500;
 }
 
 .journal-date-display {
@@ -961,18 +963,33 @@ video/multimedia source in order for it to be under the image)*/
 .journal-modal {
   background: white;
   border-radius: 12px;
-  padding: 24px;
+  padding: 34px;
   width: 500px;
   max-width: 90%;
   box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
 }
 
+/* pop up formating for three buttons: previous, close, next */
+.journal-modal-controls button {
+  border-radius: 7px;
+  font-size: 1rem;
+  padding: 0.6rem 1.8rem;
+  border: none;
+  cursor: pointer;
+}
 .journal-modal-controls {
-  margin-top: 20px;
+  margin-top: 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between;  
 }
 
+
+/* title formating of pop up */
+.journal-modal h2 {
+  font-size: 1.8rem;
+  text-align: center; 
+  margin-bottom: 0.7rem;
+}
 
 
 

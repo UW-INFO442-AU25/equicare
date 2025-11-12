@@ -269,8 +269,8 @@ function Journal() {
 
               <div className="journal-modal-controls">
                 <button onClick={showPrev}>Previous</button>
-                <button onClick={showNext}>Next</button>
                 <button onClick={closeEntry}>Close</button>
+                <button onClick={showNext}>Next</button>
               </div>
             </div>
           </div>
