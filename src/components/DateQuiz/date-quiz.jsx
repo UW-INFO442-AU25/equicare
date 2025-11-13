@@ -112,7 +112,7 @@ function DateQuiz() {
 
   const resultDescriptions = {
     "The Cozy Companions":
-      "You’re both craving warmth, comfort, and closeness. Tonight’s about slowing down, feeling safe, and reconnecting.",
+      "You’re craving warmth, comfort, and closeness. Tonight’s about slowing down, feeling safe, and reconnecting. Try a movie marathon, pajama night, or a guided mediation session.",
     "The Dreamy Romantics":
       "You’re in the mood for quiet connection and affection. Try a candlelight dinner or a cozy evening sharing dreams.",
     "The Playful Partners":
@@ -130,6 +130,53 @@ function DateQuiz() {
   };
 
   const progress = ((currentQuestion + (showResult ? 1 : 0)) / QuestionBank.length) * 100;
+  
+  const getDateIdeas = (resultType) => {
+    const ideas = {
+      "The Cozy Companions": [
+        { title: "Movie Marathon", image: "./cozy1.png" },
+        { title: "Meditation Session", image: "./cozy2.png" },
+        { title: "Breakfast for Dinner", image: "./cozy3.png" },
+      ],
+      "The Dreamy Romantics": [
+        { title: "Stargazing", image: "./romantic1.png" },
+        { title: "Candlelight Dinner", image: "./romantic2.png" },
+        { title: "Love Letter Exchange", image: "./romantic3.png" },
+      ],
+      "The Playful Partners": [
+        { title: "Board Game Night", image: "./playful1.png" },
+        { title: "Mocktail Mix-Off", image: "./playful2.png" },
+        { title: "Karaoke Battle", image: "./playful3.png" },
+      ],
+      "The Creative Duo": [
+        { title: "Paint Night", image: "./creative1.png" },
+        { title: "DIY Photo Album", image: "./creative2.png" },
+        { title: "Baking/Cooking Challenge", image: "./creative3.png" },
+      ],
+      "The Gentle Explorers": [
+        { title: "Picnic in the Park", image: "./gentle1.png" },
+        { title: "Drive-In Movie", image: "./gentle2.png" },
+        { title: "Going for a Walk", image: "./gentle3.jpg" },
+      ],
+      "The Balanced Blenders": [
+        { title: "Game Night with late night treats", image: "./balanced1.jpg" },
+        { title: "Homemade dinner and short scenic drives ", image: "./balanced2.png" },
+        { title: "Cook together, then take evening walk", image: "./balanced3.png" },
+      ],
+      "The Comfort Seekers": [
+        { title: "Spa Night", image: "./comfort1.jpg" },
+        { title: "Order-in dinner and favorite show ", image: "./comfort2.png" },
+        { title: "Cosy tea and talk night", image: "./comfort3.png" },
+      ],
+      "The Celebration Mood": [
+        { title: "Fancy dinner out", image: "./celebrate1.png" },
+        { title: "Staycation hotel night", image: "./celebrate2.png" },
+        { title: "Dress up for a date-in restaurant experience", image: "./celebrate3.png" },
+      ],
+    };
+    return ideas[resultType] || [];
+  };
+  
   return (
     <div className="date-quiz-page">
       <nav>
@@ -209,6 +256,19 @@ function DateQuiz() {
           <div className="quiz-result">
             <h2>{result}</h2>
             <p>{resultDescriptions[result]}</p>
+
+            <div className="carousel">
+              {getDateIdeas(result).map((idea, index) => (
+                <div className="carousel-card" key={index}>
+                  <img src={idea.image} alt={idea.title} />
+                  <h4>{idea.title}</h4>
+                </div>
+              ))}
+            </div>
+
+            <Link to="/dateideas">
+              <button className="orange-button explore-button">Explore More</button>
+            </Link>
 
             <button
               className="orange-button"
