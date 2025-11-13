@@ -19,6 +19,7 @@ function DateQuiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showResult, setShowResult] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handleAnswer = (answer) => {
     const newAnswers = [...answers];
@@ -134,9 +135,9 @@ function DateQuiz() {
   const getDateIdeas = (resultType) => {
     const ideas = {
       "The Cozy Companions": [
-        { title: "Movie Marathon", image: "./cosy1.png" },
-        { title: "Meditation Session", image: "./cosy2.png" },
-        { title: "Breakfast for Dinner", image: "./cosy3.png" },
+        { title: "Movie Marathon", image: "./cozy1.png" },
+        { title: "Meditation Session", image: "./cozy2.png" },
+        { title: "Breakfast for Dinner", image: "./cozy3.png" },
       ],
       "The Dreamy Romantics": [
         { title: "Stargazing", image: "./romantic1.png" },
@@ -257,13 +258,49 @@ function DateQuiz() {
             <h2>{result}</h2>
             <p>{resultDescriptions[result]}</p>
 
-            <div className="carousel">
-              {getDateIdeas(result).map((idea, index) => (
-                <div className="carousel-card" key={index}>
-                  <img src={idea.image} alt={idea.title} />
-                  <h4>{idea.title}</h4>
-                </div>
-              ))}
+            <div className="carousel-wrapper">
+              <button 
+                className="carousel-arrow left" 
+                onClick={() => 
+                  setActiveIndex((prev) => 
+                    (prev - 1 + getDateIdeas(result).length) % getDateIdeas(result).length
+                  )
+                }
+              >
+                &#8249;
+              </button>
+
+              <div className="carousel">
+                {getDateIdeas(result).map((idea, index) => {
+                  // Calculate circular position for smooth wrapping
+                  const total = getDateIdeas(result).length;
+                  const position = (index - activeIndex + total) % total;
+
+                  // Determine class based on relative position
+                  let className = "carousel-card";
+                  if (position === 0) className += " active";
+                  else if (position === 1 || position === total - 1)
+                    className += " side-card";
+
+                  return (
+                    <div className={className} key={index}>
+                      <img src={idea.image} alt={idea.title} />
+                      <h4>{idea.title}</h4>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <button
+                className="carousel-arrow right"
+                onClick={() =>
+                  setActiveIndex((prev) =>
+                    (prev + 1) % getDateIdeas(result).length
+                  )
+                }
+              >
+                &#8250;
+              </button>
             </div>
 
             <div className="quiz-buttons">
