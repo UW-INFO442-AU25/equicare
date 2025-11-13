@@ -304,6 +304,7 @@ to look like these Figma wireframes (included a screenshot of a sample question 
 
 .quiz-buttons .orange-button {
   margin: 0; 
+  cursor: pointer;
 }
 
 
