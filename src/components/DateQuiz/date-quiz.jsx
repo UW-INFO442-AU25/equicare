@@ -124,7 +124,7 @@ function DateQuiz() {
     "The Balanced Blenders":
       "You enjoy both cozy and outgoing moments. Mix it up with dinner in followed by a sweet treat out.",
     "The Comfort Seekers":
-      "You’re both in need of comfort and care. Keep it simple: a movie night, hand massages, or a calm tea ritual.",
+      "You’re in need of comfort and care. Keep it simple: a movie night, hand massages, or a calm tea ritual.",
     "The Celebration Mood":
       "It’s time to celebrate! Treat yourselves to a fancy dinner, staycation, or special night to honor your journey together.",
   };
@@ -134,9 +134,9 @@ function DateQuiz() {
   const getDateIdeas = (resultType) => {
     const ideas = {
       "The Cozy Companions": [
-        { title: "Movie Marathon", image: "./cozy1.png" },
-        { title: "Meditation Session", image: "./cozy2.png" },
-        { title: "Breakfast for Dinner", image: "./cozy3.png" },
+        { title: "Movie Marathon", image: "./cosy1.png" },
+        { title: "Meditation Session", image: "./cosy2.png" },
+        { title: "Breakfast for Dinner", image: "./cosy3.png" },
       ],
       "The Dreamy Romantics": [
         { title: "Stargazing", image: "./romantic1.png" },
@@ -266,20 +266,22 @@ function DateQuiz() {
               ))}
             </div>
 
-            <Link to="/dateideas">
-              <button className="orange-button explore-button">Explore More</button>
-            </Link>
+            <div className="quiz-buttons">
+              <Link to="/dateideas">
+                <button className="orange-button">Explore More Date Ideas</button>
+              </Link>
 
-            <button
-              className="orange-button"
-              onClick={() => {
-                setCurrentQuestion(0);
-                setAnswers([]);
-                setShowResult(false);
-              }}
-            >
-              Restart Quiz
-            </button>
+              <button
+                className="orange-button"
+                onClick={() => {
+                  setCurrentQuestion(0);
+                  setAnswers([]);
+                  setShowResult(false);
+                }}
+              >
+                Restart Quiz
+              </button>
+            </div>
           </div>
         )}
       </main>
