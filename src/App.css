@@ -200,6 +200,7 @@ footer p {
   box-shadow: 0 2px 6px rgba(51,81,72,0.10);
   font-weight: 600;
   letter-spacing: 0.2px;
+  cursor: pointer;
 }
 .quiz-button:hover {
   background-color: #6b866a;
