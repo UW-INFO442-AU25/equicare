@@ -146,6 +146,11 @@ function EventCalendar() {
                 Add Event to Calendar
               </button>
             </form>
+
+            <div className="calendar-description">
+              <strong>How to use the Calendar:</strong><br />
+              Use this calendar to keep track of important dates, milestones, and appointments. Select a date, enter a name, choose your event date, and (optionally) upload an image. Click "Add Event to Calendar" to save it. Your events for the selected day will appear in the calendar for quick reference!
+              </div>
           </div>
         </div>
       </main>

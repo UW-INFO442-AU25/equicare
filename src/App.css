@@ -130,7 +130,6 @@ footer p {
   flex-direction: column;
   align-items: center;
   flex: 1;
-  z-index: 1;
 }
 
 .brand-title {
@@ -208,7 +207,6 @@ footer p {
 
 .bubble-bg {
   position: absolute;
-  z-index: 1;
 }
 
 .bubble-left {
@@ -706,6 +704,16 @@ fix my layout for this box so it has a clean look" */
   color: #111734;
   font-family: 'Roboto', sans-serif;
   width: 100%;
+}
+
+.calendar-description {
+  margin-top: 1.5rem;
+  background: #f9f7f3;
+  border-radius: 8px;
+  padding: 1rem 1.3rem;
+  font-size: 1.06rem;
+  color: #232539;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 /* .event-form input[type="date"]::-webkit-datetime-edit,

@@ -58,7 +58,7 @@ function App() {
             <div className="brand-title">
               <h1 className="brand-name">EquiCare</h1>
             </div>
-            <h2 className="hero-headline">
+            <h2 className="main-headline">
               Navigating pregnancy and partnership, made simple.
             </h2>
             <div className="mission-card">
