@@ -29,9 +29,6 @@ function App() {
         </div>
 
         <div className="right-nav">
-          <Link to="/datequiz">
-            <button className="orange-button"><h3>Date Idea Generator</h3></button>
-          </Link>
           <Link to="/eventcalendar">
             <button className="orange-button"><h3>Calendar</h3></button>
           </Link>
@@ -71,7 +68,7 @@ function App() {
                 </p>
               </div>
               <Link to="/datequiz" className="quiz-button-div">
-                <button className="quiz-button">Take quiz</button>
+                <button className="quiz-button">Date Idea Generator</button>
               </Link>
             </div>
             <div className="bubble-bg bubble-left">
