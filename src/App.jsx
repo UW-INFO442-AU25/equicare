@@ -56,23 +56,33 @@ function App() {
       </nav>
 
       <main>
-        <div id="home-details">
-          <div id="home-text">
-            <h1>Navigating pregnancy and partnership, made simple.</h1>
-            <p>
-              Parenthood is a journey meant to be shared.
-              From personalized date nights, shared calendars, to journal check-ins,
-              EquiCare is here to help you and your partner communicate, grow,
-              and care for each other through every stage of pregnancy and beyond.
-            </p>
+        <div className="mainpage">
+          <div className="main-content">
+            <div className="brand-title">
+              <h1 className="brand-name">EquiCare</h1>
+            </div>
+            <h2 className="hero-headline">
+              Navigating pregnancy and partnership, made simple.
+            </h2>
+            <div className="mission-card">
+              <h3>Our Mission</h3>
+              <p>
+                Parenthood is a journey meant to be shared. From personalized date nights, shared calendars, to journal check-ins, EquiCare is here to help you and your partner communicate, grow, and care for each other through every stage of pregnancy and beyond.
+                </p>
+              </div>
+              <Link to="/datequiz" className="quiz-button-div">
+                <button className="quiz-button">Take quiz</button>
+              </Link>
+            </div>
+            <div className="bubble-bg bubble-left">
+              <img src="./bubbles.png" alt="bubbles" className="bubbles-image" />
+            </div>
+            <div className="bubble-bg bubble-right">
+              <img src="./bubbles.png" alt="bubbles" className="bubbles-image mirror" />
+              </div>
           </div>
-          <img src="./bubbles.png" alt="bubbles" />
-        </div>
-        <Link class="quiz-button-div" to="/DateQuiz">
-          <button class="quiz-button"><h3>Take the Quiz</h3></button>
-        </Link>
-
-      </main>
+        </main>
+      
 
       <footer id="home-footer">
         <p>

@@ -115,6 +115,176 @@ footer p {
 }
 
 /* App.jsx */
+.mainpage {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background: #fffaef;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  z-index: 1;
+}
+
+.brand-title {
+  margin-bottom: 0.3em;
+}
+.brand-name {
+  font-family: 'Abhaya Libre', serif;
+  font-size: 80px;
+  color: #5B7558;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin-bottom: -0.25em;
+}
+
+.main-headline {
+  font-family: 'Abhaya Libre', serif;
+  font-size: 33px;
+  color: #5B7558;
+  text-align: center;
+  margin-bottom: 1em;
+  margin-top: 0;
+}
+
+.mission-card {
+  background: #111734;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(51,81,72,0.07);
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto 1em auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.2em 2em 2.2em 2em;
+}
+
+.mission-card h3 {
+  font-family: 'Abhaya Libre', serif;
+  font-size: 28px;
+  color: #fffaf2;
+  margin-bottom: 0.5em;  
+  margin-top: 0;
+}
+
+.mission-card p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  color: #fffaf2;
+  line-height: 1.35;
+  margin: 0; 
+  text-align: center;
+  width: 100%;
+}
+
+.quiz-button-div {
+  margin: 1.9em auto 0 auto;
+  text-align: center;
+  width: fit-content;
+}
+.quiz-button {
+  background-color: #5B7558;
+  border-radius: 8px;
+  font-size: 24px;
+  padding: 0.8em 3.2em;
+  color: #FFFAF2;
+  border: none;
+  box-shadow: 0 2px 6px rgba(51,81,72,0.10);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.quiz-button:hover {
+  background-color: #6b866a;
+}
+
+.bubble-bg {
+  position: absolute;
+  z-index: 1;
+}
+
+.bubble-left {
+  left: 0;
+  bottom: 120px;
+  width: 450px;
+}
+
+.bubble-right {
+  right: 0;
+  bottom: 120px; 
+  width: 450px;
+}
+
+.bubbles-image {
+  width: 100%;
+  max-width: 420px;
+  opacity: 1;
+}
+.bubbles-image.mirror { /* Used perplexity.ai in order to filp the bubble image to the other side for the homepage with prompt - I
+  want to flip my bubble image horizontally can you help me do this with inserting code into my current code*/
+  transform: scaleX(-1); 
+}
+
+
+@media (max-width: 900px) {
+  .mainpage {
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  .bubble-bg {
+    position: static;
+    margin-top: 3em;
+    width: 100%;
+    text-align: center;
+  }
+  .bubbles-image {
+    max-width: 90vw;
+    margin: 0 auto;
+  }
+  .main-content {
+    padding: 2em 0;
+  }
+}
+
+#home-details {
+  display: flex;
+  flex-direction: row;
+}
+
+#home-details img {
+  height: 20rem;
+  margin-left: 5rem;
+  width: auto;
+}
+
+#home-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5rem;
+  width: 50%;
+}
+
+#home-footer {
+  background-color: #111734;
+  bottom: 0;
+  color: #FFFAF2;
+  height: 3rem;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 0;
+} */
+
+
+
+/* old homepage css changed after peer feedback session
 .quiz-button {
   align-items: center;
   background-color: #5B7558;
@@ -169,7 +339,7 @@ footer p {
   position: fixed;
   width: 100%;
   z-index: 0;
-}
+} */
 
 /* date-quiz.jsx */
 /* The styling for the date idea quiz was created partially with the assistance of ChatGPT to make sure it's the same format as our
