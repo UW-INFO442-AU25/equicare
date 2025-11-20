@@ -48,6 +48,7 @@ nav img {
   height: 2rem;
   margin: 0 1rem;
   padding: 0 1rem;
+  text-decoration: none;
 }
 
 nav a {
@@ -423,11 +424,13 @@ to look like these Figma wireframes (included a screenshot of a sample question 
   align-items: center;
   gap: 1.5rem;
   margin-top: 2rem;
+  text-decoration: none;
 }
 
 .quiz-buttons .orange-button {
   margin: 0;
   cursor: pointer;
+  text-decoration: none;
 }
 
 
