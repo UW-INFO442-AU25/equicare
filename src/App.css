@@ -135,6 +135,7 @@ footer p {
 .brand-title {
   margin-bottom: 0.3em;
 }
+
 .brand-name {
   font-family: 'Abhaya Libre', serif;
   font-size: 80px;
@@ -156,7 +157,7 @@ footer p {
 .mission-card {
   background: #111734;
   border-radius: 18px;
-  box-shadow: 0 2px 12px rgba(51,81,72,0.07);
+  box-shadow: 0 2px 12px rgba(51, 81, 72, 0.07);
   text-align: center;
   max-width: 500px;
   margin: 0 auto 1em auto;
@@ -189,6 +190,7 @@ footer p {
   text-align: center;
   width: fit-content;
 }
+
 .quiz-button {
   background-color: #5B7558;
   border-radius: 8px;
@@ -196,11 +198,12 @@ footer p {
   padding: 0.8em 3.2em;
   color: #FFFAF2;
   border: none;
-  box-shadow: 0 2px 6px rgba(51,81,72,0.10);
+  box-shadow: 0 2px 6px rgba(51, 81, 72, 0.10);
   font-weight: 600;
   letter-spacing: 0.2px;
   cursor: pointer;
 }
+
 .quiz-button:hover {
   background-color: #6b866a;
 }
@@ -226,7 +229,9 @@ footer p {
   max-width: 420px;
   opacity: 1;
 }
-.bubbles-image.mirror { /* Used perplexity.ai in order to filp the bubble image to the other side for the homepage with prompt - I
+
+.bubbles-image.mirror {
+  /* Used perplexity.ai in order to filp the bubble image to the other side for the homepage with prompt - I
   want to flip my bubble image horizontally can you help me do this with inserting code into my current code*/
   transform: scaleX(-1);
 }
@@ -237,16 +242,19 @@ footer p {
     flex-direction: column;
     min-height: 100vh;
   }
+
   .bubble-bg {
     position: static;
     margin-top: 3em;
     width: 100%;
     text-align: center;
   }
+
   .bubbles-image {
     max-width: 90vw;
     margin: 0 auto;
   }
+
   .main-content {
     padding: 2em 0;
   }
@@ -399,7 +407,7 @@ to look like these Figma wireframes (included a screenshot of a sample question 
   text-align: center;
 }
 
- /* .quiz-result .orange-button {
+/* .quiz-result .orange-button {
   display: inline-block;
   margin: 2rem auto 0 auto;
 } */
@@ -549,7 +557,7 @@ fix my layout for this box so it has a clean look" */
 .calendar-container {
   background: #fff;
   border-radius: 18px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
   flex: 1;
   max-width: 420px;
   min-width: 320px;
@@ -586,7 +594,7 @@ fix my layout for this box so it has a clean look" */
 .event-container {
   background: #fff;
   border-radius: 18px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -654,7 +662,7 @@ fix my layout for this box so it has a clean look" */
   padding: 1rem 1.3rem;
   font-size: 1.06rem;
   color: #232539;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* .event-form input[type="date"]::-webkit-datetime-edit,
@@ -710,6 +718,7 @@ input[type="file"]::before {
     max-width: none;
     min-width: 0;
   }
+
   .calendar-container,
   .event-container {
     max-width: 96vw;
@@ -898,7 +907,7 @@ video/multimedia source in order for it to be under the image)*/
 
 .resources-image {
   border-radius: 8px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.11);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.11);
   height: auto;
   object-fit: cover;
   width: 370px;
@@ -928,7 +937,7 @@ video/multimedia source in order for it to be under the image)*/
   background: #fff;
   border-radius: 12px;
   border: 1.5px solid #222;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.07);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -985,7 +994,7 @@ video/multimedia source in order for it to be under the image)*/
 
 .resources-image {
   border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
   margin-bottom: 28px;
   width: 350px;
 }
@@ -1005,7 +1014,7 @@ video/multimedia source in order for it to be under the image)*/
 
 .resources-video iframe {
   border-radius: 8px;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.07);
   height: 210px;
   width: 340px;
 }
@@ -1156,7 +1165,7 @@ video/multimedia source in order for it to be under the image)*/
   background: #ffffff;
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0px 2px 4px rgba(0,0,0,0.08);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -1183,7 +1192,7 @@ video/multimedia source in order for it to be under the image)*/
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1196,7 +1205,7 @@ video/multimedia source in order for it to be under the image)*/
   padding: 34px;
   width: 500px;
   max-width: 90%;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* pop up formating for three buttons: previous, close, next */
@@ -1207,6 +1216,7 @@ video/multimedia source in order for it to be under the image)*/
   border: none;
   cursor: pointer;
 }
+
 .journal-modal-controls {
   margin-top: 2rem;
   display: flex;
@@ -1281,7 +1291,8 @@ video/multimedia source in order for it to be under the image)*/
   width: fit-content;
 }
 
-.signup-form, .login-form {
+.signup-form,
+.login-form {
   display: flex;
   flex-direction: column;
   margin: 1rem 4rem;
@@ -1304,6 +1315,36 @@ input {
 }
 
 /* profile.jsx */
+.profile-section {
+  box-sizing: border-box;
+  margin-top: 1.5rem;
+  min-height: 120px;
+  padding: 2rem;
+  width: 100%;
+}
+
+.accept-button {
+  align-items: center;
+  background-color: lightgreen;
+  border-radius: 5px;
+  border: 0;
+  display: flex;
+  height: 2rem;
+  margin: 0 1rem;
+  padding: 0 1rem;
+}
+
+.decline-button {
+  align-items: center;
+  background-color: lightcoral;
+  border-radius: 5px;
+  border: 0;
+  display: flex;
+  height: 2rem;
+  margin: 0 1rem;
+  padding: 0 1rem;
+}
+
 .small-long-button {
   background-color: #373B76;
   border-radius: 5px;
@@ -1359,7 +1400,7 @@ input {
   height: 300px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Personal info text */
@@ -1383,7 +1424,7 @@ input {
   background-color: #fff;
   border-radius: 12px;
   padding: 1.5rem 2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .profile-section h2 {

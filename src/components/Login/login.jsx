@@ -32,7 +32,7 @@ function Login() {
       const userCred = await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
       await saveUserProfile(userCred.user);
       console.log("Account created successfully!");
-      navigate("/profile"); // TODO: why doesn't it redirect
+      navigate("/");
     } catch (err) {
       setError("Could not sign up: " + err.message);
     }
@@ -43,7 +43,7 @@ function Login() {
       const userCred = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       await saveUserProfile(userCred.user);
       console.log("Logged in successfully:", loginEmail);
-      navigate("/profile"); // TODO: why won't it redirect to homepage on login
+      navigate("/");
     } catch (err) {
       setError("Could not log in: " + err.message);
     }
@@ -149,8 +149,6 @@ function Login() {
               >
                 <h3>Log In</h3>
               </button>
-
-              {error && <p style={{ color: "red" }}>{error}</p>}
             </div>
           </div>
         </div>

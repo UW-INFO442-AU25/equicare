@@ -1,6 +1,6 @@
 // src/firebaseService.js
 import { db } from "./firebase.js";
-import { doc, collection, setDoc, getDoc, updateDoc, getDocs, arrayUnion } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 
 // -------- Users --------
 export async function saveUserProfile(user) {
@@ -31,7 +31,8 @@ export async function saveUserProfile(user) {
       notes: ""
     },
 
-    partnerInvites: []
+    partnerInvites: [],
+    notifications: []
   });
 }
 

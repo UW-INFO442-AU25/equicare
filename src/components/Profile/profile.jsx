@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid"; // generate id for shared cal
+import { doc, getDoc, updateDoc, collection, query, where, getDocs, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db, auth } from "../../firebase.js";
 import { Link, useNavigate } from "react-router-dom";
 import "../../App.css";
@@ -11,9 +12,9 @@ function Profile() {
   const navigate = useNavigate();
 
   const [profileData, setProfileData] = useState({
-    name: "Jane Doe",
-    location: "Seattle, WA",
-    term: "Second Trimester (Week 18)",
+    name: "Enter Name",
+    location: "City, State",
+    term: "Enter Trimester (1-3)",
     nextEvent: "Doctor's Appointment - Nov 8, 10:30 AM",
     partner: "Not connected",
   });
@@ -25,6 +26,7 @@ function Profile() {
   });
 
   const [partnerData, setPartnerData] = useState({ partnerName: "" });
+  const [notifications, setNotifications] = useState([]);
   const [partnerInvites, setPartnerInvites] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingPartner, setIsEditingPartner] = useState(false);
@@ -43,13 +45,13 @@ function Profile() {
           setProfileData(data.profileData || profileData);
           setRelationshipData(data.relationshipData || relationshipData);
           setPartnerInvites(data.partnerInvites || []);
+          setNotifications(data.notifications || []);
         }
       }
     });
 
     return () => unsubscribe();
   }, []);
-
 
   const handleLogout = async () => {
     try {
@@ -104,23 +106,141 @@ function Profile() {
     setIsEditingPartner(false);
   };
 
-  // Partner invites
-  const handlePartnerConnect = async (email) => {
+  async function handlePartnerConnect(email) {
     if (!user) return;
 
     try {
-      await updateDoc(doc(db, "users", user.uid), {
-        partnerInvites: arrayUnion(email),
+      const allUsersSnapshot = await getDocs(collection(db, "users"));
+
+      let receivingUserId = null;
+      allUsersSnapshot.forEach((docSnap) => {
+        if (docSnap.data().email === email) {
+          receivingUserId = docSnap.id;
+        }
       });
-      setPartnerInvites((prev) => [...prev, email]);
+
+      if (!receivingUserId) {
+        alert("No user found with that email.");
+        return;
+      }
+
+      if (email == user.email) {
+        alert("Email cannot be your own");
+        return;
+      }
+
+      // TODO: if invite already sent to that user, return nothing
+
+      const receiverRef = doc(db, "users", receivingUserId);
+      const senderRef = doc(db, "users", user.uid);
+
+      // receiver notification update
+      await updateDoc(receiverRef, {
+        notifications: arrayUnion({
+          fromEmail: user.email,
+          message: `${user.email} sent you a partner invite`,
+          inviteStatus: "pending"
+        })
+      });
+
+      // sender partnerinvites update
+      await updateDoc(senderRef, {
+        partnerInvites: arrayUnion({
+          toEmail: email,
+          inviteStatus: "pending"
+        })
+      });
+
+      setPartnerInvites((prev) => [...prev, { toEmail: email, inviteStatus: "pending" }]);
+
     } catch (err) {
       console.error("Error sending partner invite:", err);
     }
+  }
+
+  const handleAcceptInvite = async (note) => {
+    if (!user) return;
+
+    try {
+      const q = query(collection(db, "users"), where("email", "==", note.fromEmail));
+      const qs = await getDocs(q);
+      if (qs.empty) return;
+
+      const inviterDoc = qs.docs[0];
+      const inviterData = inviterDoc.data();
+
+      const calendarId = inviterData.linkedCalendar || uuidv4();
+
+      const userRef = doc(db, "users", user.uid);
+      const inviterRef = doc(db, "users", inviterDoc.id);
+
+      await updateDoc(userRef, {
+        linkedCalendar: calendarId,
+        notifications: arrayRemove(note),
+        partnerInvites: arrayRemove({ fromEmail: note.fromEmail }),
+      });
+
+      await updateDoc(inviterRef, {
+        linkedCalendar: calendarId,
+      });
+
+      setNotifications((prev) => prev.filter((n) => n.fromEmail !== note.fromEmail));
+      setPartnerInvites((prev) => prev.filter((inv) => inv.fromEmail !== note.fromEmail));
+      console.log("accepted invite")
+    } catch (err) {
+      console.error("Error accepting invite:", err);
+    }
   };
 
-  const handleCancelInvite = (index) => {
+  const handleDeclineInvite = async (note) => {
+    if (!user) return;
+
+    try {
+      const userRef = doc(db, "users", user.uid);
+
+      // update receiver?
+      await updateDoc(userRef, {
+        partnerInvites: arrayRemove(note),
+        notifications: arrayRemove(note),
+      });
+
+      const q = query(collection(db, "users"), where("email", "==", note.fromEmail));
+      const qs = await getDocs(q);
+      if (!qs.empty) {
+        const inviterDoc = qs.docs[0];
+        const inviterRef = doc(db, "users", inviterDoc.id);
+
+        // update sender
+        await updateDoc(inviterRef, {
+          partnerInvites: arrayRemove({
+            toEmail: user.email,
+            inviteStatus: "pending"
+          }),
+        });
+      }
+
+      setNotifications((prev) => prev.filter((n) => n.fromEmail !== note.fromEmail));
+      setPartnerInvites((prev) => prev.filter((inv) => inv.fromEmail !== note.fromEmail));
+      console.log("declined invite")
+    } catch (err) {
+      console.error("Error declining invite:", err);
+    }
+  };
+
+  const handleCancelInvite = async (index) => {
+    if (!user) return;
+
+    const inviteToRemove = partnerInvites[index];
     const updated = partnerInvites.filter((_, i) => i !== index);
     setPartnerInvites(updated);
+
+    try {
+      await updateDoc(doc(db, "users", user.uid), {
+        partnerInvites: arrayRemove(inviteToRemove)
+      });
+    } catch (err) {
+      console.error("Error removing partner invite:", err);
+    }
   };
 
   return (
@@ -188,11 +308,23 @@ function Profile() {
               </div>
             )}
 
-            <section className="profile-section" style={{ marginTop: "1.5rem", minHeight: "120px", padding: "2rem", width: "100%", boxSizing: "border-box" }}>
+            <section className="profile-section">
               <h2>Notifications</h2>
-              <div className="info-item">
+
+              {notifications.length === 0 ? (
                 <p>No notifications yet.</p>
-              </div>
+              ) : (
+                <div className="notification-list">
+                  {notifications.map((note, i) => (
+                    <li key={i} style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem", gap: "0.5rem" }}>
+                      <p>{note.message}</p>
+
+                      <button className="accept-button" onClick={() => handleAcceptInvite(note)}>Accept</button>
+                      <button className="decline-button" onClick={() => handleDeclineInvite(note)}>Decline</button>
+                    </li>
+                  ))}
+                </div>
+              )}
             </section>
 
             <button className="orange-button" onClick={handleLogout}>Log Out</button>
@@ -238,9 +370,9 @@ function Profile() {
                 <div className="info-item">
                   <p><strong>Pending Invites</strong></p>
                   <ul>
-                    {partnerInvites.map((email, index) => (
+                    {partnerInvites.map((invite, index) => (
                       <li key={index} style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem", gap: "0.5rem" }}>
-                        <span><p>{email}</p></span>
+                        <span><p>{invite.toEmail}</p></span>
                         <button className="orange-button" onClick={() => handleCancelInvite(index)}>Cancel</button>
                       </li>
                     ))}
