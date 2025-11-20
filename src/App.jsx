@@ -68,8 +68,8 @@ function App() {
           </div>
           <img src="./bubbles.png" alt="bubbles" />
         </div>
-        <Link class="quiz-button-div" to="/DateQuiz">
-          <button class="quiz-button"><h3>Take the Quiz</h3></button>
+        <Link className="quiz-button-div" to="/DateQuiz">
+          <button className="quiz-button"><h3>Take the Quiz</h3></button>
         </Link>
 
       </main>
