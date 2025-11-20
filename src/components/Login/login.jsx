@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../firebase.js";
-import { doc, setDoc } from "firebase/firestore";
+import { auth } from "../../firebase.js";
+import { saveUserProfile } from "../../db.js";
 import "../../App.css";
 
 function Login() {
@@ -27,20 +27,12 @@ function Login() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  // for firestore linked accounts
-  async function saveUserProfile(user) {
-    await setDoc(doc(db, "users", user.uid), {
-      email: user.email,
-      sharedCalendarId: null
-    }, { merge: true });
-  }
-
   async function handleSignup() {
     try {
       const userCred = await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
       await saveUserProfile(userCred.user);
       console.log("Account created successfully!");
-      navigate("/");
+      navigate("/profile"); // TODO: why doesn't it redirect
     } catch (err) {
       setError("Could not sign up: " + err.message);
     }
@@ -51,7 +43,7 @@ function Login() {
       const userCred = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       await saveUserProfile(userCred.user);
       console.log("Logged in successfully:", loginEmail);
-      navigate("/"); // TODO: why won't it redirect to homepage on login
+      navigate("/profile"); // TODO: why won't it redirect to homepage on login
     } catch (err) {
       setError("Could not log in: " + err.message);
     }

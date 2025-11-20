@@ -6,16 +6,16 @@ import { getFirestore } from "firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDA_JUgk_KUYac6iK_kJJDyKVMHgWZ3hZo",
-  authDomain: "testapp-4aabb.firebaseapp.com",
-  projectId: "testapp-4aabb",
-  storageBucket: "testapp-4aabb.appspot.com",
-  messagingSenderId: "592803447989",
-  appId: "1:592803447989:web:2e633a9ccaf19da4282afc"
+  apiKey: "AIzaSyBFmgdBIS13T2UVsnHRHb1gkb2i0BtfZFQ",
+  authDomain: "equicare-442.firebaseapp.com",
+  projectId: "equicare-442",
+  storageBucket: "equicare-442.firebasestorage.app",
+  messagingSenderId: "544581394107",
+  appId: "1:544581394107:web:10722b7cadde93ed90139e"
 };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export default app;

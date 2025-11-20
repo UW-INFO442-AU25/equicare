@@ -204,11 +204,11 @@ function Profile() {
               {isEditing ? (
                 <>
                   <div className="info-item">
-                    <h3>Pregnancy Term</h3>
+                    <p><strong>Pregnancy Term</strong></p>
                     <input type="text" name="term" value={profileData.term} onChange={handleChange} className="edit-input" />
                   </div>
                   <div className="info-item">
-                    <h3>Next Calendar Event</h3>
+                    <p><strong>Next Calendar Event</strong></p>
                     <input type="text" name="nextEvent" value={profileData.nextEvent} onChange={handleChange} className="edit-input" />
                   </div>
                 </>
@@ -229,19 +229,19 @@ function Profile() {
             <section className="profile-section">
               <h2>Partner Info</h2>
               <div className="info-item">
-                <h3>Partner</h3>
+                <p><strong>Partner</strong></p>
                 <p>{partnerData.partnerName || "Not connected"}</p>
                 <button className="orange-button connect-button" onClick={() => setShowModal(true)}>Connect Partner’s Account</button>
               </div>
 
               {partnerInvites.length > 0 && (
                 <div className="info-item">
-                  <h3>Pending Invites</h3>
-                  <ul style={{ paddingLeft: "1rem" }}>
+                  <p><strong>Pending Invites</strong></p>
+                  <ul>
                     {partnerInvites.map((email, index) => (
                       <li key={index} style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem", gap: "0.5rem" }}>
-                        <span>{email}</span>
-                        <button className="orange-button" style={{ padding: "0.25rem 0.5rem", fontSize: "0.8rem" }} onClick={() => handleCancelInvite(index)}>Cancel</button>
+                        <span><p>{email}</p></span>
+                        <button className="orange-button" onClick={() => handleCancelInvite(index)}>Cancel</button>
                       </li>
                     ))}
                   </ul>

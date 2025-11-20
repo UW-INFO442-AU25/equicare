@@ -3,8 +3,36 @@ import { db } from "./firebase.js";
 import { doc, collection, setDoc, getDoc, updateDoc, getDocs, arrayUnion } from "firebase/firestore";
 
 // -------- Users --------
-export async function createUser(userId, email, linkedCalendar) {
-  await setDoc(doc(db, "users", userId), { email, linkedCalendar });
+export async function saveUserProfile(user) {
+  const userRef = doc(db, "users", user.uid);
+  const existing = await getDoc(userRef);
+
+  // If user document already exists, DO NOT overwrite it
+  if (existing.exists()) {
+    return;
+  }
+
+  // If new user → create default document
+  await setDoc(userRef, {
+    email: user.email,
+    linkedCalendar: null,
+
+    profileData: {
+      name: "Jane Doe",
+      location: "Seattle, WA",
+      term: "Second Trimester (Week 18)",
+      nextEvent: "None yet",
+      partner: "Not connected",
+    },
+
+    relationshipData: {
+      relationshipStatus: "",
+      anniversaryDate: "",
+      notes: ""
+    },
+
+    partnerInvites: []
+  });
 }
 
 export async function addJournalEntry(userId, date, text) {
