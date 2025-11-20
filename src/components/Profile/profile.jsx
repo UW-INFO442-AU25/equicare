@@ -169,19 +169,25 @@ function Profile() {
       const inviterDoc = qs.docs[0];
       const inviterData = inviterDoc.data();
 
-      const calendarId = inviterData.linkedCalendar || uuidv4();
+      const calendarId = inviterData.linkedCalendar || uuidv4(); // testing: can only have one calendar id!
 
       const userRef = doc(db, "users", user.uid);
       const inviterRef = doc(db, "users", inviterDoc.id);
 
+      // update receiver
       await updateDoc(userRef, {
         linkedCalendar: calendarId,
         notifications: arrayRemove(note),
         partnerInvites: arrayRemove({ fromEmail: note.fromEmail }),
       });
 
+      // update sender
       await updateDoc(inviterRef, {
         linkedCalendar: calendarId,
+        partnerInvites: arrayRemove({
+          toEmail: user.email,
+          inviteStatus: "pending"
+        }),
       });
 
       setNotifications((prev) => prev.filter((n) => n.fromEmail !== note.fromEmail));
@@ -192,13 +198,13 @@ function Profile() {
     }
   };
 
-  const handleDeclineInvite = async (note) => {
+  const handleDeclineInvite = async (note) => { // TODO fix
     if (!user) return;
 
     try {
       const userRef = doc(db, "users", user.uid);
 
-      // update receiver?
+      // update receiver
       await updateDoc(userRef, {
         partnerInvites: arrayRemove(note),
         notifications: arrayRemove(note),
@@ -224,22 +230,6 @@ function Profile() {
       console.log("declined invite")
     } catch (err) {
       console.error("Error declining invite:", err);
-    }
-  };
-
-  const handleCancelInvite = async (index) => {
-    if (!user) return;
-
-    const inviteToRemove = partnerInvites[index];
-    const updated = partnerInvites.filter((_, i) => i !== index);
-    setPartnerInvites(updated);
-
-    try {
-      await updateDoc(doc(db, "users", user.uid), {
-        partnerInvites: arrayRemove(inviteToRemove)
-      });
-    } catch (err) {
-      console.error("Error removing partner invite:", err);
     }
   };
 
@@ -373,7 +363,7 @@ function Profile() {
                     {partnerInvites.map((invite, index) => (
                       <li key={index} style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem", gap: "0.5rem" }}>
                         <span><p>{invite.toEmail}</p></span>
-                        <button className="orange-button" onClick={() => handleCancelInvite(index)}>Cancel</button>
+                        <button className="orange-button" onClick={() => handleDeclineInvite(index)}>Cancel</button>
                       </li>
                     ))}
                   </ul>
