@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { Link } from "react-router-dom";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase.js";
+import { Link, useNavigate } from "react-router-dom";
+import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../firebase.js";
+import { doc, setDoc } from "firebase/firestore";
 import "../../App.css";
 
 function Login() {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  const [error, setError] = useState("");
 
   // Listen for login/logout changes
   useEffect(() => {
@@ -16,25 +19,41 @@ function Login() {
     return () => unsubscribe();
   }, []);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  // for signup form
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
+
+  // for login form
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+  // for firestore linked accounts
+  async function saveUserProfile(user) {
+    await setDoc(doc(db, "users", user.uid), {
+      email: user.email,
+      sharedCalendarId: null
+    }, { merge: true });
+  }
 
   async function handleSignup() {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert("Account created successfully!");
+      const userCred = await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
+      await saveUserProfile(userCred.user);
+      console.log("Account created successfully!");
+      navigate("/");
     } catch (err) {
-      setError(err.message);
+      setError("Could not sign up: " + err.message);
     }
   }
 
   async function handleLogin() {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("Logged in successfully!");
+      const userCred = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      await saveUserProfile(userCred.user);
+      console.log("Logged in successfully:", loginEmail);
+      navigate("/"); // TODO: why won't it redirect to homepage on login
     } catch (err) {
-      setError(err.message);
+      setError("Could not log in: " + err.message);
     }
   }
 
@@ -87,16 +106,16 @@ function Login() {
               <label>Email</label>
               <input
                 type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={signupEmail}
+                onChange={(e) => setSignupEmail(e.target.value)}
                 required
               />
 
               <label>Password</label>
               <input
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={signupPassword}
+                onChange={(e) => setSignupPassword(e.target.value)}
                 required
               />
 
@@ -114,13 +133,33 @@ function Login() {
 
           <div id="login-box">
             <h2>Have an account?</h2>
-            <button
-              type="button"
-              className="blue-button"
-              onClick={handleLogin}
-            >
-              <h3>Log In</h3>
-            </button>
+            <div className="login-form">
+              <label>Email</label>
+              <input
+                type="text"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                required
+              />
+
+              <label>Password</label>
+              <input
+                type="password"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                required
+              />
+
+              <button
+                type="button"
+                className="blue-button"
+                onClick={handleLogin}
+              >
+                <h3>Log In</h3>
+              </button>
+
+              {error && <p style={{ color: "red" }}>{error}</p>}
+            </div>
           </div>
         </div>
       </main>

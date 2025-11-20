@@ -1,23 +1,14 @@
-import React, { useEffect, useState, useRef } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase.js";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { db, auth } from "../../firebase.js";
+import { Link, useNavigate } from "react-router-dom";
 import "../../App.css";
 import ConnectPartnerModal from "./ConnectPartnerModal"; // modal under profile folder
 
 function Profile() {
   const [user, setUser] = useState(null);
-
-  // Listen for login/logout changes
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const sectionRef = useRef(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
 
   const [profileData, setProfileData] = useState({
     name: "Jane Doe",
@@ -27,29 +18,48 @@ function Profile() {
     partner: "Not connected",
   });
 
-  const [partnerData, setPartnerData] = useState({ partnerName: "" });
-
-  const [isEditingPartner, setIsEditingPartner] = useState(false);
   const [relationshipData, setRelationshipData] = useState({
     relationshipStatus: "",
     anniversaryDate: "",
     notes: "",
   });
 
+  const [partnerData, setPartnerData] = useState({ partnerName: "" });
   const [partnerInvites, setPartnerInvites] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingPartner, setIsEditingPartner] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  // Load saved data
+  // Listen for login/logout changes
   useEffect(() => {
-    const savedProfile = localStorage.getItem("profileData");
-    if (savedProfile) setProfileData(JSON.parse(savedProfile));
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
 
-    const savedRelationship = localStorage.getItem("relationshipData");
-    if (savedRelationship) setRelationshipData(JSON.parse(savedRelationship));
+      if (currentUser) {
+        // Load user data from Firestore
+        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+          setProfileData(data.profileData || profileData);
+          setRelationshipData(data.relationshipData || relationshipData);
+          setPartnerInvites(data.partnerInvites || []);
+        }
+      }
+    });
 
-    const savedInvites = localStorage.getItem("partnerInvites");
-    if (savedInvites) setPartnerInvites(JSON.parse(savedInvites));
+    return () => unsubscribe();
   }, []);
+
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("User logged out");
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   // Profile input handlers
   const handleChange = (e) => {
@@ -57,15 +67,19 @@ function Profile() {
     setProfileData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    localStorage.setItem("profileData", JSON.stringify(profileData));
-    setIsEditing(false);
+    if (!user) return;
+
+    try {
+      await updateDoc(doc(db, "users", user.uid), { profileData });
+      setIsEditing(false);
+    } catch (err) {
+      console.error("Error saving profile data:", err);
+    }
   };
 
   const handleCancel = () => {
-    const savedData = localStorage.getItem("profileData");
-    if (savedData) setProfileData(JSON.parse(savedData));
     setIsEditing(false);
   };
 
@@ -75,28 +89,38 @@ function Profile() {
     setRelationshipData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const saveRelationship = () => {
-    localStorage.setItem("relationshipData", JSON.stringify(relationshipData));
-    setIsEditingPartner(false);
+  const saveRelationship = async () => {
+    if (!user) return;
+
+    try {
+      await updateDoc(doc(db, "users", user.uid), { relationshipData });
+      setIsEditingPartner(false);
+    } catch (err) {
+      console.error("Error saving relationship data:", err);
+    }
   };
 
   const cancelRelationshipEdit = () => {
-    const saved = localStorage.getItem("relationshipData");
-    if (saved) setRelationshipData(JSON.parse(saved));
     setIsEditingPartner(false);
   };
 
-  // Partner invite handlers
-  const handlePartnerConnect = (email) => {
-    const updatedInvites = [...partnerInvites, email];
-    setPartnerInvites(updatedInvites);
-    localStorage.setItem("partnerInvites", JSON.stringify(updatedInvites));
+  // Partner invites
+  const handlePartnerConnect = async (email) => {
+    if (!user) return;
+
+    try {
+      await updateDoc(doc(db, "users", user.uid), {
+        partnerInvites: arrayUnion(email),
+      });
+      setPartnerInvites((prev) => [...prev, email]);
+    } catch (err) {
+      console.error("Error sending partner invite:", err);
+    }
   };
 
   const handleCancelInvite = (index) => {
     const updated = partnerInvites.filter((_, i) => i !== index);
     setPartnerInvites(updated);
-    localStorage.setItem("partnerInvites", JSON.stringify(updated));
   };
 
   return (
@@ -139,10 +163,8 @@ function Profile() {
         </div>
       </nav>
 
-      {/* MAIN CONTENT */}
       <main>
         <div id="profile-layout">
-          {/* LEFT */}
           <div className="profile-left">
             <img
               className="profile-avatar"
@@ -151,86 +173,43 @@ function Profile() {
             />
             {isEditing ? (
               <div className="personal-info-text">
-                <input
-                  type="text"
-                  name="name"
-                  value={profileData.name}
-                  onChange={handleChange}
-                  className="edit-input"
-                />
-                <input
-                  type="text"
-                  name="location"
-                  value={profileData.location}
-                  onChange={handleChange}
-                  className="edit-input"
-                />
+                <input type="text" name="name" value={profileData.name} onChange={handleChange} className="edit-input" />
+                <input type="text" name="location" value={profileData.location} onChange={handleChange} className="edit-input" />
                 <div className="edit-buttons">
-                  <button className="orange-button" onClick={handleSave}>
-                    Save
-                  </button>
-                  <button className="orange-button" onClick={handleCancel}>
-                    Cancel
-                  </button>
+                  <button className="orange-button" onClick={handleSave}>Save</button>
+                  <button className="orange-button" onClick={handleCancel}>Cancel</button>
                 </div>
               </div>
             ) : (
               <div className="personal-info-text">
                 <h2>{profileData.name}</h2>
                 <p>{profileData.location}</p>
-                <button
-                  className="orange-button connect-button"
-                  onClick={() => setIsEditing(true)}
-                >
-                  Edit Profile
-                </button>
+                <button className="orange-button connect-button" onClick={() => setIsEditing(true)}>Edit Profile</button>
               </div>
             )}
 
-            {/* Notifications Section */}
-            <section className="profile-section"
-              style={{
-                marginTop: "1.5rem",
-                minHeight: "120px",
-                padding: "2rem",
-                width: "100%",
-                boxSizing: "border-box"
-              }}
-            >
+            <section className="profile-section" style={{ marginTop: "1.5rem", minHeight: "120px", padding: "2rem", width: "100%", boxSizing: "border-box" }}>
               <h2>Notifications</h2>
               <div className="info-item">
                 <p>No notifications yet.</p>
               </div>
             </section>
+
+            <button className="orange-button" onClick={handleLogout}>Log Out</button>
           </div>
 
-
-          {/* RIGHT */}
           <div className="profile-right">
-            {/* Pregnancy Info */}
             <section className="profile-section">
               <h2>Pregnancy Info</h2>
               {isEditing ? (
                 <>
                   <div className="info-item">
                     <h3>Pregnancy Term</h3>
-                    <input
-                      type="text"
-                      name="term"
-                      value={profileData.term}
-                      onChange={handleChange}
-                      className="edit-input"
-                    />
+                    <input type="text" name="term" value={profileData.term} onChange={handleChange} className="edit-input" />
                   </div>
                   <div className="info-item">
                     <h3>Next Calendar Event</h3>
-                    <input
-                      type="text"
-                      name="nextEvent"
-                      value={profileData.nextEvent}
-                      onChange={handleChange}
-                      className="edit-input"
-                    />
+                    <input type="text" name="nextEvent" value={profileData.nextEvent} onChange={handleChange} className="edit-input" />
                   </div>
                 </>
               ) : (
@@ -247,23 +226,14 @@ function Profile() {
               )}
             </section>
 
-            {/* Partner Info */}
             <section className="profile-section">
               <h2>Partner Info</h2>
-
-              {/* Partner connection */}
               <div className="info-item">
                 <h3>Partner</h3>
                 <p>{partnerData.partnerName || "Not connected"}</p>
-                <button
-                  className="orange-button connect-button"
-                  onClick={() => setShowModal(true)}
-                >
-                  Connect Partner’s Account
-                </button>
+                <button className="orange-button connect-button" onClick={() => setShowModal(true)}>Connect Partner’s Account</button>
               </div>
 
-              {/* Pending Invites */}
               {partnerInvites.length > 0 && (
                 <div className="info-item">
                   <h3>Pending Invites</h3>
@@ -271,30 +241,18 @@ function Profile() {
                     {partnerInvites.map((email, index) => (
                       <li key={index} style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem", gap: "0.5rem" }}>
                         <span>{email}</span>
-                        <button
-                          className="orange-button"
-                          style={{ padding: "0.25rem 0.5rem", fontSize: "0.8rem" }}
-                          onClick={() => handleCancelInvite(index)}
-                        >
-                          Cancel
-                        </button>
+                        <button className="orange-button" style={{ padding: "0.25rem 0.5rem", fontSize: "0.8rem" }} onClick={() => handleCancelInvite(index)}>Cancel</button>
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
 
-              {/* Relationship Info */}
               {isEditingPartner ? (
                 <div className="info-item">
                   <label>
                     Relationship Status:
-                    <select
-                      name="relationshipStatus"
-                      value={relationshipData.relationshipStatus}
-                      onChange={handleRelationshipChange}
-                      className="edit-input"
-                    >
+                    <select name="relationshipStatus" value={relationshipData.relationshipStatus} onChange={handleRelationshipChange} className="edit-input">
                       <option value="">Select...</option>
                       <option value="Dating">Dating</option>
                       <option value="Engaged">Engaged</option>
@@ -305,33 +263,17 @@ function Profile() {
 
                   <label>
                     Anniversary Date:
-                    <input
-                      type="date"
-                      name="anniversaryDate"
-                      value={relationshipData.anniversaryDate}
-                      onChange={handleRelationshipChange}
-                      className="edit-input"
-                    />
+                    <input type="date" name="anniversaryDate" value={relationshipData.anniversaryDate} onChange={handleRelationshipChange} className="edit-input" />
                   </label>
 
                   <label>
                     Shared Notes:
-                    <textarea
-                      name="notes"
-                      value={relationshipData.notes}
-                      onChange={handleRelationshipChange}
-                      className="edit-input"
-                      placeholder="Add a message, memory, or shared goal..."
-                    />
+                    <textarea name="notes" value={relationshipData.notes} onChange={handleRelationshipChange} className="edit-input" placeholder="Add a message, memory, or shared goal..." />
                   </label>
 
                   <div className="edit-buttons">
-                    <button className="orange-button" onClick={saveRelationship}>
-                      Save
-                    </button>
-                    <button className="orange-button" onClick={cancelRelationshipEdit}>
-                      Cancel
-                    </button>
+                    <button className="orange-button" onClick={saveRelationship}>Save</button>
+                    <button className="orange-button" onClick={cancelRelationshipEdit}>Cancel</button>
                   </div>
                 </div>
               ) : (
@@ -339,12 +281,7 @@ function Profile() {
                   <p><strong>Relationship:</strong> {relationshipData.relationshipStatus || "Not set"}</p>
                   <p><strong>Anniversary:</strong> {relationshipData.anniversaryDate || "Not added"}</p>
                   <p><strong>Notes:</strong> {relationshipData.notes || "No notes yet"}</p>
-                  <button
-                    className="orange-button connect-button"
-                    onClick={() => setIsEditingPartner(true)}
-                  >
-                    Edit Relationship Info
-                  </button>
+                  <button className="orange-button connect-button" onClick={() => setIsEditingPartner(true)}>Edit Relationship Info</button>
                 </div>
               )}
             </section>
@@ -352,13 +289,7 @@ function Profile() {
         </div>
       </main>
 
-      {/* Connect Partner Modal */}
-      {showModal && (
-        <ConnectPartnerModal
-          onClose={() => setShowModal(false)}
-          onPartnerConnect={handlePartnerConnect}
-        />
-      )}
+      {showModal && <ConnectPartnerModal onClose={() => setShowModal(false)} onPartnerConnect={handlePartnerConnect} />}
 
       <footer>
         <p><em>&copy; {new Date().getFullYear()} EquiCare</em></p>

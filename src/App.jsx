@@ -78,8 +78,13 @@ function App() {
               <img src="./bubbles.png" alt="bubbles" className="bubbles-image mirror" />
               </div>
           </div>
-        </main>
-      
+          <img src="./bubbles.png" alt="bubbles" />
+        </div>
+        <Link className="quiz-button-div" to="/DateQuiz">
+          <button className="quiz-button"><h3>Take the Quiz</h3></button>
+        </Link>
+
+      </main>
 
       <footer id="home-footer">
         <p>
