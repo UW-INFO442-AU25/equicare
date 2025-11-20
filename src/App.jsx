@@ -65,25 +65,19 @@ function App() {
               <h3>Our Mission</h3>
               <p>
                 Parenthood is a journey meant to be shared. From personalized date nights, shared calendars, to journal check-ins, EquiCare is here to help you and your partner communicate, grow, and care for each other through every stage of pregnancy and beyond.
-                </p>
-              </div>
-              <Link to="/datequiz" className="quiz-button-div">
-                <button className="quiz-button">Date Idea Generator</button>
-              </Link>
+              </p>
             </div>
-            <div className="bubble-bg bubble-left">
-              <img src="./bubbles.png" alt="bubbles" className="bubbles-image" />
-            </div>
-            <div className="bubble-bg bubble-right">
-              <img src="./bubbles.png" alt="bubbles" className="bubbles-image mirror" />
-              </div>
+            <Link to="/datequiz" className="quiz-button-div">
+              <button className="quiz-button">Date Idea Generator</button>
+            </Link>
           </div>
-          <img src="./bubbles.png" alt="bubbles" />
+          <div className="bubble-bg bubble-left">
+            <img src="./bubbles.png" alt="bubbles" className="bubbles-image" />
+          </div>
+          <div className="bubble-bg bubble-right">
+            <img src="./bubbles.png" alt="bubbles" className="bubbles-image mirror" />
+          </div>
         </div>
-        <Link className="quiz-button-div" to="/DateQuiz">
-          <button className="quiz-button"><h3>Take the Quiz</h3></button>
-        </Link>
-
       </main>
 
       <footer id="home-footer">

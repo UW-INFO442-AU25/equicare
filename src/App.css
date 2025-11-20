@@ -170,7 +170,7 @@ footer p {
   font-family: 'Abhaya Libre', serif;
   font-size: 28px;
   color: #fffaf2;
-  margin-bottom: 0.5em;  
+  margin-bottom: 0.5em;
   margin-top: 0;
 }
 
@@ -179,7 +179,7 @@ footer p {
   font-size: 18px;
   color: #fffaf2;
   line-height: 1.35;
-  margin: 0; 
+  margin: 0;
   text-align: center;
   width: 100%;
 }
@@ -217,7 +217,7 @@ footer p {
 
 .bubble-right {
   right: 0;
-  bottom: 120px; 
+  bottom: 120px;
   width: 450px;
 }
 
@@ -228,7 +228,7 @@ footer p {
 }
 .bubbles-image.mirror { /* Used perplexity.ai in order to filp the bubble image to the other side for the homepage with prompt - I
   want to flip my bubble image horizontally can you help me do this with inserting code into my current code*/
-  transform: scaleX(-1); 
+  transform: scaleX(-1);
 }
 
 
@@ -270,7 +270,7 @@ footer p {
   width: 50%;
 }
 
-#home-footer {
+.home-footer {
   background-color: #111734;
   bottom: 0;
   color: #FFFAF2;
@@ -279,66 +279,7 @@ footer p {
   position: fixed;
   width: 100%;
   z-index: 0;
-} */
-
-
-
-/* old homepage css changed after peer feedback session
-.quiz-button {
-  align-items: center;
-  background-color: #5B7558;
-  border-radius: 8px;
-  border: none;
-  color: #FFFAF2;
-  display: flex;
-  font-family: 'Roboto', sans-serif;
-  font-size: 36px;
-  font-weight: 600;
-  justify-content: center;
-  padding: 0 4rem;
-  transition: transform 0.2s ease, background-color 0.2s ease;
 }
-
-.quiz-button:hover {
-  background-color: #6b866a;
-  transform: scale(1.03);
-}
-
-.quiz-button-div {
-  margin: 2rem auto;
-  text-decoration: none;
-  text-align: center;
-  width: fit-content;
-}
-
-#home-details {
-  display: flex;
-  flex-direction: row;
-}
-
-#home-details img {
-  height: 20rem;
-  margin-left: 5rem;
-  width: auto;
-}
-
-#home-text {
-  display: flex;
-  flex-direction: column;
-  margin-left: 5rem;
-  width: 50%;
-}
-
-#home-footer {
-  background-color: #111734;
-  bottom: 0;
-  color: #FFFAF2;
-  height: 3rem;
-  left: 0;
-  position: fixed;
-  width: 100%;
-  z-index: 0;
-} */
 
 /* date-quiz.jsx */
 /* The styling for the date idea quiz was created partially with the assistance of ChatGPT to make sure it's the same format as our
@@ -467,12 +408,12 @@ to look like these Figma wireframes (included a screenshot of a sample question 
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem; 
-  margin-top: 2rem; 
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
 .quiz-buttons .orange-button {
-  margin: 0; 
+  margin: 0;
   cursor: pointer;
 }
 
@@ -1119,7 +1060,7 @@ video/multimedia source in order for it to be under the image)*/
 
 .recent-entries {
   margin-top: 0.5rem;
-  max-height: 435px; /* affects margin height of footer */
+  max-height: 435px;
   overflow-y: auto;
 }
 
@@ -1340,7 +1281,7 @@ video/multimedia source in order for it to be under the image)*/
   width: fit-content;
 }
 
-.signup-form {
+.signup-form, .login-form {
   display: flex;
   flex-direction: column;
   margin: 1rem 4rem;
@@ -1664,5 +1605,3 @@ input {
     width: 90%;
   }
 }
-
-
