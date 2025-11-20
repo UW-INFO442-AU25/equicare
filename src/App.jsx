@@ -64,7 +64,10 @@ function App() {
             <div className="mission-card">
               <h3>Our Mission</h3>
               <p>
-                Parenthood is a journey meant to be shared. From personalized date nights, shared calendars, to journal check-ins, EquiCare is here to help you and your partner communicate, grow, and care for each other through every stage of pregnancy and beyond.
+                Parenthood is a journey meant to be shared. From personalized date nights,
+                shared calendars, to journal check-ins, EquiCare is here to help you and your
+                partner communicate, grow, and care for each other through every stage of
+                pregnancy and beyond.
               </p>
             </div>
             <Link to="/datequiz" className="quiz-button-div">
