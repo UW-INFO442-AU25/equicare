@@ -19,7 +19,7 @@ function Journal() {
   const [entries, setEntries] = useState([]);
   const [newEntry, setNewEntry] = useState("");
   const [newTitle, setNewTitle] = useState("");
-  const tagOptions = ["concern", "baby", "relationship"]; // preset tag choices
+  const tagOptions = ["concerns", "baby", "relationship", "events", "dates", "other"]; // preset tag choices
   const [selectedTags, setSelectedTags] = useState([]);
   const [activeFilterTag, setActiveFilterTag] = useState(null);
 
@@ -257,17 +257,7 @@ function Journal() {
                 <p className="journal-date-display">
                   
 
-                <div className="tag-options">
-                  {tagOptions.map((tag) => (
-                    <button
-                      key={tag}
-                      onClick={() => toggleTag(tag)}
-                      className={`tag-button ${selectedTags.includes(tag) ? "selected" : ""}`}
-                    >
-                      #{tag}
-                    </button>
-                  ))}
-                </div>
+                
 
                   {new Date().toLocaleDateString(undefined, {
                     weekday: "long",
@@ -276,6 +266,17 @@ function Journal() {
                     year: "numeric",
                   })}
                 </p>
+              </div>
+              <div className="tag-options">
+                {tagOptions.map((tag) => (
+                  <button
+                    key={tag}
+                    onClick={() => toggleTag(tag)}
+                    className={`tag-button ${selectedTags.includes(tag) ? "selected" : ""}`}
+                  >
+                    #{tag}
+                  </button>
+                ))}
               </div>
 
               {/* area for user to type in */}
