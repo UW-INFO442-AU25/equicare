@@ -19,6 +19,19 @@ function Journal() {
   const [entries, setEntries] = useState([]);
   const [newEntry, setNewEntry] = useState("");
   const [newTitle, setNewTitle] = useState("");
+  const tagOptions = ["concern", "baby", "relationship"]; // preset tag choices
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [activeFilterTag, setActiveFilterTag] = useState(null);
+
+  const toggleTag = (tag) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(selectedTags.filter(t => t !== tag));
+    } else {
+      setSelectedTags([...selectedTags, tag]);
+    }
+  };
+
+  
 
   const [lastSaved, setLastSaved] = useState(null);
 
@@ -71,7 +84,9 @@ function Journal() {
       title: newTitle || "[ Untitled ]",
       text: newEntry,
       date: new Date().toLocaleString(),
+      tags: selectedTags,
     };
+
 
     const updatedEntries = [entry, ...entries];
 
@@ -84,6 +99,7 @@ function Journal() {
     const now = new Date();
     setLastSaved(now);
     localStorage.setItem("journalLastSaved", now.toISOString());
+    setSelectedTags([]);
   };
 
 
@@ -118,6 +134,8 @@ function Journal() {
     if (activeIndex === null) return;
     setActiveIndex((prev) => (prev - 1 + entries.length) % entries.length);
   };
+  const filteredEntries =
+    activeFilterTag ? entries.filter((e) => e.tags.includes(activeFilterTag)) : entries;
 
 
   return (
@@ -174,10 +192,21 @@ function Journal() {
 
 
             <h3 className="recent-title">Recent Entries</h3>
+              <div className="filter-tags">
+                {tagOptions.map(tag => (
+                  <button
+                    key={tag}
+                    onClick={() => setActiveFilterTag(activeFilterTag === tag ? null : tag)}
+                    className={`tag-button ${activeFilterTag === tag ? "selected" : ""}`}
+                  >
+                    #{tag}
+                  </button>
+                ))}
+              </div>
 
             <div className="recent-entries">
-              {entries.length > 0 ? (
-                entries.map((entry, i) => (
+              {filteredEntries.length > 0 ? (
+                  filteredEntries.map((entry, i) => (
                   <div
                     key={entry.id}
                     className="recent-entry-card"
@@ -200,6 +229,12 @@ function Journal() {
                         ? entry.text.slice(0, entry.text.slice(0, 70).lastIndexOf(" ") + 1 || 70) + "..."
                         : entry.text}
                     </p>
+
+                    <div className="recent-tags">
+                      {entry.tags && entry.tags.map((tag) => (
+                        <span key={tag} className="tag-display">#{tag} </span>
+                      ))}
+                    </div>
                   </div>
                 ))
               ) : (
@@ -220,6 +255,20 @@ function Journal() {
                 />
                 {/* displays date to user */}
                 <p className="journal-date-display">
+                  
+
+                <div className="tag-options">
+                  {tagOptions.map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => toggleTag(tag)}
+                      className={`tag-button ${selectedTags.includes(tag) ? "selected" : ""}`}
+                    >
+                      #{tag}
+                    </button>
+                  ))}
+                </div>
+
                   {new Date().toLocaleDateString(undefined, {
                     weekday: "long",
                     month: "long",
@@ -280,6 +329,12 @@ function Journal() {
               </p>
 
               <p><em>{entries[activeIndex].date}</em></p>
+              <div className="modal-tags">
+                {entries[activeIndex].tags &&
+                  entries[activeIndex].tags.map((tag) => (
+                    <span key={tag} className="tag-display">#{tag}</span>
+                  ))}
+              </div>
               <p>{entries[activeIndex].text}</p>
 
               <div className="journal-modal-controls">
