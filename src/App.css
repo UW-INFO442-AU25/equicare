@@ -1190,6 +1190,34 @@ video/multimedia source in order for it to be under the image)*/
 
 }
 
+/* journal hashtags */
+.tag-options {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.tag-button {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  cursor: pointer;
+}
+
+.tag-button.selected {
+  background: #ffdfb8;
+  border-color: #ffb669;
+  font-weight: bold;
+}
+
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
 
 /* journal entry pop ups */
 /* Received some assistance from ChatGPT with layout formatting */
