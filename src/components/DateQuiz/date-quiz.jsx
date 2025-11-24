@@ -135,44 +135,44 @@ function DateQuiz() {
   const getDateIdeas = (resultType) => {
     const ideas = {
       "The Cozy Companions": [
-        { title: "Movie Marathon", image: "./public/cozy1.png" },
-        { title: "Meditation Session", image: "./public/cozy2.png" },
-        { title: "Breakfast for Dinner", image: "./public/cozy3.png" },
+        { title: "Movie Marathon", image: "./cozy1.png" },
+        { title: "Meditation Session", image: "./cozy2.png" },
+        { title: "Breakfast for Dinner", image: "./cozy3.png" },
       ],
       "The Dreamy Romantics": [
-        { title: "Stargazing", image: "./public/romantic1.png" },
-        { title: "Candlelight Dinner", image: "./public/romantic2.png" },
-        { title: "Love Letter Exchange", image: "./public/romantic3.png" },
+        { title: "Stargazing", image: "./romantic1.png" },
+        { title: "Candlelight Dinner", image: "./romantic2.png" },
+        { title: "Love Letter Exchange", image: "./romantic3.png" },
       ],
       "The Playful Partners": [
-        { title: "Board Game Night", image: "./public/public/playful1.png" },
-        { title: "Mocktail Mix-Off", image: "./public/public/playful2.png" },
-        { title: "Karaoke Battle", image: "./public/public/playful3.png" },
+        { title: "Board Game Night", image: "./playful1.png" },
+        { title: "Mocktail Mix-Off", image: "./playful2.png" },
+        { title: "Karaoke Battle", image: "./playful3.png" },
       ],
       "The Creative Duo": [
-        { title: "Paint Night", image: "./public/creative1.png" },
-        { title: "DIY Photo Album", image: "./public/creative2.png" },
-        { title: "Baking/Cooking Challenge", image: "./public/creative3.png" },
+        { title: "Paint Night", image: "./creative1.png" },
+        { title: "DIY Photo Album", image: "./creative2.png" },
+        { title: "Baking/Cooking Challenge", image: "./creative3.png" },
       ],
       "The Gentle Explorers": [
-        { title: "Picnic in the Park", image: "./public/gentle1.png" },
-        { title: "Drive-In Movie", image: "./public/gentle2.png" },
-        { title: "Going for a Walk", image: "./public/gentle3.jpg" },
+        { title: "Picnic in the Park", image: "./gentle1.png" },
+        { title: "Drive-In Movie", image: "./gentle2.png" },
+        { title: "Going for a Walk", image: "./gentle3.jpg" },
       ],
       "The Balanced Blenders": [
-        { title: "Game Night with late night treats", image: "./public/balanced1.jpg" },
-        { title: "Homemade dinner and short scenic drives ", image: "./public/balanced2.png" },
-        { title: "Cook together, then take evening walk", image: "./public/balanced3.png" },
+        { title: "Game Night with late night treats", image: "./balanced1.jpg" },
+        { title: "Homemade dinner and short scenic drives ", image: "./balanced2.png" },
+        { title: "Cook together, then take evening walk", image: "./balanced3.png" },
       ],
       "The Comfort Seekers": [
-        { title: "Spa Night", image: "./public/comfort1.jpg" },
-        { title: "Order-in dinner and favorite show ", image: "./public/comfort2.png" },
-        { title: "Cosy tea and talk night", image: "./public/comfort3.png" },
+        { title: "Spa Night", image: "./comfort1.jpg" },
+        { title: "Order-in dinner and favorite show ", image: "./comfort2.png" },
+        { title: "Cosy tea and talk night", image: "./comfort3.png" },
       ],
       "The Celebration Mood": [
-        { title: "Fancy dinner out", image: "./public/celebrate1.png" },
-        { title: "Staycation hotel night", image: "./public/celebrate2.png" },
-        { title: "Dress up for a date-in restaurant experience", image: "./public/celebrate3.png" },
+        { title: "Fancy dinner out", image: "./celebrate1.png" },
+        { title: "Staycation hotel night", image: "./celebrate2.png" },
+        { title: "Dress up for a date-in restaurant experience", image: "./celebrate3.png" },
       ],
     };
     return ideas[resultType] || [];
