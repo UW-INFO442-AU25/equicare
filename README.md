@@ -34,6 +34,11 @@ React for front-end reactivity
 JavaScript, Firebase, Firestore for backend reactivity
 GitHub pages to publish
 
+## Testing Protocol
+
+[Prototype and Testing Protocol.pdf](https://github.com/user-attachments/files/23732791/Prototype.and.Testing.Protocol.pdf)
+
+
 ### GenAI Use
 We used Google Gemini to generate our logo.
 
