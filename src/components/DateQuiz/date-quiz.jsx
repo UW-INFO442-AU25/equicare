@@ -304,10 +304,6 @@ function DateQuiz() {
             </div>
 
             <div className="quiz-buttons">
-              <Link to="/dateideas">
-                <button className="orange-button">Explore More Date Ideas</button>
-              </Link>
-
               <button
                 className="orange-button"
                 onClick={() => {
