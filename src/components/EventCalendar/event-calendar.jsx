@@ -5,29 +5,58 @@ how to preview files in react (perplexity search) - https://blog.logrocket.com/u
 
 import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase.js";
+import { auth, db } from "../../firebase.js";
 import { Link } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../App.css";
+import { doc, onSnapshot, getDoc } from "firebase/firestore";
+import { addCalendarEvent } from "../../db.js";
 
 function EventCalendar() {
   const [user, setUser] = useState(null);
-
-  // Listen for login/logout changes
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [linkedCalendar, setLinkedCalendar] = useState(null);
   const [events, setEvents] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [eventTitle, setEventTitle] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventImage, setEventImage] = useState(null);
   const [eventImageURL, setEventImageURL] = useState("");
+  const selectedDateString = selectedDate.toISOString().split("T")[0];
+  const todaysEvents = events.filter(ev => ev.date === selectedDateString);
+
+  // Listen for login/logout changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
+
+      if (currentUser) {
+        const userRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          setLinkedCalendar(userSnap.data().linkedCalendar);
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (!linkedCalendar) return;
+
+    const calendarRef = doc(db, "calendars", linkedCalendar);
+
+    // Live listener — updates instantly for BOTH users
+    const unsub = onSnapshot(calendarRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setEvents(snapshot.data().events || []);
+      }
+    });
+
+    return () => unsub();
+  }, [linkedCalendar]);
 
   function handleImageChange(e) {
     const file = e.target.files[0];
@@ -40,25 +69,25 @@ function EventCalendar() {
     }
   }
 
-  function handleAddEvent(e) {
+  async function handleAddEvent(e) {
     e.preventDefault();
-    if (!eventTitle || !eventDate) return;
-    setEvents([
-      ...events,
-      {
-        title: eventTitle,
-        date: eventDate,
-        imageURL: eventImageURL,
-      }
-    ]);
+    if (!eventTitle || !eventDate || !linkedCalendar) return;
+
+    const event = {
+      title: eventTitle,
+      date: eventDate,
+      imageURL: eventImageURL,
+      createdBy: user.email,
+      timestamp: Date.now()
+    };
+
+    await addCalendarEvent(linkedCalendar, event);
+
     setEventTitle("");
     setEventDate("");
     setEventImage(null);
     setEventImageURL("");
   }
-
-  const selectedDateString = selectedDate.toISOString().split("T")[0];
-  const todaysEvents = events.filter(ev => ev.date === selectedDateString);
 
   return (
     <div>
@@ -150,7 +179,7 @@ function EventCalendar() {
             <div className="calendar-description">
               <strong>How to use the Calendar:</strong><br />
               Use this calendar to keep track of important dates, milestones, and appointments. Select a date, enter a name, choose your event date, and (optionally) upload an image. Click "Add Event to Calendar" to save it. Your events for the selected day will appear in the calendar for quick reference!
-              </div>
+            </div>
           </div>
         </div>
       </main>

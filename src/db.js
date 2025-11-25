@@ -47,5 +47,14 @@ export async function createCalendar(calendarId, events = []) {
 
 export async function addCalendarEvent(calendarId, event) {
   const calendarRef = doc(db, "calendars", calendarId);
-  await updateDoc(calendarRef, { events: arrayUnion(event) });
+  const calendarSnap = await getDoc(calendarRef);
+
+  if (!calendarSnap.exists()) {
+    await setDoc(calendarRef, { events: [event] });
+    return;
+  }
+
+  await updateDoc(calendarRef, {
+    events: arrayUnion(event)
+  });
 }
