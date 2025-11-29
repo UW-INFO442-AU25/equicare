@@ -118,6 +118,7 @@ footer p {
   margin-left: 1rem;
 }
 
+
 /* App.jsx */
 .mainpage {
   position: relative;
@@ -1038,6 +1039,7 @@ video/multimedia source in order for it to be under the image)*/
 
 /* journal.jsx */
 /* Got some assistance from ChatGPT to fix the footer to make sure it doesn't expand as a user adds multiple entries for the same day.*/
+
 .journal-page {
   align-items: center;
   display: flex;
@@ -1397,8 +1399,9 @@ input {
   justify-content: center;
 }
 
+/* profile.jsx */
+
 #profile-content {
-  /* TODO */
   align-content: center;
   display: flex;
   flex-direction: row;
@@ -1597,7 +1600,7 @@ input {
   margin-top: 1rem;
 }
 
-/* Overlay for modal */
+/* ConnectPartnerModal.jsx */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1669,6 +1672,47 @@ input {
 
 /* Responsive */
 @media (max-width: 768px) {
+
+    body {
+    padding: 0;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  p, label, input, button {
+    font-size: 16px;
+  }
+
+  /* nav bar */
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .right-nav {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin-top: .5rem;
+  }
+
+  .orange-button {
+    width: 100%;
+    margin: 0.2rem 0;
+    justify-content: center;
+  }
+
+
+  /* profile */
   #profile-layout {
     flex-direction: column;
     align-items: center;
