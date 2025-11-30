@@ -19,7 +19,7 @@ function Journal() {
   const [entries, setEntries] = useState([]);
   const [newEntry, setNewEntry] = useState("");
   const [newTitle, setNewTitle] = useState("");
-  const tagOptions = ["concerns", "baby", "relationship", "events", "dates", "other"]; // preset tag choices
+  const tagOptions = ["concerns", "baby", "relationship", "events", "other"]; // preset tag choices
   const [selectedTags, setSelectedTags] = useState([]);
   const [activeFilterTag, setActiveFilterTag] = useState(null);
 

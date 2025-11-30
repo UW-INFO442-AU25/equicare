@@ -547,6 +547,7 @@ to look like these Figma wireframes (included a screenshot of a sample question 
 
 
 
+
 /* event-calendar.jsx */
 /* uses react-calendar template */
 /* CSS styling for add event box guided by AI generated code from perplexity with the prompt "can you
@@ -1038,12 +1039,17 @@ video/multimedia source in order for it to be under the image)*/
 }
 
 /* journal.jsx */
-/* Got some assistance from ChatGPT to fix the footer to make sure it doesn't expand as a user adds multiple entries for the same day.*/
+/* received some assistance from ChatGPT to fix the footer
+ to make sure it doesn't expand as a user adds multiple entries
+for the same day. As well as to implement responsivness*/
 
 .journal-page {
-  align-items: center;
+  /* align-items: center; */
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  padding: 2rem 1rem;
+  width: 100%;
 }
 
 .journal-text {
@@ -1055,14 +1061,14 @@ video/multimedia source in order for it to be under the image)*/
   background-color: #FFFAF2;
   border-radius: 5px;
   margin: 1rem;
-  width: 200vw;
+  width: 100%;
 }
 
 .journal-page-grid {
   border-top: 1px solid #ccc;
   display: grid;
   flex: 1;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 1fr;
   overflow-y: auto;
 }
 
@@ -1097,6 +1103,12 @@ video/multimedia source in order for it to be under the image)*/
 
 .recent-preview {
   margin-top: 0.3rem;
+}
+
+.recent-title, .recent-preview {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* main editor */
@@ -1136,6 +1148,11 @@ video/multimedia source in order for it to be under the image)*/
   resize: none;
   font-size: 1rem;
   overflow-y: auto;
+}
+.entry-title-input,
+.entry-editor {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* footer for journal */
@@ -1221,6 +1238,7 @@ video/multimedia source in order for it to be under the image)*/
 }
 
 
+
 /* journal entry pop ups */
 /* Received some assistance from ChatGPT with layout formatting */
 
@@ -1241,10 +1259,19 @@ video/multimedia source in order for it to be under the image)*/
   background: white;
   border-radius: 12px;
   padding: 34px;
-  width: 500px;
-  max-width: 90%;
+  width: 100%;
+  max-width: 500px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+.recent-preview,
+.recent-title-text,
+.entry-editor,
+.journal-modal {
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
 
 /* pop up formating for three buttons: previous, close, next */
 .journal-modal-controls button {
@@ -1269,6 +1296,24 @@ video/multimedia source in order for it to be under the image)*/
   margin-bottom: 0.7rem;
 }
 
+/* journal responsiveness */
+
+@media (max-width: 600px) {
+  .journal-main {
+    padding: 1rem;
+  }
+
+  .journal-left {
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+  }
+}
+  
+@media (min-width: 800px) {
+  .journal-page-grid {
+    grid-template-columns: 280px 1fr;
+  }
+}
 
 
 
