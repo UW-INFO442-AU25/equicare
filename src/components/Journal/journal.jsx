@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase.js";
 import { Link } from "react-router-dom";
-import { addJournalEntry } from "../../db.js";
 import "../../App.css";
 
 function Journal() {
@@ -21,7 +20,7 @@ function Journal() {
   const [newTitle, setNewTitle] = useState("");
   const tagOptions = ["concerns", "baby", "relationship", "events", "other"]; // preset tag choices
   const [selectedTags, setSelectedTags] = useState([]);
-  const [activeFilterTag, setActiveFilterTag] = useState(null);
+  // const [activeFilterTag, setActiveFilterTag] = useState(null);
 
   const toggleTag = (tag) => {
     if (selectedTags.includes(tag)) {
@@ -134,9 +133,8 @@ function Journal() {
     if (activeIndex === null) return;
     setActiveIndex((prev) => (prev - 1 + entries.length) % entries.length);
   };
-  const filteredEntries =
-    activeFilterTag ? entries.filter((e) => e.tags.includes(activeFilterTag)) : entries;
 
+  const filteredEntries = [...entries].sort((a, b) => b.id - a.id);
 
   return (
     <div className="journal-container">
@@ -192,7 +190,7 @@ function Journal() {
 
 
             <h3 className="recent-title">Recent Entries</h3>
-              <div className="filter-tags">
+              {/* <div className="filter-tags">
                 {tagOptions.map(tag => (
                   <button
                     key={tag}
@@ -202,7 +200,7 @@ function Journal() {
                     #{tag}
                   </button>
                 ))}
-              </div>
+              </div> */}
 
             <div className="recent-entries">
               {filteredEntries.length > 0 ? (
@@ -232,7 +230,7 @@ function Journal() {
 
                     <div className="recent-tags">
                       {entry.tags && entry.tags.map((tag) => (
-                        <span key={tag} className="tag-display">#{tag} </span>
+                        <span key={tag} className="tag-display">#{tag}{' '} </span>
                       ))}
                     </div>
                   </div>
@@ -333,7 +331,7 @@ function Journal() {
               <div className="modal-tags">
                 {entries[activeIndex].tags &&
                   entries[activeIndex].tags.map((tag) => (
-                    <span key={tag} className="tag-display">#{tag}</span>
+                    <span key={tag} className="tag-display">#{tag}{' '}</span>
                   ))}
               </div>
               <p>{entries[activeIndex].text}</p>

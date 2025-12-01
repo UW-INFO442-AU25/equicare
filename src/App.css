@@ -1124,6 +1124,7 @@ for the same day. As well as to implement responsivness*/
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
 }
 
 .entry-title-input {
@@ -1286,6 +1287,11 @@ for the same day. As well as to implement responsivness*/
   margin-top: 2rem;
   display: flex;
   justify-content: space-between;
+}
+
+.modal-tags span,
+.recent-tags span {
+  margin-right: 0.5rem;
 }
 
 
