@@ -1327,7 +1327,7 @@ for the same day. As well as to implement responsivness*/
 .entry-editor,
 .journal-modal {
   word-wrap: break-word;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 
