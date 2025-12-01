@@ -190,18 +190,6 @@ function Journal() {
 
 
             <h3 className="recent-title">Recent Entries</h3>
-              {/* <div className="filter-tags">
-                {tagOptions.map(tag => (
-                  <button
-                    key={tag}
-                    onClick={() => setActiveFilterTag(activeFilterTag === tag ? null : tag)}
-                    className={`tag-button ${activeFilterTag === tag ? "selected" : ""}`}
-                  >
-                    #{tag}
-                  </button>
-                ))}
-              </div> */}
-
             <div className="recent-entries">
               {filteredEntries.length > 0 ? (
                   filteredEntries.map((entry, i) => (

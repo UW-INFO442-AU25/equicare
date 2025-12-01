@@ -1147,6 +1147,7 @@ for the same day. As well as to implement responsivness*/
   border-radius: 8px;
   padding: 0.7rem;
   margin-bottom: 0.8rem;
+  font-style: italic;
 }
 
 .recent-date {
@@ -1177,11 +1178,12 @@ for the same day. As well as to implement responsivness*/
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1.5rem;
 }
 
 .entry-title-input {
   width: 70%;
+  flex: 1;
   padding: 0.75rem;
   background: #f2f2f2;
   border: none;
@@ -1266,8 +1268,10 @@ for the same day. As well as to implement responsivness*/
 /* journal hashtags */
 .tag-options {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin: 10px 0;
+  width: 100%;
 }
 
 .tag-button {
@@ -1357,6 +1361,52 @@ for the same day. As well as to implement responsivness*/
 
 /* journal responsiveness */
 
+@media(min-width: 800px) {
+  .journal-page-grid {
+    grid-template-columns: 280px 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .journal-page-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .entry-editor {
+    min-height: 200px;
+  }
+
+  .journal-left {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .journal-left h2 {
+    text-align: center;
+    font-size: 1.6rem;
+  }
+
+  .recent-entries p {
+    font-style: italic;
+    margin: 1.8rem 0;
+    font-size: 1.2rem;
+  }
+  /* this wraps long entries specifically small screens */
+  .recent-title, .recent-preview {
+    white-space: normal;
+  }
+  .journal-left, .journal-main, .journal-center-card {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+}
+
+
 @media (max-width: 600px) {
   .journal-main {
     padding: 1rem;
@@ -1368,11 +1418,6 @@ for the same day. As well as to implement responsivness*/
   }
 }
   
-@media (min-width: 800px) {
-  .journal-page-grid {
-    grid-template-columns: 280px 1fr;
-  }
-}
 
 
 
