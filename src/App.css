@@ -885,7 +885,7 @@ video/multimedia source in order for it to be under the image since inital place
 
 /* resources.jsx */
 /* CSS styling for the resources page was obtained from the figma developer code feature and a mix of AI from chatpgt/perplexity in
-order to get the accaurte visual from the figma specifically the positioning of everything (AI genereated css styling for the position of the
+order to get the accurate visual from the figma specifically the positioning of everything (AI genereated css styling for the position of the
 video/multimedia source in order for it to be under the image)*/
 
 .resources-background {
@@ -986,7 +986,6 @@ video/multimedia source in order for it to be under the image)*/
   margin-top: 0.2rem;
   padding: 0.55rem 2.5rem;
   text-decoration: none;
-  transition: background 0.16s;
 }
 
 .resource-card-btn:hover {
@@ -1027,6 +1026,60 @@ video/multimedia source in order for it to be under the image)*/
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.07);
   height: 210px;
   width: 340px;
+}
+
+@media (max-width: 900px) {
+  .resources-wrapper {
+    flex-direction: column;
+    align-items: center;     
+    padding: 1.5rem 1rem;
+  }
+
+  .resources-content,
+  .resources-image-section {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .resources-title {
+    font-size: 2.4rem;
+    text-align: center;
+  }
+
+  .resources-subtitle {
+    text-align: center;
+  }
+
+  .resources-image-section {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .resources-grid {
+    justify-content: center;
+  }
+
+  .resource-card {
+    width: 100%;
+    max-width: 360px;  
+  }
+}
+
+.resources-image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+}
+
+.resources-video {
+  width: 100%;
+  max-width: 370px;
+}
+
+.resources-video iframe {
+  width: 100%;
+  height: auto;
 }
 
 
