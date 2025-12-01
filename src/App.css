@@ -1055,7 +1055,7 @@ video/multimedia source in order for it to be under the image)*/
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 400px) {
   .resources-grid {
     justify-content: center;
   }
@@ -1094,7 +1094,7 @@ video/multimedia source in order for it to be under the image)*/
 /* journal.jsx */
 /* received some assistance from ChatGPT to fix the footer
  to make sure it doesn't expand as a user adds multiple entries
-for the same day. As well as to implement responsivness*/
+for the same day. As well as to implement responsivness for screen sizes below 800px*/
 
 .journal-page {
   /* align-items: center; */
@@ -1159,10 +1159,11 @@ for the same day. As well as to implement responsivness*/
   margin-top: 0.3rem;
 }
 
+/* this takes text charactes and stylistically slices them*/
 .recent-title, .recent-preview {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
 }
 
 /* main editor */
@@ -1178,7 +1179,7 @@ for the same day. As well as to implement responsivness*/
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.2rem;
 }
 
 .entry-title-input {
@@ -1552,6 +1553,23 @@ input {
   display: flex;
   justify-content: center;
 }
+
+@media (max-width: 800px) {
+  #signup-login {
+    flex-direction: column;
+    height: auto;
+  }
+
+  #signup-box,
+  #login-box {
+    margin: 1rem 0;
+  }
+  
+  #login-box {
+    align-items: center;
+  }
+}
+
 
 /* profile.jsx */
 
