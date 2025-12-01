@@ -40,7 +40,7 @@ const resources = [
 ];
 
 //https://www.geeksforgeeks.org/html/how-to-insert-video-in-web-page-and-play-it-using-html/
-// Link above used to insert multimedia component
+// Link above used to learn how to insert multimedia component
 
 export default function Resources() {
   const [user, setUser] = useState(null);
@@ -80,7 +80,7 @@ export default function Resources() {
             <button className="orange-button"><h3>Resources</h3></button>
           </Link>
 
-          {/* Conditionally render Profile or Log In */}
+          
           {user ? (
             <Link to="/profile">
               <button className="orange-button"><h3>Profile</h3></button>
