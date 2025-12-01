@@ -1094,7 +1094,7 @@ video/multimedia source in order for it to be under the image)*/
 /* journal.jsx */
 /* received some assistance from ChatGPT to fix the footer
  to make sure it doesn't expand as a user adds multiple entries
-for the same day. As well as to implement responsivness for screen sizes below 800px*/
+for the same day. As well as to implement accessibility, and responsivness for screen sizes below 800px*/
 
 .journal-page {
   /* align-items: center; */
@@ -1257,6 +1257,18 @@ for the same day. As well as to implement responsivness for screen sizes below 8
 
 .entry-title-input {
   color: #000;
+}
+
+/* visually hidden labels for sr users */
+.screen-reader-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -2px;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  overflow: hidden;
 }
 
 .journal-container {

@@ -194,6 +194,7 @@ function Journal() {
               {filteredEntries.length > 0 ? (
                   filteredEntries.map((entry, i) => (
                   <div
+                    role="button"
                     key={entry.id}
                     className="recent-entry-card"
                     onClick={() => openEntry(i)}
@@ -233,7 +234,9 @@ function Journal() {
           <section className="journal-main">
             <div className="journal-center-card">
               <div className="journal-top-row">
+                <label htmlFor="entry-title" className="screen-reader-only">Entry Title</label>
                 <input
+                  id="entry-title"
                   className="entry-title-input"
                   placeholder="[ Entry title ]"
                   value={newTitle}
@@ -241,10 +244,6 @@ function Journal() {
                 />
                 {/* displays date to user */}
                 <p className="journal-date-display">
-                  
-
-                
-
                   {new Date().toLocaleDateString(undefined, {
                     weekday: "long",
                     month: "long",
@@ -266,12 +265,14 @@ function Journal() {
               </div>
 
               {/* area for user to type in */}
+              <label htmlFor="entry-text-editor" className="screen-reader-only">Journal Entry Content</label>
               <textarea
+                id="entry-text-editor"
                 className="entry-editor"
                 value={newEntry}
                 onChange={(e) => setNewEntry(e.target.value)}
-                placeholder="Start writing your thoughts ...">
-              </textarea>
+                placeholder="Start writing your thoughts ..."
+              ></textarea>
             </div>
           </section>
 
@@ -308,7 +309,13 @@ function Journal() {
 
         {activeIndex !== null && (
           <div className="journal-modal-overlay">
-            <div className="journal-modal" role="dialog" aria-modal="true" aria-labelledby="journalModalTitle">
+            <div
+              className="journal-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="journalModalTitle"
+              tabIndex="-1"
+            >
               <h2 id="journalModalTitle">Journal Entry</h2>
 
               <p className="journal-modal-title">
@@ -325,9 +332,9 @@ function Journal() {
               <p>{entries[activeIndex].text}</p>
 
               <div className="journal-modal-controls">
-                <button onClick={showPrev}>Previous</button>
-                <button onClick={closeEntry}>Close</button>
-                <button onClick={showNext}>Next</button>
+                <button onClick={showPrev} aria-label="Show previous journal entry">Previous</button>
+                <button onClick={closeEntry} aria-label="Close journal entry modal">Close</button>
+                <button onClick={showNext} aria-label="Show next journal entry">Next</button>
               </div>
             </div>
           </div>
